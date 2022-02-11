@@ -1,3 +1,13 @@
+## Getting Started
+
+1. Use `yarn` as your package management tool.
+2. Run `yarn` to install all packages.
+3. Run `shopify login [--store <DOMAIN>]`. [Review `login` docs](https://shopify.dev/themes/tools/cli/core-commands#login)
+
+## When To Choose Renderless vs Rendered Components
+
+## Useful Patterns in this repo
+
 <!-- logo (start) -->
 <p align="center">
   <img src="https://raw.githubusercontent.com/uicrooks/shopify-foundation-theme/master/.github/img/logo.svg" width="325px">
@@ -22,6 +32,7 @@
 Shopify Foundation Theme is modern Shopify theme built with [Shopify Theme Lab](https://github.com/uicrooks/shopify-theme-lab), [Vue](https://v3.vuejs.org/) and [Tailwind CSS](https://tailwindcss.com).
 
 > If you are looking for the old Foundation Theme it's here: [Legacy Version 3 branch](https://github.com/uicrooks/shopify-foundation-theme/tree/legacy-v3)
+
 <!-- title / description (end) -->
 
 <!-- preview (start) -->
@@ -29,6 +40,7 @@ Shopify Foundation Theme is modern Shopify theme built with [Shopify Theme Lab](
 <!-- preview (end) -->
 
 <!-- features (start) -->
+
 ## Features
 
 - All [Shopify Theme Lab](https://github.com/uicrooks/shopify-theme-lab#features) features
@@ -42,7 +54,9 @@ Shopify Foundation Theme is modern Shopify theme built with [Shopify Theme Lab](
 <!-- features (end) -->
 
 <!-- docs (start) -->
+
 ## Docs
 
 Everything from the [Shopify Theme Lab docs](https://uicrooks.github.io/shopify-theme-lab-docs) applies to this project, since it was built with Shopify Theme Lab.
+
 <!-- docs (end) -->
