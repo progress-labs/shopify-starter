@@ -4,7 +4,27 @@
 2. Run `yarn` to install all packages.
 3. Run `shopify login [--store <DOMAIN>]`. [Review `login` docs](https://shopify.dev/themes/tools/cli/core-commands#login)
 
+## Components To Build Out
+1. Cart Functionality + Store
+2. Announcement Bar (toggle open/close)
+3. Klaviyo Newsletter Module - List ID is determines display
+5. PDP Add To Cart - Basic
+6. PDP Add To Cart - With Options
+7. PDP Add To Cart - Sold Out / Notify ME
+8. PDP Add To Cart - Subscription
+9. FAQ Page / Accordion Section
+
 ## When To Choose Renderless vs Rendered Components
+#### Renderless Components 
+- When a component is required to display initial content from the server for SEO 
+- When the functionality can be reused for other areas
+
+
+#### Rendered Components
+- When SEO does not matter.
+- When component is initially out of view.
+- When the element is not necessary for user experience. Example: Mini cart. 
+
 
 ## Useful Patterns in this repo
 
@@ -30,8 +50,6 @@
 <h2 align="center">Shopify Foundation Theme</h2>
 
 Shopify Foundation Theme is modern Shopify theme built with [Shopify Theme Lab](https://github.com/uicrooks/shopify-theme-lab), [Vue](https://v3.vuejs.org/) and [Tailwind CSS](https://tailwindcss.com).
-
-> If you are looking for the old Foundation Theme it's here: [Legacy Version 3 branch](https://github.com/uicrooks/shopify-foundation-theme/tree/legacy-v3)
 
 <!-- title / description (end) -->
 
