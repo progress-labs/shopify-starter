@@ -1,15 +1,20 @@
+<announcement-bar 
+  :visible="{{ section.settings.visible }}"
+  :indexPageOnly="{{ section.settings.home_page_only }}" 
+  content="{{ section.settings.content }}"
+/>
+
+
 {% if section.settings.visible %}
   {% if section.settings.home_page_only == false or template.name == 'index' %}
-    <div class="container text-sm text-center py-2">
-      {{ section.settings.content }}
-    </div>
+    
+    
   {% endif %}
 {% endif %}
 
 {% schema %}
 {
   "name":"t:sections.announcement-bar.name",
-  "class": "bg-black text-white",
   "settings": [
     {
       "type": "checkbox",
