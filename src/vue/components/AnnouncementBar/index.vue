@@ -37,8 +37,5 @@ export default {
       this.isOpen = false;
     }
   },
-  mounted() {
-    console.log(this.visible)
-  }
 }
 </script>
