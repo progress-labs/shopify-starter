@@ -1,4 +1,4 @@
-import { endpoints, headerConfigs } from "../config";
+import { endpoints, headerConfigs } from "../../utils/config";
 
 import axios from "axios";
 
