@@ -2,47 +2,47 @@
  * state
  */
 const state = {
-  visible: false
-}
+  visible: false,
+};
 
 /**
  * getters
  */
-const getters = {}
+const getters = {};
 
 /**
  * mutations
  */
 const mutations = {
-  TOGGLE (state) {
-    state.visible = !state.visible
+  TOGGLE(state) {
+    state.visible = !state.visible;
   },
 
-  SHOW (state) {
-    state.visible = true
+  SHOW(state) {
+    state.visible = true;
   },
 
-  HIDE (state) {
-    state.visible = false
-  }
-}
+  HIDE(state) {
+    state.visible = false;
+  },
+};
 
 /**
  * actions
  */
 const actions = {
-  toggle ({ commit }) {
-    commit('TOGGLE')
+  toggle({ commit }) {
+    commit("TOGGLE");
   },
 
-  show ({ commit }) {
-    commit('SHOW')
+  show({ commit }) {
+    commit("SHOW");
   },
 
-  hide ({ commit }) {
-    commit('HIDE')
-  }
-}
+  hide({ commit }) {
+    commit("HIDE");
+  },
+};
 
 /**
  * export
@@ -52,5 +52,5 @@ export default {
   state,
   getters,
   mutations,
-  actions
-}
+  actions,
+};

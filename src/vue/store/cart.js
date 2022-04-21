@@ -8,7 +8,7 @@ import axios from "axios";
 const state = {
   visible: false,
   cartData: false,
-  loading: false
+  loading: false,
 };
 
 /**
@@ -41,7 +41,7 @@ const mutations = {
 
   initCart(state, payload) {
     state.cartData = payload;
-  }
+  },
 };
 
 /**
@@ -63,11 +63,11 @@ const actions = {
   async initCart({ commit }) {
     return axios
       .get(endpoints.cart)
-      .then(response => {
+      .then((response) => {
         commit("initCart", response.data);
         return response.data;
       })
-      .catch(error => {
+      .catch((error) => {
         return error.message;
       });
   },
@@ -87,15 +87,15 @@ const actions = {
       .post(
         endpoints.update,
         {
-          updates: mappedPayload
+          updates: mappedPayload,
         },
         headerConfigs
       )
-      .then(response => {
+      .then((response) => {
         commit("initCart", response.data);
         commit("cartLoading");
       })
-      .catch(error => {
+      .catch((error) => {
         return error.message;
       });
   },
@@ -112,17 +112,17 @@ const actions = {
       .post(
         endpoints.add,
         {
-          items: products
+          items: products,
         },
         headerConfigs
       )
       .then(() => {
         dispatch("initCart").then(() => {
-          dispatch("show")
+          dispatch("show");
           commit("cartLoading");
         });
       })
-      .catch(error => {
+      .catch((error) => {
         return error.message;
       });
   },
@@ -133,7 +133,8 @@ const actions = {
     const updates = {};
     const { item, type } = payload;
 
-    const quantity = type === "increment" ? item.quantity + 1 : item.quantity - 1;
+    const quantity =
+      type === "increment" ? item.quantity + 1 : item.quantity - 1;
 
     if ((type === "decrement" && item.quantity > 0) || type === "increment") {
       updates[item.key] = quantity;
@@ -142,7 +143,7 @@ const actions = {
         .post(
           endpoints.update,
           {
-            updates
+            updates,
           },
           headerConfigs
         )
@@ -150,11 +151,11 @@ const actions = {
           dispatch("initCart");
           commit("cartLoading");
         })
-        .catch(error => {
+        .catch((error) => {
           return error.message;
         });
     }
-  }
+  },
 };
 
 /**
@@ -165,5 +166,5 @@ export default {
   state,
   getters,
   mutations,
-  actions
+  actions,
 };

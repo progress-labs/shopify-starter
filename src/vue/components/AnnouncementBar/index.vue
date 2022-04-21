@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-black py-3 px-10 text-white"  v-if="isOpen">  
+  <div class="bg-black py-3 px-10 text-white" v-if="isOpen">
     <div class="container text-sm text-center py-2 flex justify-between">
       <div v-if="content" v-html="content"></div>
       <button aria-label="Close" @click="close">X</button>
@@ -8,34 +8,33 @@
 </template>
 
 <script>
-
 export default {
-  name: 'AnnouncementBar',
+  name: "AnnouncementBar",
   props: {
     visible: {
       type: Boolean,
-      required: false, 
+      required: false,
       default: true,
     },
     indexPageOnly: {
       type: Boolean,
-      required: false, 
+      required: false,
       default: false,
     },
     content: {
       type: String,
-      required: true
+      required: true,
     },
   },
   data() {
     return {
-      isOpen: this.visible,  
-    }
+      isOpen: this.visible,
+    };
   },
   methods: {
     close() {
       this.isOpen = false;
-    }
+    },
   },
-}
+};
 </script>

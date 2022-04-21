@@ -15,20 +15,22 @@
         v-text="item.title"
       />
       <div class="flex justify-between">
-        <button class="border border-black px-2 bg-gray-200 text-xs" @click="update('increment')">Increment</button>
-        <button class="border border-black px-2 bg-gray-200 text-xs" @click="update('decrement')">Decrement</button>
+        <button
+          class="border border-black px-2 bg-gray-200 text-xs"
+          @click="update('increment')"
+        >
+          Increment
+        </button>
+        <button
+          class="border border-black px-2 bg-gray-200 text-xs"
+          @click="update('decrement')"
+        >
+          Decrement
+        </button>
       </div>
       <div class="flex items-end">
         <span
-          class="
-            py-2
-            uppercase
-            underline
-            text-gray
-            tracking-2p
-            text-2xs
-            cursor-pointer
-          "
+          class="py-2 uppercase underline text-gray tracking-2p text-2xs cursor-pointer"
           @click="remove"
         >
           Remove
@@ -87,7 +89,7 @@ export default {
     update(type) {
       this.updateItem({
         item: this.item,
-        type: type
+        type: type,
       });
     },
     formatMoney(value) {

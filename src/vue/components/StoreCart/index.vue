@@ -1,18 +1,18 @@
 <template>
   <div
-    class="w-full md:w-1/4 fixed top-0 right-0  bottom-0 bg-white border-l border-black z-50  px-3"
-   :class="{ '-right-full': !visible }">
-    <div class="relative flex justify-between pt-10 border-b mb-4 pb-4" v-if="items.length !== 0">
+    class="w-full md:w-1/4 fixed top-0 right-0 bottom-0 bg-white border-l border-black z-50 px-3"
+    :class="{ '-right-full': !visible }"
+  >
+    <div
+      class="relative flex justify-between pt-10 border-b mb-4 pb-4"
+      v-if="items.length !== 0"
+    >
       <button class="absolute top-2 right-2" @click="close">Close</button>
       <p>Cart</p>
       <p>{{ cartData.item_count }}</p>
     </div>
     <div>
-      <cart-item
-        v-for="item in items"
-        :key="item.key"
-        :item="item"
-      />
+      <cart-item v-for="item in items" :key="item.key" :item="item" />
 
       <div
         v-if="items.length === 0 && !loading"
@@ -20,33 +20,30 @@
       >
         No items in cart
       </div>
-
     </div>
     <div class="mt-10" v-if="items.length !== 0">
-      
       <p class="flex justify-between">
         <span>Subtotl: </span>
         <span>{{ formatMoney(cartData.items_subtotal_price) }}</span>
       </p>
-      
+
       <p class="flex justify-between">
         <span>total: </span>
         <span>{{ formatMoney(cartData.total_price) }}</span>
       </p>
-      
+
       <a class="mt-6 block bg-blue-600 text-white" href="/checkout">Checkout</a>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState } from "vuex";
 import { formatMoney } from "@shopify/theme-currency";
 
 export default {
-  name: 'StoreCart',
-  props: {
-  },
+  name: "StoreCart",
+  props: {},
   computed: {
     ...mapState("cart", ["cartData", "visible", "loading"]),
     items() {
@@ -68,5 +65,5 @@ export default {
   beforeMount() {
     this.$store.dispatch("cart/initCart");
   },
-}
+};
 </script>

@@ -1,5 +1,8 @@
 <template>
-  <div class="w-8 h-8 bg-black text-white inline-flex justify-center items-center cursor-pointer" @click="openCart">
+  <div
+    class="w-8 h-8 bg-black text-white inline-flex justify-center items-center cursor-pointer"
+    @click="openCart"
+  >
     {{ cartCount }}
   </div>
 </template>
@@ -8,9 +11,7 @@
 import { mapState, mapActions } from "vuex";
 export default {
   name: "CartCount",
-  props: {
-
-  },
+  props: {},
   data: () => {
     return {};
   },
@@ -21,7 +22,7 @@ export default {
     }),
     cartCount() {
       return this.cart ? this.cart.item_count : 0;
-    }
+    },
   },
   methods: {
     ...mapActions("cart", ["show"]),
