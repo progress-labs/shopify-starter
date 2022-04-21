@@ -8,7 +8,7 @@ const path = require("path");
 
 const siteSpacing = () => {
   const obj = {};
-  const range = 100;
+  const range = 25;
 
   for (i = 1; i < range; i++) {
     const value = i * 5;
@@ -22,6 +22,7 @@ const siteSpacing = () => {
 module.exports = {
   theme: {
     extend: {},
+    spacing: siteSpacing(),
     container: {
       center: true,
       padding: "1rem",

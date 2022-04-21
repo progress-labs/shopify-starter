@@ -84,10 +84,12 @@
   <div class="container text-sm text-gray-600 font-medium text-center">
     &copy; {{ 'now' | date: "%Y" }} {{ shop.name }}
   </div>
+  
+  {% if settings.klaviyo_id != blank %}
   <div vue>
     <Newsletter 
       v-slot="{ submitHandler, loading, message, success }"
-      list-id="TCfucD" 
+      list-id="{{ settings.klaviyo_id }}" 
     />
     
       <form class="flex pb-2 border-b border-sunset border border-black " @submit="submitHandler">
@@ -101,6 +103,7 @@
       </form>
     </Newsletter>
   </div>
+  {% endif %}
 </div>
 
 {% schema %}

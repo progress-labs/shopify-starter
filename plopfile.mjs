@@ -1,22 +1,38 @@
 export default function (plop) {
 	// create your generators here
-	plop.setGenerator('Vue - Component', {
-		description: 'Generate a new Vue component',
-		prompts: [
+  plop.setGenerator('Vue Component', {
+    description: 'Create a Vue Component',
+    prompts: [
       {
-        type: 'input',
-        name: 'name',
-        message: 'Component name please',
+          type: 'input',
+          name: 'name',
+          message: 'Component Name?'
       },
-    ], // array of inquirer prompts
-		actions: [
       {
-        type: 'add',
-        path: 'src/vue/components/{{ pascalCase name }}/index.vue',
-        templateFile: 'plop-templates/component.hbs'
+        type: 'confirm',
+        name: 'renderless',
+        message: 'Create renderless component?',
+        default: false
+      },
+    ],
+    actions: (data) => {
+      let actions = []
+      if (data.renderless) {
+        actions.push({
+          type: 'add',
+          path: `src/vue/components/{{ pascalCase name }}/index.vue`,
+          templateFile: 'plop/renderless-component.hbs'
+        })
+      } else {
+        actions.push({
+          type: 'add',
+          path: 'src/vue/components/{{ pascalCase name }}/index.vue',
+          templateFile: 'plop/render-component.hbs'
+        })
       }
-    ]  // array of actions
-	});
+      return actions
+    }
+});
   
 	plop.setGenerator('JavaScript - Utility', {
 		description: 'Generate a new utility file',
@@ -31,7 +47,7 @@ export default function (plop) {
       {
         type: 'add',
         path: 'src/utils/{{ name }}.js',
-        templateFile: 'plop-templates/util.hbs'
+        templateFile: 'plop/util.hbs'
       }
     ]  // array of actions
 	});
@@ -49,7 +65,7 @@ export default function (plop) {
       {
         type: 'add',
         path: 'shopify/sections/{{ kebabCase name }}.liquid',
-        templateFile: 'plop-templates/section.hbs'
+        templateFile: 'plop/section.hbs'
       }
     ]  // array of actions
 	});
@@ -67,7 +83,7 @@ export default function (plop) {
       {
         type: 'add',
         path: 'shopify/snippets/{{ kebabCase name }}.liquid',
-        templateFile: 'plop-templates/snippet.hbs'
+        templateFile: 'plop/snippet.hbs'
       }
     ]  // array of actions
 	});
@@ -85,7 +101,7 @@ export default function (plop) {
       {
         type: 'add',
         path: 'src/css/components/{{ kebabCase name }}.css',
-        templateFile: 'plop-templates/css.hbs'
+        templateFile: 'plop/css.hbs'
       },
       {
         type: 'append',
@@ -109,7 +125,7 @@ export default function (plop) {
       {
         type: 'add',
         path: 'src/css/utils/{{ kebabCase name }}.css',
-        templateFile: 'plop-templates/css.hbs'
+        templateFile: 'plop/css.hbs'
       },
       {
         type: 'append',
