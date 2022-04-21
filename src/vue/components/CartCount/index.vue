@@ -27,7 +27,7 @@ export default {
   methods: {
     ...mapActions("cart", ["show"]),
     openCart() {
-      console.log('clicked!');
+      console.log("clicked!");
       this.show();
     },
   },

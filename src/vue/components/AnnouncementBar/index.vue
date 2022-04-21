@@ -1,19 +1,8 @@
 <template>
-  <div
-    v-if="isOpen"
-    class="bg-black py-3 px-10 text-white"
-  >
+  <div v-if="isOpen" class="bg-black py-3 px-10 text-white">
     <div class="container text-sm text-center py-2 flex justify-between">
-      <div
-        v-if="content"
-        v-html="content"
-      />
-      <button
-        aria-label="Close"
-        @click="close"
-      >
-        X
-      </button>
+      <div v-if="content" v-html="content" />
+      <button aria-label="Close" @click="close">X</button>
     </div>
   </div>
 </template>

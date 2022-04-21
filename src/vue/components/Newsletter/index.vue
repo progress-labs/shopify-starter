@@ -1,7 +1,6 @@
 <script>
-import { mapActions, mapState } from "vuex";
-import { subscribe } from 'klaviyo-subscribe';
-
+import {mapActions, mapState} from "vuex";
+import {subscribe} from "klaviyo-subscribe";
 
 /**
  * The only thing required for this to run:
@@ -12,49 +11,47 @@ export default {
   props: {
     listId: {
       required: true,
-      type: String
+      type: String,
     },
   },
   data: () => ({
     loading: false,
     success: false,
-    message: '',
+    message: "",
   }),
   computed: {},
   beforeMount() {},
   mounted() {
-    console.log('-- mounted Newsletter --')
+    console.log("-- mounted Newsletter --");
   },
   methods: {
     submitHandler(e) {
       e.preventDefault();
-      const {
-        email
-      } = e.target.elements;
-      
+      const {email} = e.target.elements;
+
       this.loading = true;
-      
+
       const messages = {
-        success: 'Success!',
-        error: 'Error!'
-      }
-      
+        success: "Success!",
+        error: "Error!",
+      };
+
       subscribe(this.listID, email.value).then(resp => {
-        email.value = 'Submitting...'
+        email.value = "Submitting...";
         if (resp.success) {
           this.success = true;
           setTimeout(() => {
             e.target.reset();
-            this.message = messages.success
-          }, 600)
+            this.message = messages.success;
+          }, 600);
         } else {
-          this.message = messages.error
-          email.value = '';
+          this.message = messages.error;
+          email.value = "";
         }
-        
+
         this.loading = false;
       });
-    }
+    },
   },
   render() {
     return this.$slots.default({
@@ -62,7 +59,7 @@ export default {
       success: this.success,
       message: this.message,
       loading: this.loading,
-    })
+    });
   },
 };
 </script>

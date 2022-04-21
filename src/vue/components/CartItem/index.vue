@@ -5,7 +5,7 @@
         class="rounded-lg"
         :src="item.image"
         :alt="item.featured_image.alt"
-      >
+      />
     </div>
 
     <div class="w-full">
