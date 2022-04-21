@@ -1,5 +1,5 @@
 <script>
-import { ref, toRef } from "vue";
+import {ref, toRef} from "vue";
 
 export default {
   props: {
@@ -9,10 +9,10 @@ export default {
       default: null,
     },
   },
-  setup(props, { slots }) {
+  setup(props, {slots}) {
     const initial = toRef(props, "initial");
     const active = ref(initial.value);
-    const show = (payload) => (active.value = payload);
+    const show = payload => (active.value = payload);
 
     return () =>
       slots.default({

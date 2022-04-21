@@ -1,5 +1,5 @@
 <script>
-import { toRefs, ref } from "vue";
+import {toRefs, ref} from "vue";
 
 export default {
   props: {
@@ -16,29 +16,29 @@ export default {
       required: true,
     },
   },
-  setup(props, { slots }) {
-    const { currentVariant, productOptions, productVariants } = toRefs(props);
+  setup(props, {slots}) {
+    const {currentVariant, productOptions, productVariants} = toRefs(props);
 
     const selectedVariant = ref(currentVariant.value);
 
-    const selectOption = ({ name }, $event) => {
+    const selectOption = ({name}, $event) => {
       const selectedValue = $event.target.value;
       const selectedOption = productOptions.value.find(
-        (option) => option.name === name
+        option => option.name === name,
       );
       const allOptionValuesWithoutSelected = selectedOption.values.filter(
-        (value) => value !== selectedValue
+        value => value !== selectedValue,
       );
 
       const targetOptions = [
         selectedValue,
         ...selectedVariant.value.options.filter(
-          (value) => !allOptionValuesWithoutSelected.includes(value)
+          value => !allOptionValuesWithoutSelected.includes(value),
         ),
       ];
 
-      productVariants.value.some((variant) => {
-        if (variant.options.every((option) => targetOptions.includes(option))) {
+      productVariants.value.some(variant => {
+        if (variant.options.every(option => targetOptions.includes(option))) {
           selectedVariant.value = variant;
 
           goToVariant(selectedVariant.value.id);

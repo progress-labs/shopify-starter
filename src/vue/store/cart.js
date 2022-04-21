@@ -1,4 +1,4 @@
-import { endpoints, headerConfigs } from "../../utils/config";
+import {endpoints, headerConfigs} from "../../utils/config";
 
 import axios from "axios";
 
@@ -48,31 +48,31 @@ const mutations = {
  * actions
  */
 const actions = {
-  toggle({ commit }) {
+  toggle({commit}) {
     commit("TOGGLE");
   },
 
-  show({ commit }) {
+  show({commit}) {
     commit("SHOW");
   },
 
-  hide({ commit }) {
+  hide({commit}) {
     commit("HIDE");
   },
 
-  async initCart({ commit }) {
+  async initCart({commit}) {
     return axios
       .get(endpoints.cart)
-      .then((response) => {
+      .then(response => {
         commit("initCart", response.data);
         return response.data;
       })
-      .catch((error) => {
+      .catch(error => {
         return error.message;
       });
   },
 
-  removeItem: ({ commit, state }, payload) => {
+  removeItem: ({commit, state}, payload) => {
     if (state.loading) return;
     commit("cartLoading");
 
@@ -89,18 +89,18 @@ const actions = {
         {
           updates: mappedPayload,
         },
-        headerConfigs
+        headerConfigs,
       )
-      .then((response) => {
+      .then(response => {
         commit("initCart", response.data);
         commit("cartLoading");
       })
-      .catch((error) => {
+      .catch(error => {
         return error.message;
       });
   },
 
-  addItem: ({ commit, state, dispatch }, payload) => {
+  addItem: ({commit, state, dispatch}, payload) => {
     if (state.loading) return;
     commit("cartLoading");
 
@@ -114,7 +114,7 @@ const actions = {
         {
           items: products,
         },
-        headerConfigs
+        headerConfigs,
       )
       .then(() => {
         dispatch("initCart").then(() => {
@@ -122,16 +122,16 @@ const actions = {
           commit("cartLoading");
         });
       })
-      .catch((error) => {
+      .catch(error => {
         return error.message;
       });
   },
 
-  updateItem: ({ commit, state, dispatch }, payload) => {
+  updateItem: ({commit, state, dispatch}, payload) => {
     if (state.loading) return;
     commit("cartLoading");
     const updates = {};
-    const { item, type } = payload;
+    const {item, type} = payload;
 
     const quantity =
       type === "increment" ? item.quantity + 1 : item.quantity - 1;
@@ -145,13 +145,13 @@ const actions = {
           {
             updates,
           },
-          headerConfigs
+          headerConfigs,
         )
         .then(() => {
           dispatch("initCart");
           commit("cartLoading");
         })
-        .catch((error) => {
+        .catch(error => {
           return error.message;
         });
     }

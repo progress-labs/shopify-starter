@@ -31,15 +31,15 @@ const mutations = {
  * actions
  */
 const actions = {
-  toggle({ commit }) {
+  toggle({commit}) {
     commit("TOGGLE");
   },
 
-  show({ commit }) {
+  show({commit}) {
     commit("SHOW");
   },
 
-  hide({ commit }) {
+  hide({commit}) {
     commit("HIDE");
   },
 };

@@ -1,5 +1,5 @@
 <script>
-import { ref, toRef } from "vue";
+import {ref, toRef} from "vue";
 
 export default {
   props: {
@@ -8,16 +8,16 @@ export default {
       default: null,
     },
   },
-  setup(props, { slots }) {
+  setup(props, {slots}) {
     const addresses = toRef(props, "addresses");
     const visibleForm = ref(false);
     const currentlyEditedAddress = ref(null);
 
     const showForm = () => (visibleForm.value = true);
 
-    const editAddress = (id) => {
+    const editAddress = id => {
       visibleForm.value = true;
-      currentlyEditedAddress.value = addresses.value.find((el) => el.id === id);
+      currentlyEditedAddress.value = addresses.value.find(el => el.id === id);
       scrollFormIntoView();
     };
 
@@ -32,7 +32,7 @@ export default {
       if (window.matchMedia("(max-width: 1023px)").matches) {
         document
           .querySelector(".address-form")
-          .scrollIntoView({ behavior: "smooth" });
+          .scrollIntoView({behavior: "smooth"});
       }
     };
 

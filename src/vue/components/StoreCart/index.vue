@@ -1,7 +1,7 @@
 <template>
   <div
     class="w-full md:w-1/4 fixed top-0 right-0 bottom-0 bg-white border-l border-black z-50 px-3"
-    :class="{ '-right-full': !visible }"
+    :class="{'-right-full': !visible}"
   >
     <div
       v-if="items.length !== 0"
@@ -53,8 +53,8 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
-import { formatMoney } from "@shopify/theme-currency";
+import {mapActions, mapState} from "vuex";
+import {formatMoney} from "@shopify/theme-currency";
 
 export default {
   name: "StoreCart",
@@ -67,6 +67,9 @@ export default {
   },
   beforeMount() {
     this.$store.dispatch("cart/initCart");
+  },
+  mounted() {
+    console.log("mounted");
   },
   methods: {
     ...mapActions("cart", {

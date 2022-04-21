@@ -1,9 +1,10 @@
+import "./css/main.scss";
+
 /**
  * imports
  */
-import { createApp } from "vue";
-import { createStore } from "vuex";
-import "./css/main.css";
+import {createApp} from "vue";
+import {createStore} from "vuex";
 
 /**
  * vuex
@@ -12,7 +13,7 @@ import "./css/main.css";
 const vuexModules = require.context("./vue/store/", true, /\.js$/);
 const modules = {};
 
-vuexModules.keys().forEach((key) => {
+vuexModules.keys().forEach(key => {
   const name = key.replace(/\.(\/|js)/g, "").replace(/\s/g, "-");
   modules[name] = vuexModules(key).default;
 });
@@ -35,10 +36,10 @@ const createVueApp = () => {
   const vueComponents = require.context(
     "./vue/components/",
     true,
-    /\.(vue|js)$/
+    /\.(vue|js)$/,
   );
 
-  vueComponents.keys().forEach((key) => {
+  vueComponents.keys().forEach(key => {
     const component = vueComponents(key).default;
 
     // if a component has a name defined use the name, else use the path as the component name
@@ -46,7 +47,7 @@ const createVueApp = () => {
       ? component.name
       : key
           .replace(/\.(\/|vue|js)/g, "")
-          .replace(/(\/|-|_|\s)\w/g, (match) => match.slice(1).toUpperCase());
+          .replace(/(\/|-|_|\s)\w/g, match => match.slice(1).toUpperCase());
 
     app.component(name, component);
   });
@@ -57,7 +58,7 @@ const createVueApp = () => {
    */
   const mixins = require.context("./vue/mixins/", true, /.*global.*\.js$/);
 
-  mixins.keys().forEach((key) => {
+  mixins.keys().forEach(key => {
     app.mixin(mixins(key).default);
   });
 
@@ -68,10 +69,10 @@ const createVueApp = () => {
   const directives = require.context(
     "./vue/directives/",
     true,
-    /.*global.*\.js$/
+    /.*global.*\.js$/,
   );
 
-  directives.keys().forEach((key) => {
+  directives.keys().forEach(key => {
     const directive = directives(key).default;
     app.directive(directive.name, directive.directive);
   });
@@ -94,7 +95,7 @@ if (appElement) {
   createVueApp().mount(appElement);
 } else {
   const vueElements = document.querySelectorAll("[vue]");
-  if (vueElements) vueElements.forEach((el) => createVueApp().mount(el));
+  if (vueElements) vueElements.forEach(el => createVueApp().mount(el));
 }
 
 /**
@@ -110,16 +111,16 @@ if (appElement) {
  * {% endschema %}
  */
 if (Shopify.designMode) {
-  document.addEventListener("shopify:section:load", (event) => {
+  document.addEventListener("shopify:section:load", event => {
     if (event.target.classList.value.includes("vue")) {
       createVueApp().mount(event.target);
     }
   });
 } else if (!Shopify.designMode && process.env.NODE_ENV === "development") {
-  new MutationObserver((mutationsList) => {
-    mutationsList.forEach((record) => {
+  new MutationObserver(mutationsList => {
+    mutationsList.forEach(record => {
       const vue = Array.from(record.addedNodes).find(
-        (node) => node.classList && node.classList.value.includes("vue")
+        node => node.classList && node.classList.value.includes("vue"),
       );
       if (vue) window.location.reload();
     });

@@ -6,7 +6,8 @@
 }
 
 .slide-from-left-enter-from {
-  @apply transform -translate-x-32 opacity-0;
+  @apply transform opacity-0;
+  transform: translateX(-100%);
 }
 
 .slide-from-left-leave-from,

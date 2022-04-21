@@ -84,6 +84,23 @@
   <div class="container text-sm text-gray-600 font-medium text-center">
     &copy; {{ 'now' | date: "%Y" }} {{ shop.name }}
   </div>
+  <div vue>
+    <Newsletter 
+      v-slot="{ submitHandler, loading, message, success }"
+      list-id="TCfucD" 
+    />
+    
+      <form class="flex pb-2 border-b border-sunset border border-black " @submit="submitHandler">
+        <label class="block" for="email">
+          <span class="sr-only">Email</span>
+          <input type="email" id="email" name="email" required>
+        </label>
+        
+        <button type="submit">Submit</button>
+        <div v-text="message"></div>
+      </form>
+    </Newsletter>
+  </div>
 </div>
 
 {% schema %}

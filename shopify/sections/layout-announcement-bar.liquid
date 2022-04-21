@@ -1,16 +1,13 @@
-<announcement-bar 
-  :visible="{{ section.settings.visible }}"
-  :indexPageOnly="{{ section.settings.home_page_only }}" 
-  content="{{ section.settings.content }}"
-/>
-
-
-{% if section.settings.visible %}
-  {% if section.settings.home_page_only == false or template.name == 'index' %}
-    
-    
+<div vue>
+  {% if section.settings.visible %}
+    {% if section.settings.home_page_only == false or template.name == 'index' %}
+      <announcement-bar 
+        :visible="{{ section.settings.visible }}"
+        content="{{ section.settings.content }}"
+      />    
+    {% endif %}
   {% endif %}
-{% endif %}
+</div>
 
 {% schema %}
 {

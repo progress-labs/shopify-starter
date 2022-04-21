@@ -27,11 +27,6 @@ export default {
       required: false,
       default: true,
     },
-    indexPageOnly: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
     content: {
       type: String,
       required: true,

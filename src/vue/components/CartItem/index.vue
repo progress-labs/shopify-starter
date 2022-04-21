@@ -60,8 +60,8 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from "vuex";
-import { formatMoney } from "@shopify/theme-currency";
+import {mapState, mapGetters, mapActions} from "vuex";
+import {formatMoney} from "@shopify/theme-currency";
 export default {
   name: "CartItem",
   props: {
@@ -98,7 +98,7 @@ export default {
     hasVariantOrSubscription(item) {
       return item.variant_title || (item.properties && item.properties.details);
     },
-    formatDiscountText({ discount_application }) {
+    formatDiscountText({discount_application}) {
       if (discount_application.value_type === "percentage") {
         return `${Number(discount_application.value)}%`;
       } else {
