@@ -4,15 +4,24 @@
     :class="{ '-right-full': !visible }"
   >
     <div
-      class="relative flex justify-between pt-10 border-b mb-4 pb-4"
       v-if="items.length !== 0"
+      class="relative flex justify-between pt-10 border-b mb-4 pb-4"
     >
-      <button class="absolute top-2 right-2" @click="close">Close</button>
+      <button
+        class="absolute top-2 right-2"
+        @click="close"
+      >
+        Close
+      </button>
       <p>Cart</p>
       <p>{{ cartData.item_count }}</p>
     </div>
     <div>
-      <cart-item v-for="item in items" :key="item.key" :item="item" />
+      <cart-item
+        v-for="item in items"
+        :key="item.key"
+        :item="item"
+      />
 
       <div
         v-if="items.length === 0 && !loading"
@@ -21,7 +30,10 @@
         No items in cart
       </div>
     </div>
-    <div class="mt-10" v-if="items.length !== 0">
+    <div
+      v-if="items.length !== 0"
+      class="mt-10"
+    >
       <p class="flex justify-between">
         <span>Subtotl: </span>
         <span>{{ formatMoney(cartData.items_subtotal_price) }}</span>
@@ -32,7 +44,10 @@
         <span>{{ formatMoney(cartData.total_price) }}</span>
       </p>
 
-      <a class="mt-6 block bg-blue-600 text-white" href="/checkout">Checkout</a>
+      <a
+        class="mt-6 block bg-blue-600 text-white"
+        href="/checkout"
+      >Checkout</a>
     </div>
   </div>
 </template>
@@ -50,6 +65,9 @@ export default {
       return this.cartData ? this.cartData.items : [];
     },
   },
+  beforeMount() {
+    this.$store.dispatch("cart/initCart");
+  },
   methods: {
     ...mapActions("cart", {
       init: "initCart",
@@ -61,9 +79,6 @@ export default {
     formatMoney(value) {
       return formatMoney(value, "${{amount}}");
     },
-  },
-  beforeMount() {
-    this.$store.dispatch("cart/initCart");
   },
 };
 </script>

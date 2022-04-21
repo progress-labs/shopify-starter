@@ -5,7 +5,7 @@
         class="rounded-lg"
         :src="item.image"
         :alt="item.featured_image.alt"
-      />
+      >
     </div>
 
     <div class="w-full">
@@ -48,8 +48,8 @@
           </div>
           <div>
             <span
-              class="text-sm tracking-px text-gray line-through"
               v-if="item.price > item.final_price"
+              class="text-sm tracking-px text-gray line-through"
               v-text="formatMoney(item.price)"
             />
           </div>
