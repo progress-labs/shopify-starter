@@ -25,6 +25,7 @@
   "dependencies": {
     "@shopify/theme-currency": "^4.1.1",
     "axios": "^0.26.1",
+    "husky": "^7.0.4",
     "tailwindcss": "^3.0.2",
     "vue": "^3.2.26",
     "vuex": "^4.0.2"
@@ -57,5 +58,10 @@
     "webpack": "^5.65.0",
     "webpack-cli": "^4.9.1",
     "webpack-merge": "^5.8.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "echo \"[Husky] pre-commit\""
+    }
   }
 }

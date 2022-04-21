@@ -6,14 +6,14 @@ Set liquid variables that should be accesible via js scripts.
 
 <script>
   // Theme
-  window.theme = {};
+  window.__theme = {};
   // Shopify Domain
-  theme.shopifyDomain = {{ shop.permanent_domain | json }};
+  __theme.shopifyDomain = {{ shop.permanent_domain | json }};
   // Shopify URL
-  theme.shopifySecureUrl = {{ shop.secure_url | json }};
+  __theme.shopifySecureUrl = {{ shop.secure_url | json }};
   // Customer
   {%- if customer -%}
-  theme.customer = {
+  __theme.customer = {
     "id": {{ customer.id | json }},
     "email": {{ customer.email | json }}
   };
