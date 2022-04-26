@@ -1,33 +1,33 @@
 {
-  "type": {{ link.type | json }},
-  "title": {{ link.title | json }},
-  "handle": {{ link.title | json }},
-  "url": {{ link.url | json }},
-  "hasHash": {%- if link.url contains "#" %}true{%- else -%}false{%- endif -%},
-  "active": {{ link.active | json }},
-  "level": {{ link_level | json }},
-  "children": [
+  type: {{ link.type | json }},
+  title: {{ link.title | json }},
+  handle: {{ link.title | json }},
+  url: {{ link.url | json }},
+  hasHash: {%- if link.url contains "#" %}true{%- else -%}false{%- endif -%},
+  active: {{ link.active | json }},
+  level: {{ link_level | json }},
+  children: [
     {%- for child_link in link.links -%}
       {%- assign link_level = link_level | plus: 1 -%}
       {
-        "type": {{ child_link.type | json }},
-        "title": {{ child_link.title | json }},
-        "handle": {{ child_link.title | json }},
-        "url": {{ child_link.url | json }},
-        "hasHash": {%- if child_link.url contains "#" %}true{%- else -%}false{%- endif -%},
-        "active": {{ child_link.active | json }},
-        "level": {{ link_level | json }},
-        "children": [
+        type: {{ child_link.type | json }},
+        title: {{ child_link.title | json }},
+        handle: {{ child_link.title | json }},
+        url: {{ child_link.url | json }},
+        hasHash: {%- if child_link.url contains "#" %}true{%- else -%}false{%- endif -%},
+        active: {{ child_link.active | json }},
+        level: {{ link_level | json }},
+        children: [
           {%- for grandchild_link in child_link.links -%}
             {%- assign link_level = link_level | plus: 1 -%}
             {
-              "type": {{ grandchild_link.type | json }},
-              "title": {{ grandchild_link.title | json }},
-              "handle": {{ grandchild_link.title | json }},
-              "url": {{ grandchild_link.url | json }},
-              "hasHash": {%- if grandchild_link.url contains "#" %}true{%- else -%}false{%- endif -%},
-              "active": {{ grandchild_link.active | json }},
-              "level": {{ link_level | json }},
+              type: {{ grandchild_link.type | json }},
+              title: {{ grandchild_link.title | json }},
+              handle: {{ grandchild_link.title | json }},
+              url: {{ grandchild_link.url | json }},
+              hasHash: {%- if grandchild_link.url contains "#" %}true{%- else -%}false{%- endif -%},
+              active: {{ grandchild_link.active | json }},
+              level: {{ link_level | json }},
             }
           {%- endfor -%}
         ]

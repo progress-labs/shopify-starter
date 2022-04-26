@@ -4,9 +4,9 @@ export default function (plop) {
     description: 'Create a Vue Component',
     prompts: [
       {
-          type: 'input',
-          name: 'name',
-          message: 'Component Name?'
+        type: 'input',
+        name: 'name',
+        message: 'Component Name?'
       },
       {
         type: 'confirm',
