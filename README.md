@@ -19,14 +19,16 @@ Aside from the baseline features of UI Crooks we've included the following.
 
 ## To Do:
 
-1. ~~ Cart Functionality + Store ~~
-2. ~~ Announcement Bar (toggle open/close) ~~
-3. Klaviyo Newsletter Module - List ID is determines display
-4. PDP Add To Cart - Basic
-5. PDP Add To Cart - With Options
-6. PDP Add To Cart - Sold Out / Notify Me
-7. PDP Add To Cart - Subscription
-8. FAQ Page / Accordion Section
+1. ~~Cart Functionality + Store
+2. ~~Announcement Bar (toggle open/close)
+3. ~~Klaviyo Newsletter Module - List ID is determines display
+4. ~~Site Navigation (desktop)
+5. ~~Carousel
+6. PDP Add To Cart - Basic
+7. PDP Add To Cart - With Options
+8. PDP Add To Cart - Sold Out / Notify Me
+9. PDP Add To Cart - Subscription
+10. FAQ Page / Accordion Section
 
 ## When To Choose Renderless vs Rendered Components
 
