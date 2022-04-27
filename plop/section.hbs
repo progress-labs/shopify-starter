@@ -4,10 +4,15 @@
 
 {% schema %}
 {
-  "name": "t:sections.{{ kebabCase name }}.name",
+  "name": "{{ kebabCase name }}",
   "class": "shopify-section-vue",
   "settings": [],
   "blocks": [],
-  "presets": []
+  "presets": [
+    {
+      "name": "{{ titleCase name }}",
+      "category": "Theme"
+    }
+  ]
 }
 {% endschema %}
