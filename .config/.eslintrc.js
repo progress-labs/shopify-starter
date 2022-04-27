@@ -3,7 +3,7 @@ const isDevelopment = process.env.NODE_ENV === 'development'
 module.exports = {
   extends: [
     'eslint:recommended',
-    'plugin:vue/vue3-recommended' // use 'plugin:vue/vue3-essential' for less strict linting rules - https://eslint.vuejs.org/rules
+    'plugin:vue/vue3-essential', // use 'plugin:vue/vue3-recommended' for more strict linting rules - https://eslint.vuejs.org/rules
   ],
   plugins: [
     'vue'
@@ -36,6 +36,7 @@ module.exports = {
      */
     'no-unused-vars': isDevelopment ? 'off' : 'error',
     // 'quotes': ['error', 'single'],
-    // 'semi': ['error', 'never']
-  }
+    // 'semi': ['error', 'never'],
+   'vue/multi-word-component-names': 'off'
+  },
 }
