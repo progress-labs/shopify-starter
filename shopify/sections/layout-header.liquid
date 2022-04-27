@@ -10,7 +10,10 @@
 
 {% if menu != blank %}
   <div vue>
-    <site-navigation :menu='{% render 'helper-theme-menu-js' menu_handle: menu %}'></site-navigation>
+    <site-navigation 
+      :menu='{% render 'helper-theme-menu-js' menu_handle: menu %}'
+      menu-id="main-menu"
+    />
   </div>
 {% endif %}
 

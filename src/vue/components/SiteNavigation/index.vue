@@ -1,25 +1,40 @@
 <template>
-  <div>
-    Component: SiteNavigation
-  </div>
+  <nav :aria-labelledby="menuId">
+    <h2 :id="menuId" class="sr-only">Main Menu</h2>
+    <ul class="flex justify-center items-center">
+      <li
+        v-for="item in menu"
+        :key="item.handle"
+        class="mx-10"
+        :class="{underline: item.active}"
+      >
+        <a :href="item.url">{{ item.title }}</a>
+      </li>
+    </ul>
+  </nav>
 </template>
+
 <script>
-  import { mapState, mapGetters, mapActions } from "vuex";
-  export default {
-    name: "SiteNavigation",
-    props: {
-      menu: {
-        type: Array,
-        required: true
-      },
+import {mapState, mapGetters, mapActions} from "vuex";
+export default {
+  name: "SiteNavigation",
+  props: {
+    menuId: {
+      type: String,
+      required: true,
     },
-    data: () => {
-      return {};
+    menu: {
+      type: Array,
+      required: true,
     },
-    computed: {},
-    mounted() {
-      console.log('mounted!')
-    },
-    methods: {},
-  };
+  },
+  data: () => {
+    return {};
+  },
+  computed: {},
+  mounted() {
+    console.log("mounted!");
+  },
+  methods: {},
+};
 </script>

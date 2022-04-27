@@ -1,7 +1,7 @@
 {
   type: {{ link.type | json }},
   title: {{ link.title | json }},
-  handle: {{ link.title | json }},
+  handle: {{ link.handle | json }},
   url: {{ link.url | json }},
   hasHash: {%- if link.url contains "#" %}true{%- else -%}false{%- endif -%},
   active: {{ link.active | json }},
