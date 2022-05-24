@@ -53,6 +53,6 @@ While it's not required it may be easiest to keep all here so its importing auto
 Pulls in all United States for shipping and billing forms.
 
 
-## Tailwind Config
+##Tailwind Config
 This is the so fucking cool. Tailwind allows us to import the configuration object directly and can be used and consumsed within our code. 
 Read more about it here: [https://tailwindcss.com/docs/installation/play-cdn](https://tailwindcss.com/docs/installation/play-cdn)
