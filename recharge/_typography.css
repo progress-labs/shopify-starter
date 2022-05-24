@@ -1,0 +1,174 @@
+/* Roslindale */
+@font-face {
+  font-family: 'Roslindale';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://cdn.shopify.com/s/files/1/0079/5692/2420/files/RoslindaleVariableDisplay-VF-Testing.woff?v=1560359917) format('woff');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+
+@font-face {
+  font-family: 'RoslindaleCondMed';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://cdn.shopify.com/s/files/1/0079/5692/2420/t/31/assets/ba0254d6a1c62a6fcdc0aacf610f6949.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+
+/* GT-America */
+@font-face {
+  font-family: 'GT-America';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://cdn.shopify.com/s/files/1/0079/5692/2420/files/GT-America-Standard-Regular.woff?v=1560359908) format('woff');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+
+/* GT-America Medium */
+@font-face {
+  font-family: 'GT-America-Medium';
+  font-style: normal;
+  font-weight: 500;
+  src: url(https://cdn.shopify.com/s/files/1/0079/5692/2420/files/GTAmerica-Medium.woff2?v=1625693102) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+
+/* GT America Expanded Medium */
+@font-face {
+  font-family: 'GT-America-Expanded';
+  font-style: normal;
+  font-weight: 500;
+  src: url(https://cdn.shopify.com/s/files/1/0079/5692/2420/files/GT-America-Expanded-Medium.woff?v=1560359909) format('woff');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+
+@font-face {
+  font-family: 'GT-America-Expanded';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://cdn.shopify.com/s/files/1/0079/5692/2420/t/31/assets/37b02e8406088876956da5fa683c101c.otf) format('otf');
+}
+
+@font-face {
+  font-family: 'GT-America-Expanded';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://cdn.shopify.com/s/files/1/0079/5692/2420/t/31/assets/c54ccf84c5590a7ebf5c022d1efb40d3.woff2) format('woff2');
+}
+
+
+@font-face {
+  font-family: 'GT-Extended';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://cdn.shopify.com/s/files/1/0079/5692/2420/t/31/assets/37b02e8406088876956da5fa683c101c.otf) format('woff2');
+}
+
+body {
+  font-family: 'GT-America' !important;
+}
+
+.eyebrow,
+.eyebrow--thin {
+      font-family: 'GTAmerica-Ext-Med',-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+    font-style: normal;
+    font-size: 13px;
+    line-height: 1.38462;
+    text-transform: uppercase;
+
+}
+
+.eyebrow {
+  -webkit-font-smoothing: antialiased;
+  font-weight: 500;
+}
+
+.eyebrow--thin {
+  font-weight: 400;
+}
+
+.s-heading {
+  font-size: 36px;
+  line-height: 1.22222;
+}
+
+.xl-heading {
+  font-size: 48px;
+  line-height: 1.25;
+  font-family: 'RoslindaleCondMed', serif;;
+  color: var(--primary-color);
+}
+
+.section-title {
+  text-align: center;
+  margin-top: 46px;
+  margin-bottom: 30px;
+}
+
+.section-title--left {
+  text-align: left;
+}
+
+.gta-med {
+  font-family: 'GT-America-Medium';
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+}
+
+.ros {
+  font-family: 'Roslindale', serif;
+}
+
+.nav .eyebrow {
+  letter-spacing: 0.08em;
+}
+
+@media (min-width: 1024px) {
+  
+  .nav .eyebrow {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .xl-heading {
+	  font-size: 64px;
+	}
+}
+
+,small-text-link {
+  margin-top: 15px;
+}
+
+.text-link {
+  font-family:  'GTAmerica-Ext-Med', sans-serif;
+  font-size: 12;
+  line-height: 1.5;
+  position: relative;
+  display: inline-block;
+  letter-spacing: 0.0625rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  background-color: transparent;
+  border: 0;
+  margin-left: 0;
+  margin-right: 0;
+  outline: 0;
+  cursor: pointer;
+}
+
+.text-link:after {
+    content: '';
+    display: block;
+    border-bottom: solid 2px #000;
+    padding-bottom: -2px;
+    transform: scaleX(1);
+    transform-origin: 0% 50%;
+    transition: transform 250ms ease-in-out;
+  }
+
+.text-link:hover:after {
+    transform: scaleX(0);
+    transition: transform 250ms ease-in-out;
+    transform-origin: 100% 50%;
+  }

@@ -1,0 +1,14 @@
+<div class="shipping-row rc_element_wrapper rc_card_container js-address-edit" data-id="{{ address.id }}">
+  <div>
+    <p style="display: none" class="rc_shipping_address title-bold text-uppercase">
+	      {{ 'shipping_address_title' | t }}
+    </p>
+    <p class="">
+        {{ address.first_name }} {{ address.last_name }}
+    </p>
+    <p data-id="{{ address.id }}">{{ address.address1 }} {{ address.address2 if address.address2 else '' }} </p>
+    <p data-id="{{ address.id }}">  {{ address.city }}, {{ address.province }} {{ address.zip }}
+    </p>
+  </div>
+  <i class="fas fa-chevron-right js-address-edit-btn" style="display: none;"></i>
+</div>

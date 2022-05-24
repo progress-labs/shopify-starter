@@ -1,0 +1,58 @@
+<div class="rc_element_wrapper rc_card_container billing-group js-edit-billing-card" onclick="toggleCardSidebar();">
+    <div class="billing-card flex flex-row justify-between items-center">
+      <div>
+        {% if payment_source.payment_type == 'credit' %}
+            <p class="text-uppercase mb-2 text-uppercase eyebrow">{{ 'Card_on_file' | t }}</p>
+            <div class="rc_card_container">
+                <div>
+                {% if payment_source.status == 'failed' %}
+                    <p> {{ 'no_customer_card' | t }} </p>
+                {% else %}
+                    {% if not payment_source.card_brand %}
+                        <p> {{ 'card_details_unavailable' | t }} </p>
+                    {% else %}
+                        <p>{{ payment_source.card_brand | capitalize | replace('_', ' ') }} {{ 'Ending_In' | t }} {{ payment_source.card_last4 }}</p>
+                        <p> {{ 'Expires' | t }} {{ payment_source.card_exp_month }}/{{ payment_source.card_exp_year }} </p>
+                    {% endif %}
+                {% endif %}
+                </div>
+            </div>
+        {% elif payment_source.payment_type in ['sepa_debit', 'ideal'] %}
+            <p class="color-dark-green title-bold font-spacing margin-bottom-20 text-uppercase">{{ 'payment_method' | t }}</p>
+            <div class="rc_card_container">
+                <p>{{ 'sepa_direct_debit' | t }} {{ 'Ending_In' | t }} {{ payment_source.card_last4 }}</p>
+            </div>
+        {% elif payment_source.payment_type == 'paypal' %}
+            <p class="text-uppercase" style="color: #00484F; font-weight: bold; margin-bottom: 20px; letter-spacing: 0.09em;">PayPal account</p>
+            <div class="rc_card_container">
+                <div>
+                    <p>{{ 'paypal_instructions' | t }}</p>
+                    <p>Sign in to<a href="https://www.paypal.com/signin" target="_blank" rel="noopener noreferrer">PayPal</a>.</p>
+                </div>
+            </div>
+        {% elif payment_source.payment_type == 'apple_pay' %}
+            <p class="margin-bottom-20 text-uppercase">Linked Apple Pay</p>
+            <div class="rc_card_container">
+                <div>
+                    <p>{{ 'apple_pay_instructions' | t }}</p>
+                    <p>Learn more about <a href="https://support.apple.com/en-us/HT205583" target="_blank" rel="noopener noreferrer">Apple Pay</a>.</p>
+                </div>
+            </div>
+        {% else %}
+            <p class="margin-bottom-20 text-uppercase">Payment processor</p>
+            <div class="rc_card_container">
+                <div>
+                    <p>Payment source could not be identified. Please update your card information.</p>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if payment_source.payment_type not in ['credit', 'debit'] %}
+            <div>
+                <p>Adding a credit card will reset your payment type from {{ payment_source.payment_type | replace('_', ' ') | capitalize }}.</p>
+            </div>
+        {% endif %}
+	</div>
+	<a href="{{ payment_source_url }}" class="flex-shrink-0 js-billing-card-edit-btn" onclick="preventSidebarToggleOnDeepLink(event)"><i class="fas fa-chevron-right"></i></a>
+    </div>
+</div>

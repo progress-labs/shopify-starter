@@ -1,0 +1,61 @@
+<form action="" method="post" id="ReChargeForm_customer">
+  <div class="rc_input_container">
+    <p class="mb-4">
+      <label for="first_name" class="form-label">{{ 'First_Name' | t }} </label>
+      <input type="text" name="billing_first_name" id="first_name" class="form-control-input" value="" required>
+    </p>
+    <p class="mb-4">
+      <label for="first_name" class="form-label"> {{ 'Last_Name' | t }} </label>
+      <input type="text" name="billing_last_name" id="last_name" class="form-control-input" value="" required>
+    </p>
+  </div>
+
+  <p class="mb-4">
+    <label for="address1" class="form-label"> {{ 'Address' | t }} </label>
+    <input type="text" name="billing_address1" id="address1" class="form-control-input" value="" required>
+  </p>
+
+  <p class="mb-4">
+    <label for="address2" class="form-label"> {{ 'address_line' | t }} </label>
+    <input type="text" name="billing_address2" id="address2" value="" class="form-control-input">
+  </p>
+
+  <p class="mb-4">
+    <label for="company class="form-label""> {{ 'Company' | t }} </label>
+    <input type="text" name="billing_company" id="company" class="form-control-input" value="">
+  </p>
+
+  <p class="mb-4">
+    <label for="country" class="form-label"> {{ 'Country' | t }} </label>
+    <select class="form-control-select" name="billing_country" id="country" data-value="" onchange="ReCharge.Forms.updateProvinces(this); getZipLabel(this.value);" required>
+    </select>
+  </p>
+
+  <p class="mb-4">
+    <label for="city" class="form-label"> {{ 'City' | t }} </label>
+    <input type="text" name="billing_city" id="city" value="" class="form-control-input" required>
+  </p>
+
+  <p class="mb-4">
+    <label for="province" class="js-statelabel form-label"> {{ 'Province_State' | t }} </label>
+    <input type="text" name="billing_province" id="province" value="">
+    <select class="form-control-select" id="province_selector" onchange="ReCharge.Forms.updateProvinceInput(this);" style="display: none;"></select>
+  </p>
+
+  <p class="mb-4">
+    <label for="zip" class="js-zipcode form-label"> {{ 'Postal_Code' | t }} </label>
+    <input type="text" name="billing_zip" id="zip" value="" class="form-control-input" required>
+  </p>
+
+  <p class="mb-4">
+    <label for="email" class="form-label"> {{ 'Email' | t }} </label>
+    <input type="text" name="email" id="email" value="{{ customer.email }}" class="form-control-input">
+  </p>
+
+  <p class="mb-4">
+    <label for="phone" class="form-label"> {{ 'Phone' | t }} </label>
+    <input type="number" name="billing_phone" id="phone" class="form-control-input" value="">
+  </p>
+
+  <button type="submit"class="btn text-uppercase billing-btn">Update </button>
+</form>

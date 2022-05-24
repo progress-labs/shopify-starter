@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if settings['has_shopify_connector'] %}
+    <!-- SHOPIFY CONNECTOR -->
+    <div class="grid">
+        <div class="grid__item medium-up--one-full">
+            <h3>Billing</h3>
+            <div class="rc_element_wrapper rc_card_container">
+                <div>
+                    <p class="margin-bottom-20 color-dark-green title-bold font-spacing text-uppercase">BILLING AND PAYMENT INFORMATION</p>
+                    <p>We'll send you an email to securely update your payment and billing information</p>
+                </div>
+                <div>
+                    <button 
+                        type="button" 
+                        class="rc_btn--secondary rc_btn--secondary--color text-uppercase width-100 title-bold text-center"
+                        onclick="sendShopifyConnectorEmailRequest(event)"
+                    >
+                        Send email to update
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        async function sendShopifyConnectorEmailRequest(ev) {
+            ev.preventDefault();
+            if (window.locked) {
+                return false;
+            }
+            window.locked = true;
+            const button = ev.target;
+            const data = {
+                'template_type': 'shopify_update_payment_information',
+                'type': 'email'   
+            };
+            const url = ReCharge.Endpoints.send_shopify_connector_email();
+        
+            ReCharge.Forms.toggleSubmitButton(button);
+            button.setAttribute('data-text', 'Send email to update');
+
+            try {
+                await axios({
+                    url,
+                    method: 'post',
+                    data
+                });
+        
+                ReCharge.Toast.addToast('success', 'Update email sent');
+                ReCharge.Forms.toggleSubmitButton(button);
+                button.removeAttribute('data-text');
+                button.disabled = true;
+                setTimeout(() => {
+                    button.disabled = false;
+                }, 180000);
+            } catch (error) {
+                console.log(error);
+                let errorMessage = 'Something went wrong. Please try again later';
+                if (error.response && error.response.data && error.response.data.error) {
+                    errorMessage = error.response.data.error;
+                }
+                ReCharge.Forms.toggleSubmitButton(button);
+                button.removeAttribute('data-text');
+                ReCharge.Toast.addToast('error', errorMessage);
+            } finally {
+                delete window.locked;
+            }
+        }
+    </script>
+{% else %}
+    {% if not payment_sources or not payment_sources | selectattr("status", "equalto", "active") %}
+        <div class="grid">
+            <div class="grid__item medium-up--one-full">
+            <h3>Billing</h3>
+            <p>No payment source on file.</p>
+            <p>
+                <a href="{{ payment_source_url }}">Add card</a>
+                <a href="{{ payment_source_address_new_url }}">Add address</a>
+            </p>
+            </div>
+        </div>
+    {% elif not payment_sources | selectattr("status", "equalto", "active") %}
+        <div class="grid">
+            <div class="grid__item medium-up--one-full">
+            <div class="section-title">
+            	<h3 class="s-heading">Billing </h3>
+            </div>
+            <p>No active payment source.</p>
+            <p>
+                <a href="{{ payment_source_url }}">Add card</a>
+                <a href="{{ payment_source_address_new_url }}">Add address</a>
+            </p>
+            </div>
+        </div>
+    {% else %}
+		<div class="section-title">
+        	<h3 class="s-heading">{{ 'Billing_Information' | t }} </h3>
+		</div>
+        {% for payment_source in payment_sources %}
+            <!-- Include billing adddress -->
+            {% include '_billing_address_card.html' %}
+
+            <!-- Include card on file -->
+            {% include '_card_on_file_card.html' %}
+        {% endfor %}
+    {% endif %}
+
+    <script>
+        (function() {
+            ReCharge.Novum.payment_sources = {{ payment_sources | json }};
+        })();
+    </script>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,231 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div id="app" class="past-orders">
+  <div class="orders-list">
+	  <div class="">
+	  <div 
+       class=""
+       v-for="order in orders" :key="order.charge_id" 
+       v-on:click="openSidebar(order)">
+    	<p class="font-semibold">{[ formatDate(order.processed_at) ]}</p>
+		<svg width="9" height="15" fill="none" xmlns="http://www.w3.org/2000/svg">
+      	<path fill="#191919" d="M1.06 14.131L0 13.071 7.07 6l1.061 1.06z"></path>
+      	<path fill="#191919" d="M0 1.06L1.061 0l7.071 7.071-1.06 1.06z"></path>
+		</svg>
+  	</div>
+  </div>
+    
+	<div class="order-section mt-14" v-if="cancelled.length > 0">  	
+      <h3 class="text-center mb-4">Reactivate previous orders</h3>
+      <div 
+         v-for="(item, index) in cancelled" 
+         :key="index" 
+         :class="{ 'loading': item.loading }"
+      >
+        <div class="order-details">
+          <span class="">What's Included</span>
+          <p class="">{[ item.variant_title.replace('+', 'and') ]}</p>
+        </div>
+        <div class="">
+          <span class="">Order Details</span>
+          <p class="">{[ item.product_title ]} - {[ new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(item.price)  ]}</p>
+          <reactivate-cta @activate-subscription="activateSubscription" :subscription="item" :reactive-button-loading="reactiveButtonLoading"></reactivate-cta>
+        </div>
+      </div>
+	</div>
+</div>
+
+  
+<div class="sidebar max-w-md border border-black absolute right-0 top-0 bottom-0 transform bg-white z-10 border border-left" v-bind:class="{ 'is-open': sidebar }">
+  <button class="close" v-on:click="closeSidebar"><svg width="15" height="15" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#191919" d="M13.071 0l1.06 1.06-7.07 7.072L6 7.07z"/><path fill="#191919" d="M14.132 13.072l-1.06 1.06L6 7.062 7.06 6z"/><path fill="#191919" d="M1.06 14.132L0 13.07 7.07 6l1.061 1.06z"/><path fill="#191919" d="M0 1.06L1.06 0l7.072 7.07-1.06 1.062z"/></svg></button>
+  
+  <div class="sidebar-inner text-center">
+    <p v-if="currentOrder != false">Order #{[ currentOrder.shopify_order_number ]}</p>
+    <p v-if="currentOrder != false" class="font-semibold">{[ formatDate(currentOrder.processed_at) ]}</p>
+    <div class="options-panel" v-if="currentOrder != false">
+      <div class="flex-col">
+    	  <span class="text-left w-full">order details</span>
+        <div class="w-full">
+	      <p class="flex justify-between space-between" v-for="item in currentOrder.line_items">
+            <span class="inline-block mr-3 text-left font-bold">{[ item.title ]}</span>
+            <span class="inline-block flex-shrink-0">{[ item.price ]}</span>
+          </p>
+        </div>
+      </div>
+      
+      <div class="flex-col items-start" v-if="currentOrder.line_items.length > 0">
+    	  <span class="text-left eyebrow w-full">flavors</span>
+          <div class="flex-col flex justify-start items-start w-full ">
+	      	<p class="inline-block mr-3 text-left font-bold" v-for="item in currentOrder.line_items">{[ item.variant_title ]}</p>
+       	  </div>
+      </div>
+      
+      <div class="order-detail-block flex-col p-0">
+        <p class="flex justify-between items-center w-full">
+          <span>Shipping</span>
+          <span v-if="currentOrder.shipping_lines.length > 0">${[ currentOrder.shipping_lines[0].price ]}</span>
+        </p>
+        <p class="flex justify-between items-center w-full">
+          <span>Discounts</span>
+          <span>${[ currentOrder.total_discounts ]}</span>
+        </p>
+        
+        <p class="flex justify-between items-center w-full">
+          <span>Taxes</span>
+          <span>${[ currentOrder.total_tax ]}</span>
+        </p>
+
+        <p class="flex justify-between items-center font-semibold w-full mt-8">
+          <span class="font-bold">Total</span>
+          <span>${[ currentOrder.total_price ]}</span>
+        </p>
+      </div>
+    </div>
+  </div>
+  
+</div>
+</div>
+
+<script>
+  (function() {
+      ReCharge.Novum.orders = {{ orders | json }};
+  })();
+</script>
+
+<script>
+
+var headers = {
+  "Accept": "application/json",
+  "Content-Type": "application/json",
+  "X-Recharge-Access-Token": "4aff69f3ea8729c69bcbce947b4ad8351bca655a360e101441357cf0"
+}
+
+  
+Vue.component('reactivate-cta', {
+  delimiters: ['{[', ']}'],
+  props: ['subscription', 'reactiveButtonLoading'],
+  data: function () {
+    return {
+      loading: false,
+      btnText: 'Reactivate'
+    }
+  },
+  methods: {
+    eventHandler() {
+      this.loading = true;
+      this.subscription.loading = true;
+      
+	  this.$emit('activate-subscription', this.subscription);
+    },
+  },
+  template: `
+  <button class="btn" v-on:click="eventHandler" :disabled="subscription.loading">
+    <span class="spinner" v-bind:class="{ 'opacity-100': subscription.loading, 'opacity-0': !subscription.loading }">
+       <svg class="animate-spin h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+       </svg>
+    </span>
+	<span v-bind:class="{ 'opacity-100': !subscription.loading, 'opacity-0': subscription.loading }">{[ btnText ]}</span>
+  </button>
+  `
+});
+
+var vm = new Vue({
+  el: '#app',
+  delimiters: ['{[', ']}'],
+  data: {
+    currentOrder: false,
+   	customer: {{ customer | json }},
+  	orders: {{ orders | json }},
+	token: window.getToken(),
+    products: [],
+  	active: [],
+  	cancelled: [],
+	subscriptions: [],
+	recharge: null,
+    sidebar: false,
+    sidebarToDisplay: null,
+    reactiveButtonLoading: false,
+  },
+  methods: {
+    subscriptionEditLink(item) {
+  		return `${__theme.endpoints.customerBase}subscriptions/${item.id}?token=${vm.token}&preview_theme=11959` ;
+	},
+    activateSubscription(payload) {
+      payload.loading = true;
+      this.reactiveButtonLoading = true;
+      axios({
+  		method: 'post',
+  		url: `${__theme.endpoints.customerBase}subscriptions/${payload.id}/activate?token=${this.token}`,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+	  }).then(resp => {
+        resp.data.subscription.loading = false;
+		// Make a clone of the existing subscription array since we have to modify it
+        const clone = [...this.subscriptions];
+        // Find the index of the array item we need to change
+        const selectedIndex = this.subscriptions.findIndex(sub => sub.id === resp.data.subscription.id);
+        // Create a merged object to update the changed data
+		const mergedObject = Object.assign(this.subscriptions[selectedIndex], resp.data.subscription);
+		// Swap out the old object with the new, merged object.
+        clone.splice(selectedIndex, selectedIndex, mergedObject);
+        // Set subscriptions to the modified clone.
+        this.subscriptions = clone;
+        
+        this.reactiveButtonLoading = false;
+      })
+    },
+    formatDate(date) {
+      return dateFns.format(date, 'MMMM D, YYYY')
+    },
+    openSidebar(order) {
+      this.sidebar = true;
+      this.currentOrder = order;
+    },
+    closeSidebar() {
+      setTimeout(() => {
+      	this.currentOrder = false;
+      	this.sidebar = false;        
+      }, 250)
+
+    },
+  }, 
+  watch: {
+      subscriptions(newVal, oldVal) {
+      	if (this.subscriptions.length > 0) {    
+			this.active = this.subscriptions.filter(sub => sub.status.toLowerCase() === 'active') 
+			this.cancelled = this.subscriptions.filter(sub => sub.status.toLowerCase() === 'cancelled')
+        }
+      },
+  },
+  mounted() {
+	this.products = JSON.parse(sessionStorage.getItem('rc_products'))
+    const url = `${window.__theme.endpoints.base}${window.__theme.endpoints.subscriptions}customer_id=${this.customer.id}`
+
+    axios({
+  		method: 'get',
+  		url: url,
+		headers
+  		})
+      .then(resp => {
+      	if (resp.status === 200) {
+          const subscriptions = resp.data.subscriptions.map(sub => {
+            return {
+              ...sub,
+              loading: false,
+            }
+          })
+          this.subscriptions = subscriptions;
+        }
+      })
+      .catch(err => console.log(err))
+  }
+})
+</script>
+
+
+{% endblock %}

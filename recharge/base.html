@@ -1,0 +1,326 @@
+<!-- Import axios -->
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.min.js" integrity="sha512-F+u8eWHrfY8Xw9BLzZ8rG/0wIvs0y+JyRJrXjp3VjtFPylAEEGwKbua5Ip/oiVhaTDaDs4eU2Xtsxjs/9ag2bQ==" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+<script src='https://unpkg.com/v-calendar'></script>
+
+
+<script>
+    // Apply CSS styles
+    let body = document.querySelector("body");
+    if (body) {
+        body.setAttribute("id", "recharge-novum");
+    }
+
+    const previewMode = sessionStorage.getItem("rc_preview_param");
+    if (previewMode === null) {
+      sessionStorage.setItem(
+        "rc_preview_param",
+        window.location.search.split("&")[1]
+      );
+    }
+
+    function getToken() {
+        var value = new RegExp("[?&]token=([^&#]*)", "i").exec(window.location.href);
+        return value ? value[1] : "";
+    }
+
+    function onLoad() {
+        window.customerToken = getToken();
+
+        const products = JSON.parse(sessionStorage.getItem("rc_products")) || [];
+        if (products.length < 1) {
+            fetchProductsRetentionStrategiesOrders();
+        }
+
+        let mainEl = document.querySelector("main");
+        if (mainEl) {
+            mainEl.setAttribute("class", "");
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", onLoad);
+
+    {% if settings.customer_portal.hosted_customer_portal %}
+        const { external_platform, domain, name } = {{ store | json }};
+
+        function updateAccountLink() {
+            let account_link = document.querySelector('#rc_account_link');
+            const is_shopify = external_platform === 'shopify';
+
+            if (is_shopify) {
+                account_link.setAttribute('href', `https://${domain}/account`);
+            } else {
+                const swapButtons = document.querySelectorAll('.js-swap-product-btn') || [];
+                const addButton = document.querySelector('.js-add-product-btn') || null;
+                if (swapButtons.length || addButton !== null) {
+                    swapButtons.forEach(btn => btn.setAttribute('style', 'display: none;'));
+                    addButton.setAttribute('style', 'display: none;');
+                }
+                account_link.setAttribute('href', `https://${domain}/account.php`);
+            }
+
+            addTitleFaviconForHostedPortal();
+        }
+
+        function addTitleFaviconForHostedPortal() {
+            const title = document.querySelector('title');
+            const head =  document.querySelector('head');
+            const logo = "{{ settings.customer_portal.custom_code.header_logo_url }}";
+
+            if (title != null) {
+                title.innerHTML = `${name}`;
+                head.innerHTML +=
+                    `<link rel="shortcut icon" href="${logo}">`;
+            } else {
+                head.innerHTML += `
+                    <title>${name}</title>
+                    <link rel="shortcut icon" href="${logo}">
+                `;
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', updateAccountLink);
+    {% endif %}
+
+</script>
+
+<script>
+    {% include '_scripts.js' %}
+</script>
+<script>
+    {% include '_utils.js' %}
+</script>
+<script>
+    {% include '_helpers.js' %}
+</script>
+<script>
+    {% include '_addresses.js' %}
+</script>
+<script>
+  	/**
+    App Settings Config
+    */
+	window.__theme = {};
+	window.__theme.settings = {{ settings | json }};
+  	window.__theme.headers = {
+		"Accept": "application/json",
+		"Content-Type": "application/json"
+    };
+	window.__theme.token = window.getToken();
+	window.__theme.endpoints = {
+      	token: window.getToken(),
+		customerBase: "{{ shopify_proxy_url if proxy_redirect else '' }}/portal/{{ customer.hash }}/",
+  		base: 'https://api.rechargeapps.com/',
+  		onetime: 'onetimes',
+  		products: 'products',
+  		subscriptions: 'subscriptions',
+      	swap: 'swap',
+      	activate: 'activate',
+	};
+  	window.__theme.customer = {{ customer | json }};
+  	window.__theme.credit = {
+      source: {{ payment_source_url | json }},
+      form_url: {{ payment_source_form_url | json }}
+    }
+  	window.__theme.helpers = {
+    	dateFormat(date) {
+  			return this.selectedDate = dateFns.format(date, 'YYYY-MM-DD');
+		},
+    }
+  	window.__theme.sideBars = {
+      email: {
+        eyebrow: 'Edit email address',
+        text: 'For all communications'
+      },
+      shipping: {
+        eyebrow: 'Edit shipping address',
+        text: 'For all upcoming orders'
+      },
+      billing: {
+        eyebrow: 'Edit billing address',
+        text: 'For all upcoming orders'
+      },
+      frequency: {
+        eyebrow: 'Edit order frequency',
+        text: 'Ship my order to me...'
+      },
+      date: {
+        eyebrow: 'Reschedule shipment',
+        text: 'Select a new date'
+      },
+      cancel: {
+        eyebrow: 'Cancel membership',
+        text: 'Let us know why you\'re canceling',
+        text2: 'Anything else you\'d like to share?'
+      },
+      'credit-card': {
+        eyebrow: 'Edit CARD ON FILE',
+        text: 'For all upcoming orders'
+      },
+    }
+	window.__theme.states = [
+		'Alabama',
+		'Alaska',
+		'Arizona',
+		'Arkansas',
+		'California',
+        'Colorado',
+        'Connecticut',
+        'Delaware',
+        'Florida',
+        'Georgia',
+        'Hawaii',
+        'Idaho',
+        'Illinois',
+        'Indiana',
+        'Iowa',
+        'Kansas',
+        'Kentucky',
+        'Louisiana',
+        'Maine',
+        'Maryland',
+        'Massachusetts',
+        'Michigan',
+        'Minnesota',
+        'Mississippi',
+        'Missouri',
+        'Montana',
+        'Nebraska',
+        'Nevada',
+        'New Hampshire',
+        'New Jersey',
+        'New Mexico',
+        'New York',
+        'North Carolina',
+        'North Dakota',
+        'Ohio',
+        'Oklahoma',
+        'Oregon',
+        'Pennsylvania',
+        'Rhode Island',
+        'South Carolina',
+        'South Dakota',
+        'Tennessee',
+        'Texas',
+        'Utah',
+        'Vermont',
+        'Virginia',
+        'Washington',
+        'West Virginia',
+        'Wisconsin',
+		'Wyoming'
+    ];
+  
+  	/**
+    Tailwind Config
+    */
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            clifford: '#da373d',
+          }
+        }
+      }
+    }
+</script>
+
+{% if settings.customer_portal.hosted_customer_portal %}
+    <!-- Hosted style fixes -->
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+        }
+
+        #recharge-te {
+            min-height: 100%;
+        }
+    </style>
+{% endif %}
+
+<style>
+    {% include '_styles.css' %}
+</style>
+<style>
+    {% include '_card.css' %}
+</style>
+<style>
+    {% include '_modal.css' %}
+</style>
+<style>
+    {% include '_vanilla_calendar.css' %}
+</style>
+
+
+{{ settings.customer_portal.custom_code.header | safe }}
+
+<div id="recharge-te">
+	<header class="site-header items-center justify-start px-2 bg-clifford">
+            <a class="back-arrow eyebrow flex items-center" href="{{ subscription_list_url }}">
+	            <span class="inline-block mr-2">
+					<svg width="20" height="13" xmlns="http://www.w3.org/2000/svg"><path fill-rule="nonzero" d="M6.19 0L0 6.18l6.19 6.19.7-.71-4.98-4.98h17.97v-1H1.91L6.89.7z"/></svg>
+	              </span>
+            </a>
+          
+            <a class="site-logo absolute left-0 right- mx-auto" href="{{ subscription_list_url }}">
+				Haus
+            </a>
+        </header>
+
+    <h1 class="xl-heading text-center">Membership</h1>
+  
+    {% include '_navbar.html' %}
+
+    <div class="rc_page-width" id="rc_te-template-wrapper">
+        {% block content %}{% endblock %}
+    </div>
+
+    {% if not settings['has_shopify_connector'] %}
+        {% include '_credit_card_form.html' %}
+    {% endif %}
+    {% include '_modal.html' %}
+    {% include '_preview_info.html' %}
+</div>
+
+<script>
+    {% include '_navbar.js' %}
+</script>
+<script>
+    {% include '_subscriptions.js' %}
+</script>
+<script>
+    {% include '_billing.js' %}
+</script>
+<script>
+    {% include '_orders.js' %}
+</script>
+<script>
+    {% include '_edit-subscription.js' %}
+</script>
+<script>
+    {% include '_recharge.js' %}
+</script>
+
+<!-- Nav JS ACtive State-->
+<script>
+var currentUrl = window.location.pathname;
+var str = currentUrl.split("/");
+var nav = document.querySelector('.nav');
+var currentNav = null;
+
+if (nav) {
+  currentNav = nav.querySelector('[data-' + str[str.length - 1] + ']');    
+}
+
+if (currentNav) {
+  currentNav.classList.add('is-active');
+}
+</script>
+
+{{ settings.customer_portal.custom_code.footer | safe }}

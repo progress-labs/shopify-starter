@@ -1,0 +1,427 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div id="app">
+  <div>
+  	<div class="mb-12">
+      <p>Active Subscriptions</p>
+      <div
+		v-for="sub in active" :key="sub.id"
+        :class="{ 'loading opacity-50 pointer-none': sub.loading }"
+      >
+			
+        <a :href="subscriptionEditLink(sub)">Edit Subscription</a>
+        <img :src="sub.product.images[0].small" :alt="sub.product_title" />
+        <p>Product Title: {[ sub.product_title ]}</p>
+        <p>Variant Title: {[ sub.variant_title ]}</p>
+        <p>Quantity: {[ sub.quantity ]}</p>
+        <p>Price: {[ sub.price ]}</p>
+        <p>Next Shipment: </p>
+        
+          <skip-cta :process-request="processingRequest" :subscription="sub" :token="token"></skip-cta>
+          <reactivate-cta 
+			v-if="sub.status !== 'ACTIVE'"
+			@activate-subscription="activateSubscription" 
+			:subscription="item"></reactivate-cta>
+      </div>
+    </div>
+    
+  	<div>
+      <p>cancelled Subscriptions</p>
+      <div 
+		v-for="sub in cancelled" :key="sub.id"
+        :class="{ 'loading opacity-50 pointer-none': sub.loading }"
+      >
+			
+        <a :href="subscriptionEditLink(sub)">Edit Subscription</a>
+        <img :src="sub.product.images[0].small" :alt="sub.product_title" />
+        <p>Product Title: {[ sub.product_title ]}</p>
+        <p>Variant Title: {[ sub.variant_title ]}</p>
+        <p>Quantity: {[ sub.quantity ]}</p>
+        <p>Price: {[ sub.price ]}</p>
+        <span
+			@click="activateSubscription(sub)"
+              class="cursor-pointer" v-if="sub.status !== 'ACTIVE'"
+       	>Reactivate Subscription</span>
+        
+        
+        <reactivate-cta @activate-subscription="activateSubscription" :subscription="sub"></reactivate-cta>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    const rc_discounts = [];
+    (function() {
+        ReCharge.Novum.addresses = {{ addresses | sort(attribute="id") | json }};
+        ReCharge.Novum.store = {{ store | json }};
+        ReCharge.Novum.settings = {{ settings | json }};
+
+
+        ReCharge.Novum.addresses.forEach(address => {
+            if (address.discount_id != null) {
+                rc_discounts.push(address.discount);
+            }
+        });
+
+        sessionStorage.setItem("rc_discounts", JSON.stringify(rc_discounts));
+	  window.Recharge = ReCharge;
+    })();
+</script>
+
+
+<script>
+var headers = {
+  "Accept": "application/json",
+  "Content-Type": "application/json",
+  "X-Recharge-Access-Token": "4aff69f3ea8729c69bcbce947b4ad8351bca655a360e101441357cf0"
+}
+
+window.__theme = {};
+window.__theme.endpoints = {
+  token: getToken(),
+  customerBase: "{{ shopify_proxy_url if proxy_redirect else '' }}/portal/{{ customer.hash }}",
+  base: 'https://api.rechargeapps.com',
+  onetime: 'onetimes',
+  products: 'products',
+  subscriptions: 'subscriptions',
+};
+  
+Vue.component('flavor-selection', {
+  delimiters: ['{[', ']}'],
+  props: ['token', 'selectedSubscription', 'processingRequest', 'sidebar', 'excludedFlavors'],
+  data: function () {
+    return {
+      flavors: [],
+      selectedFlavors: [],
+      flavorLimit: 2,
+      loading: false,
+      btnText: 'Swap Flavor',
+    }
+  },
+  watch: { 
+    selectedSubscription(newVal, oldVal) {
+      this.filterFlavors(newVal);
+      this.selectedFlavors = newVal.variant_title.split("+").map(term => term.trim());
+      if (newVal.product_title.includes('1') ) {
+        this.flavorLimit = 1
+        this.btnText = 'Swap Flavor';
+      } else {
+        this.flavorLimit = 2
+        this.btnText = 'Swap Flavors';
+      }
+    }
+  },
+  methods: {
+    swapProduct() {
+      this.loading = true;
+      this.sidebarLoading = true;
+	  this.processingRequest = false;
+      const variants = this.selectedSubscription.product.shopify_details.variants;
+      const flavors = this.selectedFlavors;
+      
+      const selected = variants.filter((variant) => !!variant.titles).find(variant => {
+       if (_.isEqual(variant.titles.sort(), flavors.sort())) {
+          return variant;
+		}
+      });
+      
+      this.$emit('update-flavor', {
+        subscriptionId: this.selectedSubscription.id,
+        selectedId: selected.shopify_id
+      });
+    },
+    filterFlavors(subscription) {
+      const variants = subscription.product.shopify_details.variants;
+      let output = [];
+	  variants.map((variant) => {  
+        if (variant.title === 'Haus Essentials') {
+          variant.titles = ['Bitter Clove', 'Citrus Flower'];
+        } else {
+          variant.titles = [
+            ...variant.title.split('+').map((term) => _.deburr(term.trim())),
+          ];
+        }
+         
+        this.flavors = [...this.flavors, ...variant.titles];
+        output = [...this.flavors, ...variant.titles];
+        
+      }).filter(flavor => !!flavor).map(flavor => flavor);
+      
+      this.flavors = _.uniq(output.filter(flavor => !this.excludedFlavors.includes(flavor))).sort()
+    }
+  },
+  mounted() {
+    this.filterFlavors(this.selectedSubscription);
+	this.selectedFlavors = this.selectedSubscription.variant_title.split("+").map(term => term.trim());
+    
+    if (this.selectedSubscription.product_title.includes('1') ) {
+      this.flavorLimit = 1
+    } else {
+      this.flavorLimit = 2
+    }
+  },
+  template: `
+  	<div>
+      <div class="options-panel" v-bind:class="{ 'disabled': processingRequest }">
+          <label class="custom-radio" :for="flavor" v-for="flavor in flavors" :key="flavor">
+            <input type="checkbox" name="flavor" :id="flavor" :value="flavor" v-model="selectedFlavors">
+            <span class="custom-radio__visual"></span>
+            <span class="input-label" >{[ flavor ]}</span>
+          </label>
+      </div>
+      
+      <button class="btn btn-lg mt-2" @click.prevent="swapProduct" :disabled="processingRequest">
+        <span v-bind:class="{ 'opacity-100': !processingRequest, 'opacity-0': processingRequest }">{[ btnText ]}</span>
+        <span class="spinner" v-bind:class="{ 'opacity-100': processingRequest, 'opacity-0': !processingRequest }">
+           <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+           </svg>
+        </span>
+      </button>
+	</div>
+  `
+});
+  
+Vue.component('skip-cta', {
+  delimiters: ['{[', ']}'],
+  props: ['processingRequest', 'subscription', 'token'],
+  data: function () {
+    return {
+      loading: false,
+      btnText: 'Skip Shipment'
+    }
+  },
+  methods: {
+    eventHandler() {
+      this.loading = true;
+      this.subscription.loading = true;
+      this.btnText = 'Loading...'
+      const url = `${__theme.endpoints.customerBase}/subscriptions/${this.subscription.id}/skip?token=${this.token}`
+      const schema = `{ "subscription": { "id": ${this.subscription.id} } }`;
+      
+      const getSubscriptionById = (id, addressId, productId, customerId) => {
+		const subscriptionUrl = `${__theme.endpoints.customerBase}/request_objects?token=${this.token}&schema=${schema}`;
+		
+    	  axios({
+	        method: 'get',
+    	    url: subscriptionUrl,
+	      }).then(resp => {
+          	console.log('resp: ', resp)
+            if (resp.status === 200) {
+              const mergedObject = Object.assign(this.subscription, resp.data.subscription);
+              this.subscription = mergedObject;
+              this.subscription.loading = false;
+              this.processingRequest = false;
+              this.selectedSubscription = null;
+            }
+          })
+      }
+
+      axios({
+        method: 'post',
+        url: url,
+      }).then(resp => {
+        this.loading = false;
+        this.subscription.loading = false;
+        this.$emit('request-complete', this.subscription);
+        return resp;
+      }).then(resp => {
+        console.log('resp: ', resp);
+        if (resp.status === 200) {
+          const {
+            address_id,
+            customer_id
+          } = resp.data.charge
+          getSubscriptionById(this.subscription.id, address_id, this.subscription.shopify_product_id, customer_id)
+        }
+
+      })
+    },
+  },
+  template: `
+  <button class="btn btn--inverted" v-on:click="eventHandler" :disabled="loading">
+	<span v-bind:class="{ 'opacity-100': !loading, 'opacity-0': loading }">Skip Shipment</span>
+    <span class="spinner" v-bind:class="{ 'opacity-100': loading, 'opacity-0': !processingRequest }">
+       <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+       </svg>
+    </span>
+  </button>
+  `
+});
+  
+Vue.component('reactivate-cta', {
+  delimiters: ['{[', ']}'],
+  props: ['processingRequest', 'subscription', 'token'],
+  data: function () {
+    return {
+      loading: false,
+      btnText: 'Reactivate'
+    }
+  },
+  methods: {
+    eventHandler() {
+      this.loading = true;
+      this.subscription.loading = true;
+      this.btnText = 'Loading...'
+      
+	  this.$emit('activate-subscription', this.subscription);
+    },
+  },
+  template: `
+  <button class="btn" v-on:click="eventHandler" :disabled="loading">
+	<span v-bind:class="{ 'opacity-100': !loading, 'opacity-0': loading }">{[ btnText ]}</span>
+  </button>
+  `
+});
+
+var vm = new Vue({
+  el: '#app',
+  delimiters: ['{[', ']}'],
+  data: {
+    discounts: rc_discounts,
+   	customer: {{ customer | json }},
+	token: window.getToken(),
+    products: [],
+  	active: [],
+  	cancelled: [],
+	subscriptions: [],
+	recharge: null,
+  	selectedSubscription: null,
+    sidebar: false,
+    activeSidebar: null,
+	loading: false,
+  },
+  methods: {
+    openSidebar(type, subscription) {
+      this.sidebar = true;
+      this.sidebarToDisplay = type;
+      this.activeSidebar = subscription
+    },
+    closeSidebar() {
+      this.sidebar = false;
+      this.activeSidebar = false;
+    },
+    subscriptionEditLink(item) {
+  		return `${__theme.endpoints.customerBase}/subscriptions/${item.id}?token=${this.token}` ;
+	},
+    activateSubscription(payload) {
+      console.log('payload: ', payload)
+      payload.loading = true;
+      axios({
+  		method: 'post',
+  		url: `/portal/${this.customer.hash}/subscriptions/${payload.id}/activate?token=${this.token}`,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+	  }).then(resp => {
+		console.log('resp: ', resp)
+        resp.data.subscription.loading = false;
+		// Make a clone of the existing subscription array since we have to modify it
+        const clone = [...this.subscriptions];
+        // Find the index of the array item we need to change
+        const selectedIndex = this.subscriptions.findIndex(sub => sub.id === resp.data.subscription.id);
+        // Create a merged object to update the changed data
+		const mergedObject = Object.assign(this.subscriptions[selectedIndex], resp.data.subscription);
+		// Swap out the old object with the new, merged object.
+        clone.splice(selectedIndex, selectedIndex, mergedObject);
+        // Set subscriptions to the modified clone.
+        this.subscriptions = clone;
+      })
+    },
+    skipShipment(item) {
+      return false;
+      const url = `${__theme.endpoints.customerBase}/subscriptions/${item.id}/skip?token=${this.token}`
+		
+      axios({
+  		method: 'post',
+  		url: url,
+	  }).then(resp => {
+        console.log(resp);
+      })
+    },
+  	formatDate(date) {
+      return dateFns.format(date, 'MMMM D, YYYY')
+    },
+    getAllDiscounts() {
+      console.log('get all discounts');
+      let schema = '{ "discounts": [], "customer": {} , "settings": {}, "store": {} }';
+      const url = `${__theme.endpoints.customerBase}/request_objects?token=${this.token}&schema=${schema}`;
+      
+      return axios({
+  		method: 'get',
+  		url: url,
+	  }).then(resp => {
+        const {
+          status, 
+          data
+        } = resp
+
+        if (status === 200) {
+          console.log('discounts: ', data)
+          this.currentDiscounts = data.discounts;
+        }
+      })
+    },
+    makeInitialRequests() {
+      let schema = '{ "discounts": [], "customer": {} , "settings": {}, "store": {}, "payment_sources": [], "subscriptions": { "product": {} } }';
+      
+      const url = `${__theme.endpoints.customerBase}/request_objects?token=${this.token}&schema=${schema}`;
+      
+      return axios({
+  		method: 'get',
+  		url: url,
+	  }).then(resp => {
+        const {
+          status, 
+          data
+        } = resp
+		
+       	console.log('initial request ', resp)
+        
+        if (status === 200) {
+			this.currentDiscounts = data.discounts;
+			this.subscriptions = data.subscriptions.map(sub => {
+          		return {
+            		...sub, 
+            		loading: false,
+          		}
+        	});
+        }
+      })
+      
+    }
+  }, 
+  computed: {
+    renderSidebarText() {
+      if ( this.sidebarToDisplay ) {
+	      return this.sidebarText[this.sidebarToDisplay];        
+      }
+    },
+  },
+  watch: {
+	  selectedSubscription(newVal, oldVal){},
+      subscriptions(newVal, oldVal) {
+      	if (this.subscriptions.length > 0) {    
+			this.active = this.subscriptions.filter(sub => sub.status.toLowerCase() === 'active') 
+			this.cancelled = this.subscriptions.filter(sub => sub.status.toLowerCase() === 'cancelled')
+        }
+      },
+  },
+  mounted() {
+    this.products = JSON.parse(sessionStorage.getItem('rc_products'))
+    
+	const asyncInit = async () => {
+      const result = await this.makeInitialRequests()
+	}
+    
+    asyncInit();    
+  }
+})
+</script>
+{% endblock %}
