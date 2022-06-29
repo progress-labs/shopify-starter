@@ -95,3 +95,17 @@ Shopify Foundation Theme is modern Shopify theme built with [Shopify Theme Lab](
 Everything from the [Shopify Theme Lab docs](https://uicrooks.github.io/shopify-theme-lab-docs) applies to this project, since it was built with Shopify Theme Lab.
 
 <!-- docs (end) -->
+
+## Shopify Gotchas
+
+#Math in liquid
+
+Whole integer values will only return whole integers with math filters. If you are expecting a float you have to make sure one is a float.
+
+Example:
+
+`{{ 500 | divided_by: 660 }} = 0`
+
+`{{ 500.0 | divided_by: 660.0 }} = 0.7575757575757576`
+
+`{{ 500 | divided_by: 660.0 }} = 0.7575757575757576`
