@@ -26,9 +26,16 @@ Aside from the baseline features of UI Crooks we've included the following.
 5. ~~Carousel~~
 6. PDP Add To Cart - Basic
 7. PDP Add To Cart - With Options
-8. PDP Add To Cart - Sold Out / Notify Me
-9. PDP Add To Cart - Subscription
+8. PDP Add To Cart - Subscription
+9. PDP Add To Cart - Sold Out / Notify Me
 10. FAQ Page / Accordion Section
+11. Klaviyo Back In Stock Notification 
+12. Progress Labs Credit Snippet
+13. [Pinia Migration](https://pinia.vuejs.org/) (vuex alternative) migration
+14. [Keen Slider](https://keen-slider.io/) integration (no longer using Flickity)
+15. ADA Compliant Mobile Menu
+16. ADA Complient Purchase Form
+17. Responsive Image Component (From Loisa codebase)
 
 ## When To Choose Renderless vs Rendered Components
 
