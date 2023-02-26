@@ -13,8 +13,8 @@ Aside from the baseline features of UI Crooks we've included the following.
 
 ## Getting Started
 
-1. Use `yarn` as your package management tool.
-2. Run `yarn` to install all packages.
+1. Use `npm` as your package management tool.
+2. Run `npm i` to install all packages.
 3. Run `shopify login [--store <DOMAIN>]`. [Review `login` docs](https://shopify.dev/themes/tools/cli/core-commands#login)
 
 ## To Do:
@@ -24,18 +24,19 @@ Aside from the baseline features of UI Crooks we've included the following.
 3. ~~Klaviyo Newsletter Module - List ID is determines display~~
 4. ~~Site Navigation (desktop)~~
 5. ~~Carousel~~
-6. PDP Add To Cart - Basic
-7. PDP Add To Cart - With Options
-8. PDP Add To Cart - Subscription
-9. PDP Add To Cart - Sold Out / Notify Me
-10. FAQ Page / Accordion Section
-11. Klaviyo Back In Stock Notification 
-12. Progress Labs Credit Snippet
-13. [Pinia Migration](https://pinia.vuejs.org/) (vuex alternative) migration
-14. [Keen Slider](https://keen-slider.io/) integration (no longer using Flickity)
-15. ADA Compliant Mobile Menu
-16. ADA Complient Purchase Form
-17. Responsive Image Component (From Loisa codebase)
+6. ~~Progress Labs Credit Snippet~~
+7. ~~Keen Slider](https://keen-slider.io/) integration (no longer using Flickity)~~
+8. ~~Responsive Image Component (From Loisa codebase)~~
+9.  PDP Add To Cart - Basic
+10. PDP Add To Cart - With Options
+11. PDP Add To Cart - Subscription
+12. PDP Add To Cart - Sold Out / Notify Me
+13. FAQ Page / Accordion Section
+14. Klaviyo Back In Stock Notification 
+15. [Pinia Migration](https://pinia.vuejs.org/) (vuex alternative) migration
+16. ADA Compliant Mobile Menu
+17. ADA Complient Purchase Form
+18. Convert to Shopify CLI 3.0
 
 ## When To Choose Renderless vs Rendered Components
 
