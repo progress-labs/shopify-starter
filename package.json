@@ -1,7 +1,7 @@
 {
   "name": "shopify-foundation-theme",
   "description": "Modern Shopify theme using Shopify Theme Lab, Liquid, Vue and Tailwind CSS",
-  "author": "Sergej Samsonenko",
+  "author": "Progress Labs",
   "version": "4.5.0",
   "license": "MIT",
   "scripts": {
@@ -28,8 +28,8 @@
   "dependencies": {
     "@shopify/theme-currency": "^4.1.1",
     "axios": "^0.26.1",
-    "flickity": "^3.0.0",
     "gsap": "^3.10.3",
+    "keen-slider": "^6.8.5",
     "klaviyo-subscribe": "^1.0.0",
     "prettier": "^2.6.2",
     "pretty-quick": "^3.1.3",
