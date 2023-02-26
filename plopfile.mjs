@@ -66,6 +66,11 @@ export default function (plop) {
         type: 'add',
         path: 'shopify/sections/{{ kebabCase name }}.liquid',
         templateFile: 'plop/section.hbs'
+      },
+      {
+        type: 'add',
+        path: 'src/css/sections/{{ kebabCase name }}.scss',
+        templateFile: 'plop/css.hbs'
       }
     ]  // array of actions
 	});

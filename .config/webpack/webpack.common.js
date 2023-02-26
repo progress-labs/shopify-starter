@@ -1,15 +1,28 @@
 const path = require('path')
+const glob = require('glob');
 const webpack = require('webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
+const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
+
+const sectionStyles = glob.sync('./src/css/sections/*.scss').reduce((acc, path) => {
+  const entry = path.replace(/^.*[\\\/]/, '').replace('.scss','');
+  acc[entry] = path;
+  return acc;
+}, {})
 
 module.exports = {
   stats: 'minimal',
-  entry: path.resolve(__dirname, '../../src/main.js'),
+  entry: {
+    bundle: path.resolve(__dirname, '../../src/main.js'),
+    ...sectionStyles,
+  },
   output: {
     path: path.resolve(__dirname, '../../shopify/assets/'),
-    filename: 'bundle.js'
+    filename: (pathData) => {
+      return pathData.chunk.name === 'bundle' ? 'bundle.js' : '[name].bundle.js';
+    }
   },
   resolve: {
     extensions: ['*', '.js', '.vue', '.json'],
@@ -70,6 +83,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new RemoveEmptyScriptsPlugin(),
     /**
      * don't clean files with the 'static' keyword in their filename
      * docs: https://github.com/johnagan/clean-webpack-plugin
@@ -81,8 +95,8 @@ module.exports = {
      * docs: https://webpack.js.org/plugins/mini-css-extract-plugin
      */
     new MiniCssExtractPlugin({
-      filename: './bundle.css',
-      chunkFilename: '[id].css'
+      filename: "./[name].css",
+      ignoreOrder: false
     }),
     new VueLoaderPlugin(),
     new webpack.DefinePlugin({
