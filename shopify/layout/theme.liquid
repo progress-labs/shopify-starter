@@ -67,7 +67,7 @@
         fix: Shopify automatically inserts script tags on captcha pages into the content_for_layout tag
         but vue removes any script tags on mount, so don't initialize the vue instance on captcha pages
       {% endcomment %}
-      {% render 'template-captcha' %}
+      {{ content_for_layout }}
     {% else %}
       <div class="min-h-screen flex flex-col font-sans">
         {% section 'layout-announcement-bar' %}
