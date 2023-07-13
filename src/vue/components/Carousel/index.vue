@@ -42,14 +42,11 @@ export default {
     const slideCount = ref(0);
     const isFirst = ref(true);
     const isLast = ref(false);
-    
-
 
     // Before the component is mounted, the value
     // of the ref is `null` which is the default
     // value we've specified above.
     onMounted(() => {});
-
 
     return {
       // It is important to return the ref,
