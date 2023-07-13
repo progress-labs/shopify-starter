@@ -11,7 +11,6 @@
   </div>
 </template>
 <script>
-import Flickity from "flickity";
 import {mapState, mapGetters, mapActions} from "vuex";
 import {ref, onMounted} from "vue";
 export default {
@@ -43,36 +42,14 @@ export default {
     const slideCount = ref(0);
     const isFirst = ref(true);
     const isLast = ref(false);
-    const options = Object.assign(
-      {},
-      {
-        imagesLoaded: true,
-        lazyLoad: true,
-        pageDots: props.dots,
-        prevNextButtons: props.pagination,
-        on: {
-          ready() {
-            currentIndex.value = this.selectedIndex;
-            slideCount.value = this.slides.length - 1;
-          },
-          change(index) {
-            currentIndex.value = index;
-            isFirst.value = this.selectedIndex === 0;
-            isLast.value = this.selectedIndex === this.slides.length - 1;
-          },
-        },
-      },
-    );
+    
+
 
     // Before the component is mounted, the value
     // of the ref is `null` which is the default
     // value we've specified above.
-    onMounted(() => {
-      flickity = new Flickity(carousel.value, options);
-    });
+    onMounted(() => {});
 
-    const next = () => flickity.next();
-    const prev = () => flickity.previous();
 
     return {
       // It is important to return the ref,

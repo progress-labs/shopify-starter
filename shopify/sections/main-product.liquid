@@ -141,14 +141,18 @@
                       <select
                         id="product-select-{{ forloop.index }}"
                         class="w-full h-12 border p-2"
-                        @change="selectOption({
-                          name: '{{ option.name }}'
-                        }, $event)"
+                        @change="
+                          selectOption({
+                            name: '{{ option.name }}'
+                          }, $event)
+                        "
                       >
                         {% for value in option.values %}
                           <option
                             value="{{ value }}"
-                            {% if option.selected_value == value %}selected{% endif %}
+                            {% if option.selected_value == value %}
+                              selected
+                            {% endif %}
                           >
                             {{ value | escape }}
                           </option>
@@ -161,6 +165,11 @@
             </renderless-product-variant-selector>
           </div>
         {% endif %}
+      </div>
+
+      <div>
+        <h1>Product Option Selection</h1>
+        {% render 'product-form', product as product %}
       </div>
 
       {% if current_variant.available %}

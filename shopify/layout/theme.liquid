@@ -18,21 +18,19 @@
     {% if canonical_url != blank %}
       <link rel="canonical" href="{{ canonical_url }}">
     {% endif %}
-    
-    {% comment %} 
+
+    {% comment %}
       Theme Window Object
     {% endcomment %}
     {% render 'helper-theme-global-js', menu: 'main-menu' %}
     {% render 'helper-theme-menu-js' %}
-    
-    
-    {% comment %} 
-      Sturctured Data 
+
+    {% comment %}
+      Sturctured Data
     {% endcomment %}
     {% render 'json-ld-global' %}
     {% render 'json-ld-homepage' %}
-    
-    
+
     {% comment %}
       Body Classes
     {% endcomment %}
@@ -47,7 +45,7 @@
     {% endif %}
 
     {% comment %}
-      Google Fonts 
+      Google Fonts
       Remove if we do not need
     {% endcomment %}
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -71,9 +69,9 @@
     {% else %}
       <div class="min-h-screen flex flex-col font-sans">
         {% section 'layout-announcement-bar' %}
-        
+
         {% section 'layout-header' %}
-        {% section 'mini-cart' %}
+        {% comment %} {% section 'mini-cart' %} {% endcomment %}
 
         <main
           id="main"
@@ -94,7 +92,7 @@
 
     <!-- webpack bundle -->
     <script src="{{ 'bundle.js' | asset_url }}" defer="defer"></script>
-    
+
     {% render 'console-credit' %}
   </body>
 </html>

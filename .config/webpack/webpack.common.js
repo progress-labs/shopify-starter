@@ -30,7 +30,6 @@ module.exports = {
       'vue$': 'vue/dist/vue.esm-bundler.js',
       '@': path.resolve(__dirname, '../../src/'),
       '@shopify-directory': path.resolve(__dirname, '../../shopify/'),
-      'flickity-styles': path.resolve(__dirname, '../../node_modules/flickity/dist/flickity.min.css'),
     }
   },
   module: {
