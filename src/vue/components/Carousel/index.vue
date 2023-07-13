@@ -11,7 +11,7 @@
   </div>
 </template>
 <script>
-import Flickity from "flickity";
+
 import {mapState, mapGetters, mapActions} from "vuex";
 import {ref, onMounted} from "vue";
 export default {
@@ -68,17 +68,14 @@ export default {
     // of the ref is `null` which is the default
     // value we've specified above.
     onMounted(() => {
-      flickity = new Flickity(carousel.value, options);
+
     });
 
-    const next = () => flickity.next();
-    const prev = () => flickity.previous();
 
     return {
       // It is important to return the ref,
       // otherwise it won't work.
       carousel,
-      flickity,
       next,
       prev,
       currentIndex,
