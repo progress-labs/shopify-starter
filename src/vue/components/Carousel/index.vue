@@ -11,7 +11,6 @@
   </div>
 </template>
 <script>
-
 import {mapState, mapGetters, mapActions} from "vuex";
 import {ref, onMounted} from "vue";
 export default {
@@ -67,10 +66,7 @@ export default {
     // Before the component is mounted, the value
     // of the ref is `null` which is the default
     // value we've specified above.
-    onMounted(() => {
-
-    });
-
+    onMounted(() => {});
 
     return {
       // It is important to return the ref,
