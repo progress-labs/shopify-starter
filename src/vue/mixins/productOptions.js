@@ -15,11 +15,11 @@ export default {
   },
 
   created() {
-    console.log('-- created product options mixin --')
+    console.log("-- created product options mixin --");
   },
-  
+
   mounted() {
-    console.log('-- product options mounted -- ')
+    console.log("-- product options mounted -- ");
   },
 
   computed: {
@@ -29,7 +29,5 @@ export default {
     },
   },
 
-  methods: {
-    
-  },
+  methods: {},
 };

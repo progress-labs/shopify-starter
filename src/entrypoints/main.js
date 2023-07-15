@@ -32,7 +32,6 @@ const store = createStore({
   modules,
 });
 
-
 /**
  * create vue instance function
  */
