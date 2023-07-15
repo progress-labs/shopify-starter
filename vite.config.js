@@ -3,7 +3,6 @@ import StylelintPlugin from "vite-plugin-stylelint";
 import cleanup from '@by-association-only/vite-plugin-shopify-clean'
 import del from "rollup-plugin-delete";
 import {resolve} from "path";
-import shopifyModules from "vite-plugin-shopify-modules";
 import viteShopify from "vite-plugin-shopify";
 import vue from "@vitejs/plugin-vue";
 
