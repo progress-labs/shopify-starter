@@ -1,3 +1,8 @@
+/**
+ * Import Main CSS directly into one file.
+ */
+// import '../css/main.scss'
+
 import VueScreen from "vue-screen";
 /**
  * imports
@@ -26,17 +31,6 @@ const store = createStore({
   strict: process.env.NODE_ENV !== "production",
   modules,
 });
-
-/**
- * google maps api loader
- */
-window.theme.settings.gmapsApiInstance = new Loader({
-  apiKey: window.theme.settings.gmapsApiKey,
-})
-  .load()
-  .then(google => {
-    return google;
-  });
 
 /**
  * create vue instance function

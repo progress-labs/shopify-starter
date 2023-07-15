@@ -1,5 +1,7 @@
 import isEqual from "lodash.isequal";
+import {mapState} from "vuex";
 import uniq from "lodash.uniq";
+
 export default {
   props: {
     productData: {
@@ -43,12 +45,9 @@ export default {
       /**
        * Create an array of options that we want to show
        * Create a method that checks if the option in the DOM is in the array of available options
-       * Assume option position 1 is GENDER
        */
       return uniq(
-        this.eligibleVariants.flatMap(variant => {
-          return [variant.option2, variant.option3];
-        }),
+        this.eligibleVariants.flatMap(variant => [variant.option1, variant.option2, variant.option3]).filter(Boolean),
       );
     },
 
@@ -60,6 +59,8 @@ export default {
       const found = this.productData.variants.find(variant => {
         return isEqual(flatOptions, variant.options.sort());
       });
+      
+      console.log('variant to purchase: ', found)
 
       return found;
     },
@@ -87,11 +88,12 @@ export default {
 
       this.selectedOptions = localOptions;
     },
+    
     findVariantsByOptions(obj) {
       const index = this.selectedOptions.findIndex(
         opt => opt.type === obj.type,
       );
-
+      
       if (index == -1) {
         this.selectedOptions.push(obj);
       } else {
@@ -100,8 +102,7 @@ export default {
     },
 
     isActiveOption(option) {
-      console.log("option: ", option);
-      // if (!this.selectedOptions) return false;
+      if (!this.selectedOptions) return false;
       return this.selectedOptions.find(opt => isEqual(opt, option));
     },
 

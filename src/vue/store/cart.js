@@ -101,13 +101,16 @@ const actions = {
   },
 
   addItem: ({commit, state, dispatch}, payload) => {
+    console.log('payload: ', payload)
     if (state.loading) return;
     commit("cartLoading");
 
-    let products = Array.isArray(payload.items)
-      ? payload.items
-      : [payload.items];
-
+    let products = Array.isArray(payload)
+      ? payload
+      : [payload];
+    
+      console.log('payload: ', products)
+      
     axios
       .post(
         endpoints.add,

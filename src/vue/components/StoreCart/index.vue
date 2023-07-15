@@ -1,23 +1,25 @@
 <template>
   <div
-    class="w-full md:w-1/4 fixed top-0 right-0 bottom-0 bg-white border-l border-black z-50 px-3"
-    :class="{'-right-full': !visible}"
+    class="w-full md:w-1/4 fixed top-0 bottom-0 bg-white border-l border-black z-50 px-3"
+    :class="{
+      '-right-full': !visible,
+      'right-0': visible,
+    }"
   >
-    <div
-      v-if="items.length !== 0"
-      class="relative flex justify-between pt-10 border-b mb-4 pb-4"
-    >
+    <div class="relative flex justify-between pt-10 border-b mb-4 pb-4">
       <button class="absolute top-2 right-2" @click="close">Close</button>
       <p>Cart</p>
       <p>{{ cartData.item_count }}</p>
     </div>
     <div>
+      <button class="absolute top-2 right-2" @click="close">Close</button>
       <cart-item v-for="item in items" :key="item.key" :item="item" />
 
       <div
-        v-if="items.length === 0 && !loading"
+        v-if="items.length == 0 && !loading"
         class="text-center uppercase tracking-2p py-8"
       >
+        <button class="absolute top-2 right-2" @click="close">Close</button>
         No items in cart
       </div>
     </div>
@@ -50,20 +52,26 @@ export default {
       return this.cartData ? this.cartData.items : [];
     },
   },
+
   beforeMount() {
+    console.log("before mount");
     this.$store.dispatch("cart/initCart");
   },
+
   mounted() {
-    console.log("mounted");
+    console.log("visible: ", this.visible);
   },
+
   methods: {
     ...mapActions("cart", {
       init: "initCart",
       hide: "hide",
     }),
+
     close() {
       this.hide();
     },
+
     formatMoney(value) {
       return formatMoney(value, "${{amount}}");
     },

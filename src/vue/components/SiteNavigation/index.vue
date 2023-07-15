@@ -33,7 +33,7 @@ export default {
   },
   computed: {},
   mounted() {
-    console.log("mounted!");
+    console.log("site navigation -- mounted");
   },
   methods: {},
 };
