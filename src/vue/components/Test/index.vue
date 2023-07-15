@@ -8,9 +8,9 @@ export default {
   name: "TestThing",
 
   props: {
-    foo: 'foo'
+    foo: "foo",
   },
-  
+
   computed: {
     ...mapState("product", ["selectedVariant"]),
   },
@@ -20,7 +20,7 @@ export default {
   },
 
   mounted() {
-    console.log('mounted -- test')
+    console.log("mounted -- test");
   },
 };
 </script>

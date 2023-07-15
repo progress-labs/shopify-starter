@@ -7,26 +7,26 @@ export default {
       required: true,
     },
   },
-  
+
   data() {
     return {
-      selectedOptions: []
+      selectedOptions: [],
     };
   },
-  
+
   created() {
-    this.getInitialOptionValues()
+    this.getInitialOptionValues();
   },
 
   computed: {
     ...mapState("product", ["selectedVariant"]),
-    
+
     firstOption() {
       return this.selectedOptions.find(option => option.position === 1);
     },
 
     eligibleVariants() {
-      console.log('eligible variants')
+      console.log("eligible variants");
       /**
        * Assumes `option1` is the "anchored" option
        * Anchored meaning all other options depend on this to be set.
@@ -53,7 +53,7 @@ export default {
     },
 
     variantToPurchase() {
-      console.log(this.selectedOptions)
+      console.log(this.selectedOptions);
       const flatOptions = this.selectedOptions
         .map(option => String(option.value))
         .sort();
@@ -72,8 +72,8 @@ export default {
   },
 
   methods: {
-    getInitialOptionValues() {  
-      const localOptions = []
+    getInitialOptionValues() {
+      const localOptions = [];
       const firstAvailableVariant = this.productData.variants.find(
         variant => variant.available,
       );
@@ -84,11 +84,13 @@ export default {
           position: option.position,
         });
       });
-      
+
       this.selectedOptions = localOptions;
     },
     findVariantsByOptions(obj) {
-      const index = this.selectedOptions.findIndex(opt => opt.type === obj.type);
+      const index = this.selectedOptions.findIndex(
+        opt => opt.type === obj.type,
+      );
 
       if (index == -1) {
         this.selectedOptions.push(obj);
@@ -97,8 +99,8 @@ export default {
       }
     },
 
-    isActiveOption(option) {      
-      console.log('option: ', option)
+    isActiveOption(option) {
+      console.log("option: ", option);
       // if (!this.selectedOptions) return false;
       return this.selectedOptions.find(opt => isEqual(opt, option));
     },
@@ -109,9 +111,9 @@ export default {
        * Option 1 is the "anchor" option that always needs to be skipped because it always needs to be available
        */
       if (option.position === 1) {
-        return true
+        return true;
       } else {
-        return this.eligibleOptions.includes(String(option.value))
+        return this.eligibleOptions.includes(String(option.value));
       }
     },
   },

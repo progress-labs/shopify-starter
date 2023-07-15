@@ -1,4 +1,4 @@
- <script>
+<script>
 import {toRefs, ref} from "vue";
 
 export default {

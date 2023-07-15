@@ -5,7 +5,7 @@ export default {
   name: "ProductOptions",
 
   props: {
-    foo: 'foo'
+    foo: "foo",
   },
   computed: {
     ...mapState("product", ["selectedVariant"]),
@@ -24,16 +24,14 @@ export default {
   mounted() {
     /**
      * The setup in here relies on options to be selected,
-     * as the variants are filtered based on those selections. 
+     * as the variants are filtered based on those selections.
      * In this case, we preselect a value assuming there is one variant available.
      */
-    
     // if (this.eligibleVariants.length === 1) {
     //   const option = this.productData.options[0];
-      
     //   this.selectedOptions = [{
     //     type: option.name.toLowerCase(),
-    //     position: option.position, 
+    //     position: option.position,
     //     value: option.value[0]
     //   }]
     // }
