@@ -1,5 +1,6 @@
 import ESLintPlugin from "@modyqyw/vite-plugin-eslint";
 import StylelintPlugin from "vite-plugin-stylelint";
+import cleanup from '@by-association-only/vite-plugin-shopify-clean'
 import del from "rollup-plugin-delete";
 import {resolve} from "path";
 import shopifyModules from "vite-plugin-shopify-modules";
@@ -8,6 +9,7 @@ import vue from "@vitejs/plugin-vue";
 
 export default {
   plugins: [
+    cleanup(),
     vue({
       isProduction: process.env.NODE_ENV === "production",
     }),
@@ -31,7 +33,7 @@ export default {
       // Additional files to use as entry points (accepts an array of file paths or glob patterns)
       additionalEntrypoints: [],
     }),
-    shopifyModules(),
+    cleanup(),
   ],
   clearScreen: false,
   css: {
