@@ -1,42 +1,44 @@
-<form id="product-form border-black border-t-2 border-b-2">
-  <div>
-    {{ product.options }}
-  </div>
+{% comment %}
+  <form id="product-form border-black border-t-2 border-b-2">
+    <div>
+      {{ product.options }}
+    </div>
 
-  {%- for option in product.options_with_values -%}
-    <fieldset class="product-options mb-20" id="product-option-{{ option.id }}">
-      <legend>{{ option.name }}</legend>
-      <ul>
-        {%- for value in option.values -%}
-          {% liquid
-            assign name = option.name | append: '-' | append: value | handle
-          %}
-          <li>
-            <label for="{{ name }}">
-              <input
-                type="radio"
-                id="{{ name }}"
-                name="{{ option.name | downcase }}"
-                title="Select {{ value }} for {{ option.name }}"
-              >
-              <span>{{ value }}</span>
-            </label>
-          </li>
-        {%- endfor -%}
-      </ul>
-    </fieldset>
+    {%- for option in product.options_with_values -%}
+      <fieldset class="product-options mb-20" id="product-option-{{ option.id }}">
+        <legend>{{ option.name }}</legend>
+        <ul>
+          {%- for value in option.values -%}
+            {% liquid
+              assign name = option.name | append: '-' | append: value | handle
+            %}
+            <li>
+              <label for="{{ name }}">
+                <input
+                  type="radio"
+                  id="{{ name }}"
+                  name="{{ option.name | downcase }}"
+                  title="Select {{ value }} for {{ option.name }}"
+                >
+                <span>{{ value }}</span>
+              </label>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </fieldset>
+      <hr>
+    {%- endfor -%}
     <hr>
-  {%- endfor -%}
-  <hr>
-  <fieldset id="quantity-select">
-    <legend>Quantity</legend>
-    <button id="increase-quantity">+</button>
-    <label for="quantity-value">
-      <input id="quantity-value" type="text">
-    </label>
+    <fieldset id="quantity-select">
+      <legend>Quantity</legend>
+      <button id="increase-quantity">+</button>
+      <label for="quantity-value">
+        <input id="quantity-value" type="text">
+      </label>
 
-    <button id="decrease-quantity">-</button>
-  </fieldset>
+      <button id="decrease-quantity">-</button>
+    </fieldset>
 
-  <button class="mt-15 border border-black w-full " type="submit">Submit</button>
-</form>
+    <button class="mt-15 border border-black w-full " type="submit">Submit</button>
+  </form>
+{% endcomment %}
