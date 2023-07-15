@@ -1,4 +1,4 @@
-import '../src/css/main.scss'
+import "../src/css/main.scss";
 
 /**
  * imports
@@ -7,7 +7,6 @@ import {createApp} from "vue";
 import {createStore} from "vuex";
 
 // import "../../shopify/assets/bundle.css";
-
 
 /**
  * vuex

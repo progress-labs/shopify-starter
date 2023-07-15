@@ -47,7 +47,13 @@ export default {
        * Create a method that checks if the option in the DOM is in the array of available options
        */
       return uniq(
-        this.eligibleVariants.flatMap(variant => [variant.option1, variant.option2, variant.option3]).filter(Boolean),
+        this.eligibleVariants
+          .flatMap(variant => [
+            variant.option1,
+            variant.option2,
+            variant.option3,
+          ])
+          .filter(Boolean),
       );
     },
 
@@ -59,8 +65,8 @@ export default {
       const found = this.productData.variants.find(variant => {
         return isEqual(flatOptions, variant.options.sort());
       });
-      
-      console.log('variant to purchase: ', found)
+
+      console.log("variant to purchase: ", found);
 
       return found;
     },
@@ -88,12 +94,12 @@ export default {
 
       this.selectedOptions = localOptions;
     },
-    
+
     findVariantsByOptions(obj) {
       const index = this.selectedOptions.findIndex(
         opt => opt.type === obj.type,
       );
-      
+
       if (index == -1) {
         this.selectedOptions.push(obj);
       } else {

@@ -27,11 +27,13 @@ export default {
      */
     if (this.eligibleVariants.length === 1) {
       const option = this.productData.options[0];
-      this.selectedOptions = [{
-        type: option.name.toLowerCase(),
-        position: option.position,
-        value: option.value[0]
-      }]
+      this.selectedOptions = [
+        {
+          type: option.name.toLowerCase(),
+          position: option.position,
+          value: option.value[0],
+        },
+      ];
     }
   },
 

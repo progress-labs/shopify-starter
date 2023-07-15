@@ -11,7 +11,7 @@ const siteSpacing = () => {
   }
 
   obj[0] = 0;
-  console.log('obj: ', obj)
+  console.log("obj: ", obj);
   return obj;
 };
 

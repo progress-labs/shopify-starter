@@ -15,7 +15,7 @@ const state = {
 const getters = {
   variants: () => state.product.variants,
   product: () => state.product,
-  quantity: () => state.quantity
+  quantity: () => state.quantity,
 };
 
 /**
@@ -30,11 +30,11 @@ const mutations = {
     state.selectedVariant = value;
   },
   SET_QUANTITY_INCREASE(state, value) {
-    state.quantity = value
+    state.quantity = value;
   },
   SET_QUANTITY_DECREASE(state, value) {
-    state.quantity = value
-  }
+    state.quantity = value;
+  },
 };
 
 /**
@@ -48,14 +48,14 @@ const actions = {
     commit("SET_SELECTED_VARIANT", payload);
   },
   increaseQuantity({commit, state}, payload) {
-    console.log('payload: ', payload)
+    console.log("payload: ", payload);
     commit("SET_QUANTITY_INCREASE", state.quantity + payload);
   },
   decreaseQuantity({commit, state}, payload) {
-    console.log('payload: ', payload)
+    console.log("payload: ", payload);
     if (state.quantity === 1) return;
     commit("SET_QUANTITY_DECREASE", state.quantity - payload);
-  }
+  },
 };
 
 /**

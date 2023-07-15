@@ -1,5 +1,5 @@
 <script>
-import { mapState, mapActions } from 'vuex'
+import {mapState, mapActions} from "vuex";
 
 export default {
   name: "ProductQuantity",
@@ -9,19 +9,19 @@ export default {
     };
   },
   computed: {
-    ...mapState('product', ['quantity']),
+    ...mapState("product", ["quantity"]),
   },
   methods: {
-    ...mapActions('product', ['increaseQuantity', 'decreaseQuantity']),
+    ...mapActions("product", ["increaseQuantity", "decreaseQuantity"]),
   },
-  
+
   render() {
     return this.$slots.default({
       loading: this.loading,
       quantity: this.quantity,
       increaseQuantity: this.increaseQuantity,
-      decreaseQuantity: this.decreaseQuantity
+      decreaseQuantity: this.decreaseQuantity,
     });
   },
-}
+};
 </script>
