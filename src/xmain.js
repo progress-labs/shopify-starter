@@ -1,5 +1,3 @@
-import "../src/css/main.scss";
-
 /**
  * imports
  */

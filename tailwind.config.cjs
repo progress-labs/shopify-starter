@@ -11,11 +11,14 @@ const siteSpacing = () => {
   }
 
   obj[0] = 0;
-  console.log("obj: ", obj);
   return obj;
 };
 
 module.exports = {
+  content: [
+    path.resolve(__dirname, "**/*.{js,vue}"),
+    path.resolve(__dirname, "./shopify/**/*.liquid"),
+  ],
   theme: {
     extend: {},
     spacing: siteSpacing(),
@@ -25,8 +28,4 @@ module.exports = {
     },
   },
   plugins: [],
-  content: [
-    path.resolve(__dirname, "**/*.{js,vue}"),
-    path.resolve(__dirname, "../shopify/**/*.liquid"),
-  ],
 };

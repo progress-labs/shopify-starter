@@ -1,25 +1,24 @@
 import ESLintPlugin from "@modyqyw/vite-plugin-eslint";
 import StylelintPlugin from "vite-plugin-stylelint";
 import cleanup from '@by-association-only/vite-plugin-shopify-clean'
+import { defineConfig } from 'vite'
 import del from "rollup-plugin-delete";
 import {resolve} from "path";
-import tailwindcss from 'tailwindcss';
 import viteShopify from "vite-plugin-shopify";
 import vue from "@vitejs/plugin-vue";
 
-export default {
+export default defineConfig({
   plugins: [
-    cleanup(),
     vue({
       isProduction: process.env.NODE_ENV === "production",
     }),
     ESLintPlugin({
-      overrideConfigFile: resolve(__dirname, ".config/.eslintrc.js"),
+      overrideConfigFile: resolve(__dirname, "./eslintrc.cjs"),
       include: "./src/**/*.{js,vue}",
     }),
     StylelintPlugin({
       files: "./src/**/*.{vue,css,sass,scss}",
-      configFile: resolve(__dirname, "./config/.stylelintrc.js"),
+      configFile: resolve(__dirname, "./.stylelintrc.cjs"),
     }),
     viteShopify({
       // Root path to your Shopify theme directory (location of snippets, sections, templates, etc.)
@@ -33,7 +32,7 @@ export default {
   ],
   clearScreen: false,
   css: {
-    postcss: resolve(__dirname, "../.config/postcss.config.js"),
+    postcss: resolve(__dirname, "./postcss.config.cjs"),
   },
   resolve: {
     extensions: ["*", ".js", ".vue", ".json"],
@@ -44,9 +43,9 @@ export default {
     },
   },
   build: {
+    sourcemap: true,
     target: ["es2020", "chrome97", "safari14"],
     rollupOptions: {
-
       output: {
         entryFileNames: process.env.NODE_ENV === "development" ? `[name].js` : `[name]-[hash].js`,
         chunkFileNames: chunkInfo => {
@@ -67,7 +66,7 @@ export default {
           : assetInfo.name.split("/").pop().split(".").shift() == "main"
           ? "[name]-[hash].css"
           : "[name]-[hash].[ext]";
-        }
+        },
       },
       // plugins: [
       //   process.env.NODE_ENV == "production" &&
@@ -80,4 +79,4 @@ export default {
     assetsDir: ".",
     emptyOutDir: false,
   },
-};
+});

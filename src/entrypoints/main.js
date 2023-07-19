@@ -1,8 +1,3 @@
-/**
- * Import Main CSS directly into one file.
- */
-// import '../css/main.scss'
-
 import VueScreen from "vue-screen";
 /**
  * imports
