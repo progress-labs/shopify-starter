@@ -84,14 +84,16 @@
         {% section 'layout-footer' %}
         {% section 'layout-mobile-navigation' %}
 
-        <transition name="slide-mobile-menu">
-          {% render 'layout-mobile-menu' %}
-        </transition>
+        <div vue>
+          <transition name="slide-mobile-menu">
+            {% render 'layout-mobile-menu' %}
+          </transition>
+        </div>
       </div>
     {% endif %}
 
     {%- liquid
-      render 'vite-tag' with 'main.css', preload_stylesheet: true
+      render 'vite-tag' with 'main.scss', preload_stylesheet: true
       render 'vite-tag' with 'main.js'
     -%}
 

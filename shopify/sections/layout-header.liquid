@@ -1,17 +1,15 @@
 {% comment %}
-  Rendered Navigation if we need it. 
+  Rendered Navigation if we need it.
   Realistically, though, a navigation should be a Renderless component
   given the items should be on the page immediately for SEO value.
 {% endcomment %}
 
-{%
-  assign menu = section.settings.menu 
-%}
+{% assign menu = section.settings.menu %}
 
 {% if menu != blank %}
-  <div vue>
-    <site-navigation 
-      :menu='{% render 'helper-theme-menu-js' menu_handle: menu %}'
+  <div class="" vue>
+    <site-navigation
+      :menu="{% render 'helper-theme-menu-js' menu_handle: menu %}"
       menu-id="main-menu"
     />
   </div>

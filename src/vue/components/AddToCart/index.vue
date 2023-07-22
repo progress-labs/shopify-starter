@@ -6,7 +6,7 @@ export default {
   data: () => {
     return {
       loading: false,
-      foo: 'bar'
+      foo: "bar",
     };
   },
   computed: {

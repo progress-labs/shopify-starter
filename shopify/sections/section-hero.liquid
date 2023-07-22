@@ -28,7 +28,7 @@
     {% endif %}
 
     <div class="w-full md:max-w-xl md:absolute bottom-0 right-0 bg-white pt-6 md:p-6 md:mb-8 md:mr-8">
-      <div class="text-2xl lg:text-3xl font-bold mb-2">
+      <div class="text-3xl font-bold mb-10">
         {{ section.settings.headline }}
       </div>
 
@@ -37,7 +37,7 @@
       </div>
 
       <a href="{{ section.settings.button-url }}" class="button button-primary">
-        {{ section.settings.button-text }}
+        {{ section.settings['button-text'] }}
       </a>
     </div>
   </div>

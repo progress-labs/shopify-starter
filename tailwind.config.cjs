@@ -1,31 +1,17 @@
 /** @type {import('tailwindcss').Config} */
-const path = require("path");
-
-const siteSpacing = () => {
-  const obj = {};
-  const range = 100;
-
-  for (i = 1; i < range; i++) {
-    const value = i * 5;
-    obj[value] = value === 0 ? 0 : `${value}px`;
-  }
-
-  obj[0] = 0;
-  return obj;
-};
+import { colors, container, spacing } from './src/utils/tailwind'
 
 module.exports = {
+  mode: 'jit',
   content: [
-    path.resolve(__dirname, "**/*.{js,vue}"),
-    path.resolve(__dirname, "./shopify/**/*.liquid"),
+    "./shopify/**/*.liquid",
+    "*/*.{js,vue}",
   ],
   theme: {
     extend: {},
-    spacing: siteSpacing(),
-    container: {
-      center: true,
-      padding: "1rem",
-    },
+    spacing,
+    colors,
+    container,
   },
   plugins: [],
 };
