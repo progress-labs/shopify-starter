@@ -36,7 +36,7 @@ Aside from the baseline features of UI Crooks we've included the following.
 15. [Pinia Migration](https://pinia.vuejs.org/) (vuex alternative) migration
 16. ADA Compliant Mobile Menu
 17. ADA Complient Purchase Form
-18. Convert to Shopify CLI 3.0
+18. ~~Convert to Shopify CLI 3.0~~
 
 ## When To Choose Renderless vs Rendered Components
 
