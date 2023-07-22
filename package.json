@@ -76,6 +76,6 @@
     }
   },
   "config": {
-    "store": "chord-test"
+    "store": "store-name-here"
   }
 }
