@@ -32,7 +32,7 @@ Aside from the baseline features of UI Crooks we've included the following.
 11. PDP Add To Cart - Subscription
 12. PDP Add To Cart - Sold Out / Notify Me
 13. FAQ Page / Accordion Section
-14. Klaviyo Back In Stock Notification 
+14. ~~Klaviyo Back In Stock Notification~~
 15. [Pinia Migration](https://pinia.vuejs.org/) (vuex alternative) migration
 16. ADA Compliant Mobile Menu
 17. ADA Complient Purchase Form
