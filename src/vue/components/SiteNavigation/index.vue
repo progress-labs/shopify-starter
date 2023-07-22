@@ -7,7 +7,7 @@
         :key="item.handle"
         class="mx-10"
         :class="{
-          underline: item.active
+          underline: item.active,
         }"
       >
         <a :href="item.url">{{ item.title }}</a>
