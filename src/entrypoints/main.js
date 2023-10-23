@@ -4,7 +4,7 @@ import VueScreen from "vue-screen";
  */
 import {createApp} from "vue";
 import {createStore} from "vuex";
-import spacing from "../utils/tailwind/spacing";
+/* import spacing from "../utils/tailwind/spacing"; */
 
 console.log("foo!");
 /**
