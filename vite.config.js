@@ -32,7 +32,7 @@ export default defineConfig({
         assetFileNames: "[name].[hash].min[extname]",
       },
     },
-    outDir: resolve(__dirname, "shopify/assets"),
+    outDir: resolve(__dirname, "assets"),
     emptyOutDir: false,
   },
 });
