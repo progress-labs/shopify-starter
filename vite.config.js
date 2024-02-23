@@ -8,8 +8,8 @@ import vue from "@vitejs/plugin-vue";
 export default defineConfig({
   plugins: [
     vue(),
+    cleanup(),
     shopify({
-      themeRoot: "./shopify",
       sourceCodeDir: "./src",
       entrypointsDir: "./src/entrypoints",
     }),
@@ -19,6 +19,7 @@ export default defineConfig({
     alias: {
       vue: "vue/dist/vue.esm-bundler.js",
       "@": resolve(__dirname, "./src/"),
+      "@components": resolve(__dirname, "./src/vue/components"),
     },
   },
   build: {

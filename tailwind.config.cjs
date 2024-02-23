@@ -3,7 +3,13 @@ import {colors, container, spacing, zIndex} from "./src/utils/tailwind";
 
 module.exports = {
   mode: "jit",
-  content: ["./shopify/**/*.liquid", "*/*.{js,vue}"],
+  content: [
+    "./layout/*.liquid",
+    "./sections/*.liquid",
+    "./snippets/*.liquid",
+    "./templates/**/*.{liquid,json}",
+    "*/*.{js,vue}",
+  ],
   theme: {
     extend: {
       zIndex: zIndex,
