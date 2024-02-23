@@ -1,5 +1,6 @@
-import { defineConfig } from "vite";
-import { resolve } from "node:path";
+import cleanup from "@by-association-only/vite-plugin-shopify-clean";
+import {defineConfig} from "vite";
+import {resolve} from "node:path";
 import shopify from "vite-plugin-shopify";
 import vue from "@vitejs/plugin-vue";
 
@@ -21,6 +22,8 @@ export default defineConfig({
     },
   },
   build: {
+    sourcemap: true,
+    manifest: true,
     rollupOptions: {
       output: {
         entryFileNames: "[name].[hash].min.js",
@@ -29,5 +32,6 @@ export default defineConfig({
       },
     },
     outDir: resolve(__dirname, "shopify/assets"),
+    emptyOutDir: false,
   },
 });
