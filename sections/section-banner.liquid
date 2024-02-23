@@ -1,0 +1,89 @@
+{% assign image = section.settings.image %}
+
+<div class="container grid md:grid-cols-2 lg:grid-cols-3 mb-12 md:mb-24">
+  <div class="lg:col-span-2">
+    {% if image %}
+      <img
+        sizes="
+          (min-width: 1536px) 1000px,
+          (min-width: 1280px) 850px,
+          (min-width: 1024px) 700px,
+          (min-width: 768px) 400px,
+          (min-width: 640px) 500px,
+          600px
+        "
+        srcset="
+          {{ image | image_url: width: 400 }} 400w,
+          {{ image | image_url: width: 500 }} 500w,
+          {{ image | image_url: width: 600 }} 600w,
+          {{ image | image_url: width: 700 }} 700w,
+          {{ image | image_url: width: 850 }} 850w,
+          {{ image | image_url: width: 1000 }} 1000w
+        "
+        src="{{ image | image_url: width: 1000 }}"
+        alt="{{ image.alt }}"
+        loading="lazy"
+        class="w-full h-full object-cover object-center"
+      >
+    {% else %}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'w-full h-full' }}
+    {% endif %}
+  </div>
+
+  <div class="flex flex-col justify-center items-start pt-4 md:p-8">
+    <div class="text-2xl lg:text-3xl font-bold mb-2">
+      {{ section.settings.headline }}
+    </div>
+
+    <div class="mb-6">
+      {{ section.settings.text }}
+    </div>
+
+    <a href="{{ section.settings.button-url }}" class="button button-primary">
+      {{ section.settings.button-text }}
+    </a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.banner.name",
+  "class": "shopify-section-vue",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:common.image"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "t:common.headline",
+      "default": "Headline"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "t:common.text",
+      "default": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste quos hic praesentium recusandae dolores odio animi deleniti officia cum itaque."
+    },
+    {
+      "type": "url",
+      "id": "button-url",
+      "label": "t:common.button.url"
+    },
+    {
+      "type": "text",
+      "id": "button-text",
+      "label": "t:common.button.text",
+      "default": "Button"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.banner.name",
+      "category": "Image"
+    }
+  ]
+}
+{% endschema %}
