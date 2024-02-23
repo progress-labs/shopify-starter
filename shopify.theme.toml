@@ -1,0 +1,8 @@
+[environments.local]
+store = "progress-labs-recharge"
+output = "json"
+
+[environments.prod]
+store = "progress-labs-recharge"
+unpublished = true
+output = "json"

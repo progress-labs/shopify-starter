@@ -1,5 +1,6 @@
-import { defineConfig } from "vite";
-import { resolve } from "node:path";
+import cleanup from "@by-association-only/vite-plugin-shopify-clean";
+import {defineConfig} from "vite";
+import {resolve} from "node:path";
 import shopify from "vite-plugin-shopify";
 import vue from "@vitejs/plugin-vue";
 
@@ -7,8 +8,8 @@ import vue from "@vitejs/plugin-vue";
 export default defineConfig({
   plugins: [
     vue(),
+    cleanup(),
     shopify({
-      themeRoot: "./shopify",
       sourceCodeDir: "./src",
       entrypointsDir: "./src/entrypoints",
     }),
@@ -18,9 +19,12 @@ export default defineConfig({
     alias: {
       vue: "vue/dist/vue.esm-bundler.js",
       "@": resolve(__dirname, "./src/"),
+      "@components": resolve(__dirname, "./src/vue/components"),
     },
   },
   build: {
+    sourcemap: true,
+    manifest: true,
     rollupOptions: {
       output: {
         entryFileNames: "[name].[hash].min.js",
@@ -28,6 +32,7 @@ export default defineConfig({
         assetFileNames: "[name].[hash].min[extname]",
       },
     },
-    outDir: resolve(__dirname, "shopify/assets"),
+    outDir: resolve(__dirname, "assets"),
+    emptyOutDir: false,
   },
 });
