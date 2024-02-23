@@ -1,14 +1,13 @@
 /** @type {import('tailwindcss').Config} */
-import { colors, container, spacing } from './src/utils/tailwind'
+import {colors, container, spacing, zIndex} from "./src/utils/tailwind";
 
 module.exports = {
-  mode: 'jit',
-  content: [
-    "./shopify/**/*.liquid",
-    "*/*.{js,vue}",
-  ],
+  mode: "jit",
+  content: ["./shopify/**/*.liquid", "*/*.{js,vue}"],
   theme: {
-    extend: {},
+    extend: {
+      zIndex: zIndex,
+    },
     spacing,
     colors,
     container,
