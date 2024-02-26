@@ -8,7 +8,7 @@ module.exports = {
     "./sections/*.liquid",
     "./snippets/*.liquid",
     "./templates/**/*.{liquid,json}",
-    "*/*.{js,vue}",
+    "./src/**/*.{js,vue}",
   ],
   theme: {
     extend: {
