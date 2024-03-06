@@ -22,6 +22,8 @@
         "
         src="{{ article | image_url: width: 750 }}"
         alt="{{ article.image.alt | escape }}"
+        width="{{ article.image.width }}"
+        height="{{ article.image.height }}"
         loading="lazy"
         class="w-full"
       >

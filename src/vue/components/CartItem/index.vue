@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import {mapState, mapGetters, mapActions} from "vuex";
+import {mapState, mapActions} from "vuex";
 import {formatMoney} from "@shopify/theme-currency";
 export default {
   name: "CartItem",

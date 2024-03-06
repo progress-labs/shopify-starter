@@ -68,7 +68,7 @@ const createVueApp = () => {
   //   const mixins = require.context('./vue/mixins/', true, /.*global.*\.js$/)
   const mixins = import.meta.globEager("./vue/mixins/*.js");
 
-  Object.entries(mixins).forEach(([path, definition]) => {
+  Object.entries(mixins).forEach(([, definition]) => {
     app.mixin(definition.default);
   });
 
@@ -78,7 +78,7 @@ const createVueApp = () => {
    */
   const directives = import.meta.globEager("./vue/directives/*.js");
 
-  Object.entries(directives).forEach(([path, definition]) => {
+  Object.entries(directives).forEach(([, definition]) => {
     const directive = definition.default;
     app.directive(directive.name, directive.directive);
   });

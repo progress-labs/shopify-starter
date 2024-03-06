@@ -28,17 +28,23 @@
     {% endif %}
 
     <div class="w-full md:max-w-xl md:absolute bottom-0 right-0 bg-white pt-6 md:p-6 md:mb-8 md:mr-8">
-      <div class="text-3xl font-bold mb-10">
-        {{ section.settings.headline }}
-      </div>
+      {% if section.settings.headline %}
+        <div class="text-3xl font-bold mb-10">
+          {{ section.settings.headline }}
+        </div>
+      {% endif %}
 
-      <div class="mb-6">
-        {{ section.settings.text }}
-      </div>
-
-      <a href="{{ section.settings.button-url }}" class="button button-primary">
-        {{ section.settings['button-text'] }}
-      </a>
+      {% if section.settings.text %}
+        <p class="mb-6">
+          {{ section.settings.text }}
+        </p>
+      {% endif %}
+      
+      {% if section.settings.button-text %}
+        <a href="{{ section.settings.button-url }}" class="button button-primary">
+          {{ section.settings['button-text'] }}
+        </a>
+      {% endif %}
     </div>
   </div>
 </div>

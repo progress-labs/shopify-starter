@@ -8,11 +8,13 @@
             400px
           "
           srcset="
-            {{ product | image_url: width: 275 }} 275w,
-            {{ product | image_url: width: 400 }} 400w
+            {{ product.image | image_url: width: 275 }} 275w,
+            {{ product.image | image_url: width: 400 }} 400w
           "
-          src="{{ product | image_url: width: 400 }}"
-          alt="{{ product.title | escape }}"
+          src="{{ product.image | image_url: width: 400 }}"
+          alt="{{ product.image.title | escape }}"
+          width="{{ product.image.width }}"
+          height="{{ product.image.height }}"
           loading="lazy"
           class="w-full h-full object-cover object-center"
         >

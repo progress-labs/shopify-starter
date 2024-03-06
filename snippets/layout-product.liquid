@@ -11,6 +11,8 @@
       "
       src="{{ product.featured_image.src | image_url: width: 630 }}"
       alt="{{ product.featured_image.alt | escape }}"
+      width="{{ product.featured_image.width }}"
+      height="{{ product.featured_image.height }}"
       loading="lazy"
       class="w-full h-80 sm:h-64 xl:h-80 2xl:max-h-96 object-cover object-center"
     >

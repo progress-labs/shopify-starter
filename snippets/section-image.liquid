@@ -18,6 +18,8 @@
       src="{{ image | image_url: width: 500 }}"
       alt="{{ image.alt }}"
       loading="lazy"
+      width="{{ image.width }}"
+      height="{{ image.height }}"
       class="w-full h-full object-cover object-center"
     >
   {% else %}
