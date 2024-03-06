@@ -7,12 +7,12 @@ _Please include a short description using non-technical terms about the changes 
 ## Testing steps/scenarios:
 - [ ] _List all the testing tasks that applies to your fix and help peers to review your work._
 
-## Demo link:
+### Demo link:
 
 - [Store]()
 - [Editor]()
 
-### Checklist:
+## Checklist:
 
 - [ ] Added PR summary for [release notes](https://themes.shopify.com/themes/dawn/styles/default#ReleaseNotes)
 - [ ] Followed [theme code principles](https://github.com/Shopify/dawn/blob/main/.github/CONTRIBUTING.md#theme-code-principles)
