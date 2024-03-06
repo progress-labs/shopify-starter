@@ -1,19 +1,19 @@
-**PR Summary:** 
+# PR Summary
 
 _Please include a short description using non-technical terms about the changes you are introducing._
 
-**Other considerations**
+## Other considerations:
 
-**Testing steps/scenarios**
+## Testing steps/scenarios:
 - [ ] _List all the testing tasks that applies to your fix and help peers to review your work._
 
-**Demo links**
+## Demo link:
 
-Beta:
 - [Store]()
 - [Editor]()
 
-**Checklist**
+### Checklist:
+
 - [ ] Added PR summary for [release notes](https://themes.shopify.com/themes/dawn/styles/default#ReleaseNotes)
 - [ ] Followed [theme code principles](https://github.com/Shopify/dawn/blob/main/.github/CONTRIBUTING.md#theme-code-principles)
 - [ ] Linted with [Theme Check](https://github.com/Shopify/theme-check)
