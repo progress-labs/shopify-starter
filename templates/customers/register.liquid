@@ -4,18 +4,14 @@
   </h1>
 
   {% form 'create_customer' %}
-    <input type="hidden" name="customer[tags]" value="locale={{ request.locale.iso_code }}" />
+    <input type="hidden" name="customer[tags]" value="locale={{ request.locale.iso_code }}">
 
     {% if form.errors %}
       {% capture error_text %}
         {{ form.errors | default_errors }}
       {% endcapture %}
 
-      {% render 'layout-message',
-        type: 'error'
-        text: error_text
-        class: 'mb-8'
-      %}
+      {% render 'layout-message', type: 'error', text: error_text, class: 'mb-8' %}
     {% endif %}
 
     <div class="mb-4 sm:mb-6">
@@ -30,7 +26,9 @@
         type="text"
         id="FirstName"
         name="customer[first_name]"
-        {% if form.first_name %}value="{{ form.first_name }}"{% endif %}
+        {% if form.first_name %}
+          value="{{ form.first_name }}"
+        {% endif %}
         class="w-full"
         required
       >
@@ -48,7 +46,9 @@
         type="text"
         id="LastName"
         name="customer[last_name]"
-        {% if form.last_name %}value="{{ form.last_name }}"{% endif %}
+        {% if form.last_name %}
+          value="{{ form.last_name }}"
+        {% endif %}
         class="w-full"
         required
       >

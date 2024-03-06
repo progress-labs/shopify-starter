@@ -1,10 +1,10 @@
 <div vue>
   {% if section.settings.visible %}
     {% if section.settings.home_page_only == false or template.name == 'index' %}
-      <announcement-bar 
+      <announcement-bar
         :visible="{{ section.settings.visible }}"
         content="{{ section.settings.content }}"
-      />    
+      />
     {% endif %}
   {% endif %}
 </div>

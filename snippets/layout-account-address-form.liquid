@@ -164,7 +164,15 @@
 
 <div class="mb-4 sm:mb-6">
   <label for="AddressDefault_{{ form.id }}" class="checkbox">
-    <input type="checkbox" name="address[default]" id="AddressDefault_{{ form.id }}" value="1" {% if customer.default_address == blank %}checked{% endif %}>
+    <input
+      type="checkbox"
+      name="address[default]"
+      id="AddressDefault_{{ form.id }}"
+      value="1"
+      {% if customer.default_address == blank %}
+        checked
+      {% endif %}
+    >
 
     {{ 'customer.addresses.set_as_default_address' | t }}
   </label>
@@ -188,7 +196,5 @@
     </button>
   </div>
 
-  <div class="text-sm text-gray-600 mt-8 md:mt-0">
-    * {{ 'form.required' | t }}
-  </div>
+  <div class="text-sm text-gray-600 mt-8 md:mt-0">* {{ 'form.required' | t }}</div>
 </div>

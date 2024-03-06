@@ -1,7 +1,8 @@
 <div class="{{ class | default: '' }}" style="{{ style | default: '' }}">
   <div class="h-16 flex justify-between border-t border-b">
     <div class="flex items-center">
-      {{ amount }} {% if amount > 1 %}{{ 'common.products' | t }}{% else %}{{ 'common.product' | t }}{% endif %}
+      {{ amount }}
+      {% if amount > 1 %}{{ 'common.products' | t }}{% else %}{{ 'common.product' | t }}{% endif %}
     </div>
 
     {% unless template == 'search' %}

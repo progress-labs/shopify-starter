@@ -19,11 +19,10 @@
       {% endfor %}
     </div>
 
-    {% if
-      section.settings.social_instagram_visible or
-      section.settings.social_twitter_visible or
-      section.settings.social_facebook_visible or
-      section.settings.social_youtube_visible
+    {% if section.settings.social_instagram_visible
+      or section.settings.social_twitter_visible
+      or section.settings.social_facebook_visible
+      or section.settings.social_youtube_visible
     %}
       <div>
         <div class="text-lg font-bold mb-3">
@@ -31,13 +30,13 @@
         </div>
 
         {% render 'layout-social',
-          social_instagram_visible: section.settings.social_instagram_visible
-          social_instagram_link: section.settings.social_instagram_link
-          social_twitter_visible: section.settings.social_twitter_visible
-          social_twitter_link: section.settings.social_twitter_link
-          social_facebook_visible: section.settings.social_facebook_visible
-          social_facebook_link: section.settings.social_facebook_link
-          social_youtube_visible: section.settings.social_youtube_visible
+          social_instagram_visible: section.settings.social_instagram_visible,
+          social_instagram_link: section.settings.social_instagram_link,
+          social_twitter_visible: section.settings.social_twitter_visible,
+          social_twitter_link: section.settings.social_twitter_link,
+          social_facebook_visible: section.settings.social_facebook_visible,
+          social_facebook_link: section.settings.social_facebook_link,
+          social_youtube_visible: section.settings.social_youtube_visible,
           social_youtube_link: section.settings.social_youtube_link
         %}
       </div>
@@ -82,27 +81,27 @@
 
 <div class="border-t border-gray-200 py-8 bg-red">
   <div class="container text-sm text-gray-600 font-medium text-center">
-    &copy; {{ 'now' | date: "%Y" }} {{ shop.name }}
+    &copy; {{ 'now' | date: '%Y' }}
+    {{ shop.name }}
   </div>
-  
+
   {% if settings.klaviyo_id != blank %}
-  <div vue>
-    <Newsletter 
-      v-slot="{ submitHandler, loading, message, success }"
-      list-id="{{ settings.klaviyo_id }}" 
-    />
-    
-      <form class="flex pb-2 border-b border-sunset border border-black " @submit="submitHandler">
-        <label class="block" for="email">
-          <span class="sr-only">Email</span>
-          <input type="email" id="email" name="email" required>
-        </label>
-        
-        <button type="submit">Submit</button>
-        <div v-text="message"></div>
-      </form>
-    </Newsletter>
-  </div>
+    <div vue>
+      <Newsletter
+        v-slot="{ submitHandler, loading, message, success }"
+        list-id="{{ settings.klaviyo_id }}"
+      >
+        <form class="flex pb-2 border-b border-sunset border border-black " @submit="submitHandler">
+          <label class="block" for="email">
+            <span class="sr-only">Email</span>
+            <input type="email" id="email" name="email" required>
+          </label>
+
+          <button type="submit">Submit</button>
+          <div v-text="message"></div>
+        </form>
+      </Newsletter>
+    </div>
   {% endif %}
 </div>
 

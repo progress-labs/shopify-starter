@@ -14,11 +14,7 @@
           {{ form.errors | default_errors }}
         {% endcapture %}
 
-        {% render 'layout-message',
-          type: 'error'
-          text: error_text
-          class: 'mb-8'
-        %}
+        {% render 'layout-message', type: 'error', text: error_text, class: 'mb-8' %}
       {% endif %}
 
       <div class="flex flex-wrap md:flex-nowrap md:gap-x-6">
@@ -102,9 +98,7 @@
           {{ 'action.send' | t }}
         </button>
 
-        <div class="text-sm mt-4 sm:mt-0">
-          *{{ 'form.required' | t }}
-        </div>
+        <div class="text-sm mt-4 sm:mt-0">*{{ 'form.required' | t }}</div>
       </div>
     </div>
   {% endform %}

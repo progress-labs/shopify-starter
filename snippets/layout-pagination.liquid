@@ -13,12 +13,12 @@
 
     {% for part in paginate.parts %}
       {% if part.is_link %}
-          <a
-            href="{{ part.url }}"
-            class="{{ link_class }}"
-          >
-            {{ part.title }}
-          </a>
+        <a
+          href="{{ part.url }}"
+          class="{{ link_class }}"
+        >
+          {{ part.title }}
+        </a>
       {% else %}
         {% if part.title == paginate.current_page %}
           <div class="{{ link_class }} bg-black text-white">

@@ -41,8 +41,8 @@
           {{ section.settings.text }}
         </p>
       {% endif %}
-      
-      {% if section.settings.button-text %}
+
+      {% if section.settings['button-text'] %}
         <a href="{{ section.settings.button-url }}" class="button button-primary">
           {{ section.settings['button-text'] }}
         </a>

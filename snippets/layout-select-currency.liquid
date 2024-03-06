@@ -7,9 +7,12 @@
     {% for currency in shop.enabled_currencies %}
       <option
         value="{{ currency.iso_code }}"
-        {% if currency == cart.currency %}selected="true"{% endif %}
+        {% if currency == cart.currency %}
+          selected="true"
+        {% endif %}
       >
-        {{ currency.iso_code }} {{ currency.symbol }}
+        {{ currency.iso_code }}
+        {{ currency.symbol }}
       </option>
     {% endfor %}
   </select>

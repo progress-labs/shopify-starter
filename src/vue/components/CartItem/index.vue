@@ -1,6 +1,6 @@
 <template>
-  <div class="p-5 flex border-b border-selago">
-    <div class="w-32 mr-4">
+  <div class="border-selago flex border-b p-5">
+    <div class="mr-4 w-32">
       <img
         class="rounded-lg"
         :src="item.image"
@@ -11,18 +11,18 @@
     <div class="w-full">
       <!-- title -->
       <h4
-        class="text-sm text-black my-3 leading-4 tracking-px font-medium"
+        class="tracking-px my-3 text-sm font-medium leading-4 text-black"
         v-text="item.title"
       />
       <div class="flex justify-between">
         <button
-          class="border border-black px-2 bg-gray-200 text-xs"
+          class="border border-black bg-gray-200 px-2 text-xs"
           @click="update('increment')"
         >
           Increment
         </button>
         <button
-          class="border border-black px-2 bg-gray-200 text-xs"
+          class="border border-black bg-gray-200 px-2 text-xs"
           @click="update('decrement')"
         >
           Decrement
@@ -30,7 +30,7 @@
       </div>
       <div class="flex items-end">
         <span
-          class="py-2 uppercase underline text-gray tracking-2p text-2xs cursor-pointer"
+          class="text-gray tracking-2p text-2xs cursor-pointer py-2 uppercase underline"
           @click="remove"
         >
           Remove
@@ -38,18 +38,18 @@
 
         <div class="ml-auto flex flex-col items-end">
           <div>
-            <span class="text-gray tracking-2p text-xs mr-2 leading-5">
+            <span class="text-gray tracking-2p mr-2 text-xs leading-5">
               {{ item.quantity }} x
             </span>
             <span
-              class="text-sm tracking-px text-sunset font-medium"
+              class="tracking-px text-sunset text-sm font-medium"
               v-text="formatMoney(item.final_price)"
             />
           </div>
           <div>
             <span
               v-if="item.price > item.final_price"
-              class="text-sm tracking-px text-gray line-through"
+              class="tracking-px text-gray text-sm line-through"
               v-text="formatMoney(item.price)"
             />
           </div>

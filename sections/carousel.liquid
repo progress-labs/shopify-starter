@@ -3,11 +3,27 @@
   <div vue>
     <carousel>
       <div class="w-full slide">
-        <img src="http://via.placeholder.com/640x360" width="640" height="360" loading="lazy" {% if section.index0 == 0 %} loading="eager"{% endif %}" />
+        <img
+          src="http://via.placeholder.com/640x360"
+          width="640"
+          height="360"
+          loading="lazy"
+          {% if section.index0 == 0 %}
+            loading="eager"
+          {% endif %}
+        >
       </div>
       <div class="w-full slide">Slide 2</div>
       <div class="w-full slide">
-        <img src="http://via.placeholder.com/640x660" width="640" height="660" loading="lazy" {% if section.index0 == 0 %} loading="eager"{% endif %}" />
+        <img
+          src="http://via.placeholder.com/640x660"
+          width="640"
+          height="660"
+          loading="lazy"
+          {% if section.index0 == 0 %}
+            loading="eager"
+          {% endif %}
+        >
       </div>
       <div class="w-full slide">Slide 4</div>
     </carousel>
@@ -18,9 +34,7 @@
 {
   "name": "Carousel",
   "class": "shopify-section-vue",
-  "settings": [
-
-  ],
+  "settings": [],
   "presets": [
     {
       "name": "Carousel",

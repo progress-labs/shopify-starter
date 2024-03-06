@@ -1,32 +1,38 @@
-
 <div class="flex items-center {{ class | default: '' }}" style="{{ style | default: '' }}">
   {% assign financial_status_class = 'h-6 inline-flex justify-center items-center text-sm leading-none rounded-full pl-2 pr-3' %}
   {% assign financial_status_icon_class = 'w-5 flex-shrink-0 mr-1' %}
+  {% assign order_status_class = '' %}
 
   {% case order.financial_status %}
-    {% when 'pending' %}
-      <div class="{{ financial_status_class }} bg-gray-100 text-gray-600">
-      {% render 'icon-dots', class: financial_status_icon_class %}
-    {% when 'authorized' %}
-      <div class="{{ financial_status_class }} bg-green-100 text-green-800">
-      {% render 'icon-check', class: financial_status_icon_class %}
-    {% when 'paid' %}
-      <div class="{{ financial_status_class }} bg-green-100 text-green-800">
-      {% render 'icon-check', class: financial_status_icon_class %}
-    {% when 'partially_paid' %}
-      <div class="{{ financial_status_class }} bg-gray-100 text-gray-600">
-      {% render 'icon-dots', class: financial_status_icon_class %}
+    {% when 'pending', 'partially_paid' %}
+      {% assign order_status_class = 'bg-gray-100 text-gray-600' %}
+      {% capture icon_svg %}
+        {% render 'icon-dots', class: financial_status_icon_class %}
+      {% endcapture %}
+    {% when 'authorized', 'paid' %}
+      {% assign order_status_class = 'bg-green-100 text-green-800' %}
+      {% capture icon_svg %}
+        {% render 'icon-check', class: financial_status_icon_class %}
+      {% endcapture %}
     {% when 'refunded' %}
-      <div class="{{ financial_status_class }} bg-green-100 text-green-800">
-      {% render 'icon-back', class: financial_status_icon_class %}
+      {% assign order_status_class = 'bg-green-100 text-green-800' %}
+      {% capture icon_svg %}
+        {% render 'icon-back', class: financial_status_icon_class %}
+      {% endcapture %}
     {% when 'partially_refunded' %}
-      <div class="{{ financial_status_class }} bg-gray-100 text-gray-600">
-      {% render 'icon-back', class: financial_status_icon_class %}
+      {% assign order_status_class = 'bg-gray-100 text-gray-600' %}
+      {% capture icon_svg %}
+        {% render 'icon-back', class: financial_status_icon_class %}
+      {% endcapture %}
     {% when 'voided' %}
-      <div class="{{ financial_status_class }} bg-red-100 text-red-800">
-      {% render 'icon-cancel', class: financial_status_icon_class %}
+      {% assign order_status_class = 'bg-red-100 text-red-800' %}
+      {% capture icon_svg %}
+        {% render 'icon-cancel', class: financial_status_icon_class %}
+      {% endcapture %}
   {% endcase %}
 
+  <div class="{{ financial_status_class }} {{ order_status_class }}">
+    {{ icon_svg }}
     <span>
       {{ order.financial_status_label }}
     </span>
