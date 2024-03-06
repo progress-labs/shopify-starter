@@ -2,8 +2,15 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@shopify-directory/*": ["./shopify/*"]
+      "@/*": [
+        "./src/*"
+      ],
+      "@shopify-directory/*": [
+        "./sections/*",
+        "./snippets/*",
+        "./templates/*",
+        "./layout/*"
+      ]
     }
   }
 }

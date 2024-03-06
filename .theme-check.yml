@@ -2,3 +2,7 @@ root: .
 
 MatchingTranslations:
   enabled: false
+AssetPreload: 
+  enabled: false
+LiquidTag:
+  enabled: false
