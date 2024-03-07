@@ -4,7 +4,7 @@
 {% endcomment %}
 {% assign path = vite-tag | replace: 'vue/', '../../vue/dist/vue.esm-bundler.js/' | replace: '@/', '../' | replace: '@components/', '../vue/components/' | replace: '~/', '../' %}
 {% if path == "/src/entrypoints/main.js" or path == "main.js" %}
-  <script src="{{ 'main.937a0b68.min.js' | asset_url | split: '?' | first }}" type="module" crossorigin="anonymous"></script>
+  <script src="{{ 'main.4747c7d0.min.js' | asset_url | split: '?' | first }}" type="module" crossorigin="anonymous"></script>
 {% elsif path == "/src/entrypoints/main.scss" or path == "main.scss" %}
-  {{ 'main.39cc5f73.min.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
+  {{ 'main.aab9a96c.min.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
 {% endif %}

@@ -65,7 +65,7 @@ export default function (plop) {
     actions: [
       {
         type: "add",
-        path: "shopify/sections/{{ kebabCase name }}.liquid",
+        path: "sections/{{ kebabCase name }}.liquid",
         templateFile: `${plopDir}/section.hbs`,
       },
       {
@@ -88,7 +88,7 @@ export default function (plop) {
     actions: [
       {
         type: "add",
-        path: "shopify/snippets/{{ kebabCase name }}.liquid",
+        path: "snippets/{{ kebabCase name }}.liquid",
         templateFile: `${plopDir}/snippet.hbs`,
       },
     ], // array of actions
