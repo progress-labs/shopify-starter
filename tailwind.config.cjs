@@ -13,10 +13,10 @@ module.exports = {
   theme: {
     extend: {
       zIndex: zIndex,
-      spacing,
-      colors,
-      container,
     },
+    spacing,
+    colors,
+    container,
   },
   plugins: [],
 };
