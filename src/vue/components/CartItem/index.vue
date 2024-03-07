@@ -16,13 +16,13 @@
       />
       <div class="flex justify-between">
         <button
-          class="border border-black bg-gray-200 px-2 text-xs"
+          class="bg-gray-200 px-2 border border-black text-xs"
           @click="update('increment')"
         >
           Increment
         </button>
         <button
-          class="border border-black bg-gray-200 px-2 text-xs"
+          class="bg-gray-200 px-2 border border-black text-xs"
           @click="update('decrement')"
         >
           Decrement
@@ -30,7 +30,7 @@
       </div>
       <div class="flex items-end">
         <span
-          class="text-gray tracking-2p text-2xs cursor-pointer py-2 uppercase underline"
+          class="text-gray tracking-2p text-2xs py-2 cursor-pointer uppercase underline"
           @click="remove"
         >
           Remove
