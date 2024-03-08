@@ -1,24 +1,27 @@
-{% comment %}
-  Rendered Navigation if we need it.
-  Realistically, though, a navigation should be a Renderless component
-  given the items should be on the page immediately for SEO value.
-{% endcomment %}
+{% style %}
+  {% if section.settings.fixed %}
+    .header-bar {
+      position: sticky;
+      top: 0;
+      background: white;
+      z-index: 30;
+    }
+  {% endif %}
+{% endstyle %}
 
-{% assign menu = section.settings.menu %}
+<div class="flex justify-between container py-20">
+  {% render 'mobile-menu' %}
 
-{% if menu != blank %}
-  <div class="" vue>
-    <site-navigation
-      :menu="{% render 'helper-theme-menu-js' menu_handle: menu %}"
-      menu-id="main-menu"
-    />
-  </div>
-{% endif %}
+  {% render 'layout-header-navigation-bar', menu: section.settings.menu %}
+
+  {% render 'cart' %}
+</div>
 
 {% schema %}
 {
   "name": "t:sections.header.name",
   "tag": "header",
+  "class": "h-70 header-bar",
   "settings": [
     {
       "type": "paragraph",
@@ -27,7 +30,15 @@
     {
       "type": "link_list",
       "id": "menu",
-      "label": "Menu"
+      "label": "Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "fixed",
+      "label": "Fixed?",
+      "info": "This option will make the header fixed while scrolling through the page.",
+      "default": true
     }
   ]
 }

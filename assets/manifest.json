@@ -1,11 +1,18 @@
 {
+  "src/entrypoints/main.css": {
+    "file": "main.a9b8ee90.min.css",
+    "src": "src/entrypoints/main.css"
+  },
   "src/entrypoints/main.js": {
-    "file": "main.05b6b169.min.js",
+    "css": [
+      "main.a9b8ee90.min.css"
+    ],
+    "file": "main.8362bab2.min.js",
     "isEntry": true,
     "src": "src/entrypoints/main.js"
   },
   "src/entrypoints/main.scss": {
-    "file": "main.aab9a96c.min.css",
+    "file": "main.425b573c.min.css",
     "isEntry": true,
     "src": "src/entrypoints/main.scss"
   }
