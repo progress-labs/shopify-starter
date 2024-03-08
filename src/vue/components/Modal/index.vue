@@ -9,24 +9,24 @@
         :class="modalClass"
         @click="hideModal"
       >
-      <FocusTrap v-model:active="isOpen">
-        <div
-          role="dialog"
-          aria-modal="true"
-          :ref="trapRef"
-          class="container absolute bottom-0 left-0 h-[100vh] w-full lg:left-1/2 lg:top-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2 bg-white md:h-[400px] max-w-screen-md py-15"
-          :class="containerClass"
-          @click="event => event.stopImmediatePropagation()"
-          :aria-label="modalId"
-        >
-          <slot
-            :isOpen="isOpen"
-            :hide="hideModal"
-            :show="showModal"
-            name="content"
-          />
-        </div>
-      </FocusTrap>
+        <FocusTrap v-model:active="isOpen">
+          <div
+            role="dialog"
+            aria-modal="true"
+            :ref="trapRef"
+            class="container absolute bottom-0 left-0 h-[100vh] w-full lg:left-1/2 lg:top-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2 bg-white md:h-[400px] max-w-screen-md py-15"
+            :class="containerClass"
+            @click="event => event.stopImmediatePropagation()"
+            :aria-label="modalId"
+          >
+            <slot
+              :isOpen="isOpen"
+              :hide="hideModal"
+              :show="showModal"
+              name="content"
+            />
+          </div>
+        </FocusTrap>
       </aside>
     </Transition>
   </Teleport>
@@ -39,9 +39,9 @@
 </style>
 
 <script>
-import { FocusTrap } from 'focus-trap-vue'
-import { Teleport } from "vue";
-import { mapState, mapActions } from "vuex";
+import {FocusTrap} from "focus-trap-vue";
+import {Teleport} from "vue";
+import {mapState, mapActions} from "vuex";
 
 export default {
   name: "Modal",
@@ -54,8 +54,8 @@ export default {
     containerClass: String,
     transitionName: {
       type: String,
-      default: 'fade'
-    }
+      default: "fade",
+    },
   },
   data() {
     return {
@@ -75,10 +75,10 @@ export default {
       this.hide(this.modalId);
     },
     handleEscapeKey(e) {
-      if (e.key === "Escape"){
+      if (e.key === "Escape") {
         this.hideModal();
       }
-    }
+    },
   },
   watch: {
     modals() {
@@ -91,14 +91,14 @@ export default {
     if (new URLSearchParams(location.search).get(this.modalId) === "true") {
       this.showModal();
     }
-    document.addEventListener('keyup', this.handleEscapeKey);
+    document.addEventListener("keyup", this.handleEscapeKey);
   },
   unmounted() {
-    document.removeEventListener('keyup', this.handleEscapeKey);
+    document.removeEventListener("keyup", this.handleEscapeKey);
   },
   components: {
-    Teleport, 
-    FocusTrap
+    Teleport,
+    FocusTrap,
   },
 };
 </script>
