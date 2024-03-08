@@ -3,12 +3,12 @@
 
 {% assign menu_item_class = '' %}
 
-{% comment %} 
+{% comment %}
   ******** Vue JS renderless version: *******
-  <renderless-site-navigation 
+  <renderless-site-navigation
     :menu="{% render 'helper-theme-menu-js' menu_handle: menu %}"
     menu-id="{{ menu }}"
-    v-slot="{ menu, menuId }" 
+    v-slot="{ menu, menuId }"
     v-cloak
   >
     <nav :aria-labelledby="menuId">
@@ -26,7 +26,7 @@
         </li>
       </ul>
     </nav>
-  </renderless-site-navigation> 
+  </renderless-site-navigation>
 {% endcomment %}
 
 {% if menu != blank %}

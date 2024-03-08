@@ -4,7 +4,10 @@
     "src": "src/entrypoints/main.css"
   },
   "src/entrypoints/main.js": {
-    "file": "main.05b6b169.min.js",
+    "css": [
+      "main.a9b8ee90.min.css"
+    ],
+    "file": "main.037df002.min.js",
     "isEntry": true,
     "src": "src/entrypoints/main.js"
   },

@@ -12,16 +12,12 @@
             role="dialog"
             aria-modal="true"
             :ref="trapRef"
-            class="container absolute bottom-0 left-0 h-[100vh] w-full lg:left-1/2 lg:top-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2 bg-white md:h-[400px] max-w-screen-md py-15"
+            class="container absolute bottom-0 left-0 h-[100vh] w-full max-w-screen-md bg-white py-15 md:h-[400px] lg:left-1/2 lg:top-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2"
             :class="containerClass"
             @click="event => event.stopImmediatePropagation()"
             :aria-label="modalId"
           >
-            <slot
-              :isOpen="isOpen"
-              :hide="hideModal"
-              :show="showModal"
-            />
+            <slot :isOpen="isOpen" :hide="hideModal" :show="showModal" />
           </div>
         </FocusTrap>
       </aside>

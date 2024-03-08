@@ -1,8 +1,8 @@
 {% style %}
   {% if section.settings.fixed %}
     .header-bar {
-      position: sticky; 
-      top: 0; 
+      position: sticky;
+      top: 0;
       background: white;
       z-index: 30;
     }
@@ -12,7 +12,7 @@
 <div class="flex justify-between container py-20">
   {% render 'mobile-menu' %}
 
-  {% render 'layout-header-navigation-bar' menu: section.settings.menu %}
+  {% render 'layout-header-navigation-bar', menu: section.settings.menu %}
 
   {% render 'cart' %}
 </div>

@@ -4,10 +4,15 @@
     <modal modal-id="mobile-menu" transition-name="slide-mobile-menu">
       <template v-slot="{ hide }" v-cloak>
         <div id="mobile-menu">
-          <button class="absolute top-10 right-10" name="toggle" aria-label="{{ 'action.close' | t | default: 'Close modal button' }}" @click="hide">
+          <button
+            class="absolute top-10 right-10"
+            name="toggle"
+            aria-label="{{ 'action.close' | t | default: 'Close modal button' }}"
+            @click="hide"
+          >
             {% render 'icon-close', class: icon_class %}
           </button>
-          {% render 'layout-menu', class: 'flex flex-col items-start gap-15' %}  
+          {% render 'layout-menu', class: 'flex flex-col items-start gap-15' %}
         </div>
       </template>
     </modal>
