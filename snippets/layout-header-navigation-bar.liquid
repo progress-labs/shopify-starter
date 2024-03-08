@@ -5,7 +5,15 @@
 
 {% comment %}
   ******** Vue JS renderless version: *******
-  <renderless-site-navigation
+  <site-navigation
+    :menu="{% render 'helper-theme-menu-js' menu_handle: menu %}"
+    menu-id="{{ menu }}"
+    v-cloak
+  />
+{% endcomment %}
+{% comment %}
+  ******** Vue JS renderless version: *******
+  <renderless-header-navigation
     :menu="{% render 'helper-theme-menu-js' menu_handle: menu %}"
     menu-id="{{ menu }}"
     v-slot="{ menu, menuId }"
@@ -26,7 +34,7 @@
         </li>
       </ul>
     </nav>
-  </renderless-site-navigation>
+  </renderless-header-navigation>
 {% endcomment %}
 
 {% if menu != blank %}
