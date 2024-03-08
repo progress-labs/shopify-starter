@@ -26,13 +26,6 @@
         v-if="items.length == 0 && !loading"
         class="tracking-2p py-8 text-center uppercase"
       >
-        <button
-          class="absolute right-5 top-5"
-          @click="close"
-          :disabled="!visible"
-        >
-          Close
-        </button>
         No items in cart
       </div>
     </div>
