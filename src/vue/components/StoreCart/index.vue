@@ -1,25 +1,26 @@
 <template>
   <div
-    class="px-3 fixed bottom-0 top-0 z-50 w-full border-l border-black bg-white md:w-1/4"
+    :aria-hidden="!visible"
+    class="w-full md:w-1/4 fixed top-0 bottom-0 bg-white border-l border-black z-50 px-3"
     :class="{
       '-right-full': !visible,
       'right-0': visible,
     }"
   >
-    <div class="mb-4 pb-4 relative flex justify-between border-b pt-10">
-      <button class="right-2 top-2 absolute" @click="close">Close</button>
-      <p>Cart</p>
-      <p>{{ cartData.item_count }}</p>
+    <div class="relative flex justify-between pt-10 border-b mb-4 pb-4">
+      <button class="absolute top-5 right-5" @click="close" :disabled="!visible">Close</button>
+      <p class="sr-only">Cart</p>
+      <p class="sr-only">{{ cartData.item_count }}</p>
     </div>
     <div>
-      <button class="right-2 top-2 absolute" @click="close">Close</button>
+      <button class="absolute top-5 right-5" @click="close" :disabled="!visible">Close</button>
       <cart-item v-for="item in items" :key="item.key" :item="item" />
 
       <div
         v-if="items.length == 0 && !loading"
         class="tracking-2p py-8 text-center uppercase"
       >
-        <button class="right-2 top-2 absolute" @click="close">Close</button>
+        <button class="absolute top-5 right-5" @click="close" :disabled="!visible">Close</button>
         No items in cart
       </div>
     </div>
@@ -34,7 +35,7 @@
         <span>{{ formatMoney(cartData.total_price) }}</span>
       </p>
 
-      <a class="mt-6 bg-blue-600 block text-white" href="/checkout">Checkout</a>
+      <a class="mt-6 block bg-blue-600 text-white" href="/checkout" :tabindex="!visible ? -1 : 0">Checkout</a>
     </div>
   </div>
 </template>

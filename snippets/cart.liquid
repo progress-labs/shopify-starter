@@ -1,0 +1,17 @@
+<div class="open-cart {{ class | default: '' }}">
+    <a
+        href="{{ routes.cart_url }}"
+        @click.prevent="$store.dispatch('cart/toggle')"
+        class="{{ link_class }} relative button p-0 bg-[color:var(--header-custom-secondary-color,#FEFEF9)] rounded-full  w-9 h-9 md:w-12 md:h-12 flex justify-center items-center"
+        aria-label="{{ 'action.cart' | t }}"
+    >
+        {% render 'icon-cart', class: icon_class %}
+
+        {% if cart.item_count > 0 %}
+        <div class="w-5 h-5 md:w-6 md:h-6 flex justify-center items-center bg-black text-white text-sm border border-white rounded-full absolute -top-2 -right-2">
+            {{ cart.item_count }}
+        </div>
+        {% endif %}
+    </a>
+    {% render 'mini-cart' %}
+</div>

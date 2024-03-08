@@ -6,7 +6,7 @@ import axios from "axios";
  * state
  */
 const state = {
-  visible: true,
+  visible: false,
   cartData: false,
   loading: false,
 };

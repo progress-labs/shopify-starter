@@ -1,17 +1,44 @@
-{% comment %}
-  Rendered Navigation if we need it.
-  Realistically, though, a navigation should be a Renderless component
-  given the items should be on the page immediately for SEO value.
-{% endcomment %}
+{% style %}
+  {% if section.settings.fixed %}
+    .header-bar {
+      position: sticky; 
+      top: 0; 
+      background: white;
+      z-index: 30;
+    }
+  {% endif %}
+{% endstyle %}
 
 {% assign menu = section.settings.menu %}
 
 {% if menu != blank %}
-  <div class="" vue>
-    <site-navigation
+  <div class="flex justify-between container py-20" vue>
+    {% render 'mobile-menu' %}
+  
+    <renderless-site-navigation 
       :menu="{% render 'helper-theme-menu-js' menu_handle: menu %}"
-      menu-id="main-menu"
-    />
+      menu-id="{{ menu }}"
+      v-slot="{ menu, menuId }" 
+      v-cloak
+    >
+      <nav :aria-labelledby="menuId">
+        <h2 :id="menuId" class="sr-only">{{ menu.title }}</h2>
+        <ul class="flex gap-8 items-center justify-center">
+          <li
+            v-for="item in menu"
+            :key="item.handle"
+            class="mx-10"
+            :class="{
+              underline: item.active,
+            }"
+          >
+            <a :href="item.url" v-text="item.title"></a>
+          </li>
+        </ul>
+      </nav>
+    </renderless-site-navigation>
+
+    {% render 'cart' %}
   </div>
 {% endif %}
 
@@ -19,6 +46,7 @@
 {
   "name": "t:sections.header.name",
   "tag": "header",
+  "class": "h-70 header-bar",
   "settings": [
     {
       "type": "paragraph",
@@ -27,7 +55,15 @@
     {
       "type": "link_list",
       "id": "menu",
-      "label": "Menu"
+      "label": "Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "fixed",
+      "label": "Fixed?",
+      "info": "This option will make the header fixed while scrolling through the page.",
+      "default": true
     }
   ]
 }
