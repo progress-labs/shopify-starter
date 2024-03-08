@@ -1,51 +1,55 @@
 <script>
-import {mapState, mapActions} from "vuex";
-import productOptions from "../../mixins/productOptions";
+import { watch, toRefs } from "vue";
+import { useProductOptions } from "@/vue/composables/useProductOptions";
+
 export default {
-  name: "ProductOptions",
-  mixins: [productOptions],
-  props: {},
-  computed: {
-    ...mapState("product", ["selectedVariant"]),
-  },
-
-  watch: {
-    variantToPurchase(newVal) {
-      this.setVariant(newVal);
+    name: 'ProductOptions',
+    props: {
+      productData: {
+        type: Object,
+        required: true,
+      }
     },
-  },
+    setup(props, {slots}) {
+      const {productData} = toRefs(props)
+      
+      const {
+        variantToPurchase,
+        selectedVariant,
+        selectedOptions,
+        firstOption,
+        eligibleVariants,
+        eligibleOptions,
+        productOptions,
+        findVariantsByOptions,
+        isVisibleOption,
+        isActiveOption
+      } = useProductOptions(productData.value);
 
-  methods: {
-    ...mapActions("product", ["setProduct", "setVariant"]),
-  },
+      if (eligibleVariants.length === 1) {
+        const option = productData.options[0];
+        selectedOptions.value = [
+          {
+            type: option.name.toLowerCase(),
+            position: option.position,
+            value: option.value[0],
+          },
+        ];
+      }
 
-  mounted() {
-    /**
-     * The setup in here relies on options to be selected,
-     * as the variants are filtered based on those selections.
-     * In this case, we preselect a value assuming there is one variant available.
-     */
-    if (this.eligibleVariants.length === 1) {
-      const option = this.productData.options[0];
-      this.selectedOptions = [
-        {
-          type: option.name.toLowerCase(),
-          position: option.position,
-          value: option.value[0],
-        },
-      ];
-    }
-  },
+      watch(variantToPurchase, async (newVal) => {
+        store.dispatch('product/setVariant', newVal)
+      });
 
-  render() {
-    return this.$slots.default({
-      selectedVariant: this.selectedVariant,
-      findVariantsByOptions: this.findVariantsByOptions,
-      currentVariant: this.currentVariant,
-      options: this.selectedOptions,
-      isActiveOption: this.isActiveOption,
-      isVisibleOption: this.isVisibleOption,
-    });
-  },
-};
+
+      return slots.default({
+        selectedVariant,
+        findVariantsByOptions,
+        isActiveOption,
+        isVisibleOption,
+        options: selectedOptions,
+      });
+  }
+}
+
 </script>
