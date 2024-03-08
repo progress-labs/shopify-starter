@@ -139,6 +139,6 @@ if (Shopify.designMode) {
 }
 
 // https://vitejs.dev/guide/build#load-error-handling
-window.addEventListener('vite:preloadError', (event) => {
+window.addEventListener("vite:preloadError", event => {
   window.reload();
-})
+});
