@@ -1,4 +1,8 @@
-<div v-if="$store.state['mobile-menu'].visible" class="w-full max-w-screen-md h-full md:hidden bg-white border-l fixed top-0 right-0 {{ class | default: '' }}" style="{{ style | default: '' }}">
+<div
+  v-if="$store.state['mobile-menu'].visible"
+  class="w-full max-w-screen-md h-full md:hidden bg-white border-l fixed top-0 right-0 {{ class | default: '' }}"
+  style="{{ style | default: '' }}"
+>
   <div class="border-b p-4">
     <button
       class="flex justify-center items-center"

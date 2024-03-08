@@ -18,16 +18,12 @@
     </div>
 
     <form action="/cart?locale={{ request.locale.iso_code }}" method="post" novalidate>
-      <input type="hidden" name="attributes[locale]" value="{{ request.locale.iso_code }}" />
+      <input type="hidden" name="attributes[locale]" value="{{ request.locale.iso_code }}">
 
       {% for item in cart.items %}
         {% capture deleteUrl %}{% unless routes.root_url == '/' %}{{ routes.root_url }}{% endunless %}/cart/change?line={{ forloop.index }}&amp;quantity=0{% endcapture %}
 
-        {% render 'layout-product-cart',
-          class: 'mb-12 md:mb-8'
-          product: item
-          deleteUrl: deleteUrl
-        %}
+        {% render 'layout-product-cart', class: 'mb-12 md:mb-8', product: item, deleteUrl: deleteUrl %}
       {% endfor %}
 
       <div class="flex flex-col items-end border-t pt-6">
@@ -59,7 +55,8 @@
 
     <div class="text-center">
       <a href="{{ routes.root_url }}" class="button button-primary inline-flex">
-        {{ 'action.continue_shopping' | t }} {% render 'icon-chevron-right', class: 'w-4 h-auto', style: 'margin-top: 2px;' %}
+        {{ 'action.continue_shopping' | t }}
+        {% render 'icon-chevron-right', class: 'w-4 h-auto', style: 'margin-top: 2px;' %}
       </a>
     </div>
   {% endif %}

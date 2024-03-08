@@ -18,11 +18,6 @@
     "
   >
     {%- for option in product.options_with_values -%}
-      {% liquid
-        assign optionIndex = forloop.index0
-        assign filter_option = 'filter_option_' | append: forloop.index
-        assign filter_meta_field = product.metafields.pdp[filter_option]
-      %}
       <fieldset class="product-options mb-20" id="product-option-{{ option.id }}">
         <legend>{{ option.name }}</legend>
         <ul>

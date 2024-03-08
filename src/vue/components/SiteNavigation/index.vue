@@ -1,7 +1,7 @@
 <template>
   <nav class="container" :aria-labelledby="menuId">
     <h2 :id="menuId" class="sr-only">Main Menu</h2>
-    <ul class="w-full flex justify-between items-center">
+    <ul class="flex w-full items-center justify-between">
       <li
         v-for="item in menu"
         :key="item.handle"
@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import {mapState, mapGetters, mapActions} from "vuex";
 export default {
   name: "SiteNavigation",
   props: {

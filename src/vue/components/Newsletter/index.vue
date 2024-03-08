@@ -1,5 +1,4 @@
 <script>
-import {mapActions, mapState} from "vuex";
 import {subscribe} from "klaviyo-subscribe";
 
 /**

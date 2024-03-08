@@ -10,6 +10,8 @@
           src="{{ featured_image | image_url: width: 750 }}"
           alt="{{ featured_image.alt | escape }}"
           loading="lazy"
+          width="{{ featured_image.width }}"
+          height="{{ featured_image.height }}"
           class="w-full h-auto object-cover object-center"
         >
 
@@ -46,6 +48,8 @@
                 "
                 src="{{ image.src | image_url: width: 96 }}"
                 alt="{{ image.alt | escape }}"
+                width="{{ image.width }}"
+                height="{{ image.height }}"
                 loading="lazy"
                 class="w-full h-full object-cover object-center pointer-events-none"
               >

@@ -4,7 +4,11 @@
   </h1>
 
   <div class="text-gray-600 text-sm text-center mb-8 md:mb-16">
-    {% if article.author %}{{ 'common.by' | t }} {{ article.user.name }} / {% endif %}{{ article.published_at | date: format: 'month_day_year' }}
+    {% if article.author -%}
+      {{- 'common.by' | t }}
+      {{ article.user.name }} /
+    {% endif -%}
+    {{- article.published_at | date: format: 'month_day_year' }}
   </div>
 
   {% if article.image %}
@@ -22,6 +26,8 @@
         "
         src="{{ article | image_url: width: 750 }}"
         alt="{{ article.image.alt | escape }}"
+        width="{{ article.image.width }}"
+        height="{{ article.image.height }}"
         loading="lazy"
         class="w-full"
       >

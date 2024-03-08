@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-8 h-8 bg-black text-white inline-flex justify-center items-center cursor-pointer"
+    class="h-8 w-8 inline-flex cursor-pointer items-center justify-center bg-black text-white"
     @click="openCart"
   >
     {{ cartCount }}

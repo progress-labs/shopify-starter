@@ -11,7 +11,6 @@
   </div>
 </template>
 <script>
-import {mapState, mapGetters, mapActions} from "vuex";
 import {ref, onMounted} from "vue";
 export default {
   name: "Carousel",
@@ -34,14 +33,14 @@ export default {
   mounted() {
     console.log("-- carousel mounted -- ");
   },
-  setup(props) {
-    let flickity = null;
-
+  setup() {
     const carousel = ref(null);
     const currentIndex = ref(0);
     const slideCount = ref(0);
     const isFirst = ref(true);
     const isLast = ref(false);
+    const next = () => {};
+    const prev = () => {};
 
     // Before the component is mounted, the value
     // of the ref is `null` which is the default

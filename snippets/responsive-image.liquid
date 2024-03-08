@@ -22,7 +22,6 @@
 
   assign asset_width = image.width
   assign asset_height = image.height
-  assign asset_ratio = image.aspect_ratio
 
   assign desired_sizes = '187.0,375.0,414.0,676.0,1014.0,1352.0' | split: ','
 -%}
@@ -66,6 +65,8 @@
       	{{ image | image_url: width: new_width, height: desired_height, crop: 'center' }} {{ new_width }}w,
       {% endif %}
     "
+    width="{{ image.width }}"
+    height="{{ image.height }}"
     sizes="{{ sizes }}"
     alt="{{ image.alt | escape }}"
     loading="lazy"
@@ -101,6 +102,8 @@
     "
     sizes="{{ sizes }}"
     alt="{{ image.alt | escape }}"
+    width="{{ image.width }}"
+    height="{{ image.height }}"
     loading="lazy"
   >
 {% endif %}

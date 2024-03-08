@@ -21,6 +21,8 @@
                 src="{{ collection.image | image_url: width: 400 }}"
                 alt="{{ collection.image.alt | escape }}"
                 loading="lazy"
+                width="{{ collection.image.width }}"
+                height="{{ collection.image.height }}"
                 class="w-full h-32 sm:h-48 lg:h-64 xl:h-80 object-cover object-center"
               >
             </a>
