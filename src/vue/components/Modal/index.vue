@@ -1,6 +1,4 @@
 <template>
-  <slot name="trigger" :isOpen="isOpen" :hide="hideModal" :show="showModal" />
-
   <Teleport to="body">
     <Transition :name="transitionName">
       <aside
@@ -23,7 +21,6 @@
               :isOpen="isOpen"
               :hide="hideModal"
               :show="showModal"
-              name="content"
             />
           </div>
         </FocusTrap>

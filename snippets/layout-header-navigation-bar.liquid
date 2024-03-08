@@ -1,0 +1,44 @@
+{% assign menu = menu %}
+{% assign menu_list = linklists[menu] %}
+
+{% assign menu_item_class = '' %}
+
+{% comment %} 
+  ******** Vue JS renderless version: *******
+  <renderless-site-navigation 
+    :menu="{% render 'helper-theme-menu-js' menu_handle: menu %}"
+    menu-id="{{ menu }}"
+    v-slot="{ menu, menuId }" 
+    v-cloak
+  >
+    <nav :aria-labelledby="menuId">
+      <h2 :id="menuId" class="sr-only">{{ menu.title }}</h2>
+      <ul class="flex gap-8 items-center justify-center">
+        <li
+          v-for="item in menu"
+          :key="item.handle"
+          class="mx-10"
+          :class="{
+            underline: item.active,
+          }"
+        >
+          <a :href="item.url" v-text="item.title"></a>
+        </li>
+      </ul>
+    </nav>
+  </renderless-site-navigation> 
+{% endcomment %}
+
+{% if menu != blank %}
+  <nav :aria-labelledby="{{ menu }}">
+    <h2 :id="{{ menu }}" class="sr-only">{{ menu.title }}</h2>
+
+    <ul class="flex gap-10 items-center justify-center">
+      {% for item in menu_list.links %}
+        <li class="mx-10">
+          <a class="{{ menu_item_class }}" href="{{ item.handle }}"> {{ item.title }} </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </nav>
+{% endif %}

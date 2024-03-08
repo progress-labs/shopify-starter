@@ -9,38 +9,13 @@
   {% endif %}
 {% endstyle %}
 
-{% assign menu = section.settings.menu %}
+<div class="flex justify-between container py-20">
+  {% render 'mobile-menu' %}
 
-{% if menu != blank %}
-  <div class="flex justify-between container py-20" vue>
-    {% render 'mobile-menu' %}
-  
-    <renderless-site-navigation 
-      :menu="{% render 'helper-theme-menu-js' menu_handle: menu %}"
-      menu-id="{{ menu }}"
-      v-slot="{ menu, menuId }" 
-      v-cloak
-    >
-      <nav :aria-labelledby="menuId">
-        <h2 :id="menuId" class="sr-only">{{ menu.title }}</h2>
-        <ul class="flex gap-8 items-center justify-center">
-          <li
-            v-for="item in menu"
-            :key="item.handle"
-            class="mx-10"
-            :class="{
-              underline: item.active,
-            }"
-          >
-            <a :href="item.url" v-text="item.title"></a>
-          </li>
-        </ul>
-      </nav>
-    </renderless-site-navigation>
+  {% render 'layout-header-navigation-bar' menu: section.settings.menu %}
 
-    {% render 'cart' %}
-  </div>
-{% endif %}
+  {% render 'cart' %}
+</div>
 
 {% schema %}
 {

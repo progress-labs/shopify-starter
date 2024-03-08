@@ -65,6 +65,13 @@ const actions = {
       .get(endpoints.cart)
       .then(response => {
         commit("initCart", response.data);
+        const srCartAlert = document.getElementById("sr-cart-alert");
+        if (srCartAlert) {
+          const itemCount = state.cartData.item_count;
+          const newItem = document.createElement("span");
+          newItem.textContent = `Product added to cart. You now have ${itemCount} items in your cart.`;
+          srCartAlert.appendChild(newItem);
+        }
         return response.data;
       })
       .catch(error => {

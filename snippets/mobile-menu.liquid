@@ -1,17 +1,8 @@
-{% comment %}
-  - link_class: Class applied to toggle button.
-  - icon_class: Class applied to all icons.
-{% endcomment %}
-
 <div class="mobile-menu md:hidden" vue>
+  {% render 'mobile-menu-trigger' %}
   <nav>
     <modal modal-id="mobile-menu" transition-name="slide-mobile-menu">
-      <template v-slot:trigger="{ isOpen, show }">
-        <button class="{{ link_class }}" aria-label="{{ 'action.menu' | t | default: 'Mobile menu toggle' }}" name="toggle" :aria-expanded="!!isOpen" aria-controls="mobile-menu" @click="show">
-          {% render 'icon-menu', class: icon_class %}
-        </button>
-      </template>
-      <template v-slot:content="{ hide }" v-cloak>
+      <template v-slot="{ hide }" v-cloak>
         <div id="mobile-menu">
           <button class="absolute top-10 right-10" name="toggle" aria-label="{{ 'action.close' | t | default: 'Close modal button' }}" @click="hide">
             {% render 'icon-close', class: icon_class %}

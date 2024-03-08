@@ -1,0 +1,10 @@
+{% comment %}
+  - link_class: CSS Class applied to toggle button.
+  - icon_class: CSS Class applied to all icons.
+{% endcomment %}
+
+<nav>
+  <button class="{{ link_class }}" aria-label="{{ 'action.menu' | t | default: 'Mobile menu toggle' }}" name="toggle" :aria-expanded="$store.state.modal.modals['mobile-menu']" aria-controls="mobile-menu" @click="console.log($store); $store.dispatch('modal/show', 'mobile-menu')">
+    {% render 'icon-menu', class: icon_class %}
+  </button>
+</nav>

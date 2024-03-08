@@ -35,10 +35,7 @@
       </a>
     {% endif %}
 
-    <button @click="$store.dispatch('modal/show', 'mobile-menu')" class="{{ link_class }}">
-      {% render 'icon-menu', class: icon_class %}
-      {{ 'action.menu' | t }}
-    </button>
+    {% render 'mobile-menu-trigger' %}
   </div>
 </div>
 

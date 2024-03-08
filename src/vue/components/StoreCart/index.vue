@@ -8,6 +8,7 @@
     }"
   >
     <div class="relative flex justify-between pt-10 border-b mb-4 pb-4">
+      <div id="sr-cart-alert" class="sr-only" aria-live="polite"></div>
       <button
         class="absolute top-5 right-5"
         @click="close"
@@ -19,13 +20,6 @@
       <p class="sr-only">{{ cartData.item_count }}</p>
     </div>
     <div>
-      <button
-        class="absolute top-5 right-5"
-        @click="close"
-        :disabled="!visible"
-      >
-        Close
-      </button>
       <cart-item v-for="item in items" :key="item.key" :item="item" />
 
       <div
