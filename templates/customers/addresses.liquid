@@ -10,7 +10,7 @@
   </div>
 
   <div>
-    <renderless-addresses-switch
+    <addresses-switch
       v-slot="{ visibleForm, currentlyEditedAddress, showForm, editAddress, cancelEdit }"
       :addresses="{{ customer.addresses | json | replace: '"', "'" }}"
     >
@@ -130,6 +130,6 @@
           {% comment %} addresses - end {% endcomment %}
         </div>
       </div>
-    </renderless-addresses-switch>
+    </addresses-switch>
   </div>
 </div>
