@@ -27,15 +27,15 @@ Aside from the baseline features of UI Crooks we've included the following.
 6. ~~Progress Labs Credit Snippet~~
 7. ~~Keen Slider](https://keen-slider.io/) integration (no longer using Flickity)~~
 8. ~~Responsive Image Component (From Loisa codebase)~~
-9.  PDP Add To Cart - Basic
-10. PDP Add To Cart - With Options
+9.  ~~PDP Add To Cart - Basic~~
+10. ~~PDP Add To Cart - With Options~~
 11. PDP Add To Cart - Subscription
 12. PDP Add To Cart - Sold Out / Notify Me
 13. FAQ Page / Accordion Section
 14. ~~Klaviyo Back In Stock Notification~~
-15. [Pinia Migration](https://pinia.vuejs.org/) (vuex alternative) migration
+15. ON HOLD [Pinia Migration](https://pinia.vuejs.org/) (vuex alternative) migration
 16. ADA Compliant Mobile Menu
-17. ADA Complient Purchase Form
+17. ADA Compliant Purchase Form
 18. ~~Convert to Shopify CLI 3.0~~
 
 ## When To Choose Renderless vs Rendered Components
