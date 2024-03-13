@@ -11,6 +11,8 @@
 
     <title>{{ page_title | escape }}</title>
 
+    {% render 'favicon' %}
+
     {% if page_description %}
       <meta name="description" content="{{ page_description | escape }}">
     {% endif %}

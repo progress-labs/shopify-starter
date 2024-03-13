@@ -21,6 +21,16 @@
     ]
   },
   {
+    "name": "t:settings_schema.favicon.name",
+    "settings": [
+      {
+        "type": "image_picker",
+        "label": "t:settings_schema.favicon.settings.favicon",
+        "id": "favicon"
+      }
+    ]
+  },
+  {
     "name": "Klaviyo Email List",
     "settings": [
       {
