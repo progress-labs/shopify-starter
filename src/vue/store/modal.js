@@ -23,7 +23,8 @@ const mutations = {
     // If another menu is open, close it first and open this menu.
     const keys = Object.keys(state.modals).filter(key => key !== id);
     if (keys.reduce((acc, next) => acc || state.modals[next], false)) {
-      this.SHOW(id);
+      this.commit("modal/HIDE_ALL", id);
+      this.commit("modal/SHOW", id);
     } else {
       const newModals = {...state.modals};
       newModals[id] = !newModals[id];
