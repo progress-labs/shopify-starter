@@ -1,12 +1,13 @@
 {
+  "_vendor.2599e29c.min.js": {
+    "file": "vendor.2599e29c.min.js"
+  },
   "src/entrypoints/main.css": {
     "file": "main.a9b8ee90.min.css",
     "src": "src/entrypoints/main.css"
   },
   "src/entrypoints/main.js": {
-    "css": [
-      "main.a9b8ee90.min.css"
-    ],
+    "css": ["main.a9b8ee90.min.css"],
     "file": "main.414bfc38.min.js",
     "isEntry": true,
     "src": "src/entrypoints/main.js"
