@@ -2,3 +2,6 @@ src/fonts
 src/.DS_Store
 templates/**/*.json
 .gitkeep
+src/fonts
+snippets/vite-tag.liquid
+snippets/manifest.json
