@@ -2,6 +2,7 @@
 import {ref} from "vue";
 
 export default {
+  name: "ProductGallery",
   setup(props, {slots}) {
     const initialRender = ref(true);
     const currentImage = ref(null);

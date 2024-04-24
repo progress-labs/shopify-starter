@@ -2,6 +2,7 @@
 import {ref, toRef} from "vue";
 
 export default {
+  name: "AddressesSwitch",
   props: {
     addresses: {
       type: Array,
