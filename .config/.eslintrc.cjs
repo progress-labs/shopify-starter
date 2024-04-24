@@ -1,25 +1,23 @@
-const isDevelopment = process.env.NODE_ENV === 'development'
+const isDevelopment = process.env.NODE_ENV === "development";
 
 module.exports = {
   extends: [
-    'eslint:recommended',
-    'plugin:vue/vue3-essential', // use 'plugin:vue/vue3-recommended' for more strict linting rules - https://eslint.vuejs.org/rules
+    "eslint:recommended",
+    "plugin:vue/vue3-essential", // use 'plugin:vue/vue3-recommended' for more strict linting rules - https://eslint.vuejs.org/rules
   ],
-  plugins: [
-    'vue'
-  ],
+  plugins: ["vue"],
   parserOptions: {
     ecmaVersion: 2021,
-    sourceType: 'module'
+    sourceType: "module",
   },
   env: {
     node: true,
     commonjs: true,
     browser: true,
-    es6: true
+    es6: true,
   },
   globals: {
-    Shopify: 'readonly'
+    Shopify: "readonly",
   },
   ignorePatterns: [
     /**
@@ -34,9 +32,9 @@ module.exports = {
      * add custom rules
      * docs: https://eslint.org/docs/rules
      */
-    'no-unused-vars': isDevelopment ? 'off' : 'error',
+    "no-unused-vars": isDevelopment ? "off" : "error",
     // 'quotes': ['error', 'single'],
     // 'semi': ['error', 'never'],
-   'vue/multi-word-component-names': 'off'
+    "vue/multi-word-component-names": "off",
   },
-}
+};
