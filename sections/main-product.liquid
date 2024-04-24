@@ -108,9 +108,7 @@
             readonly
           >
         {% else %}
-          <div vue>
-            {% render 'product-form', product as product %}
-          </div>
+          {% render 'product-form', product as product %}
         {% endif %}
       </div>
     {% endform %}

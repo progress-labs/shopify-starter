@@ -66,7 +66,7 @@ const createVueApp = () => {
    * auto-register all mixins with a 'global' keyword in their filename
    */
   //   const mixins = require.context('./vue/mixins/', true, /.*global.*\.js$/)
-  const mixins = import.meta.globEager("./vue/mixins/*.js");
+  const mixins = import.meta.globEager("../vue/mixins/global.*.js");
 
   Object.entries(mixins).forEach(([, definition]) => {
     app.mixin(definition.default);
@@ -76,7 +76,7 @@ const createVueApp = () => {
    * vue directives
    * auto-register all directives with a 'global' keyword in their filename
    */
-  const directives = import.meta.globEager("./vue/directives/*.js");
+  const directives = import.meta.globEager("../vue/directives/global.*.js");
 
   Object.entries(directives).forEach(([, definition]) => {
     const directive = definition.default;
