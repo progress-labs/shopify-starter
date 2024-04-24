@@ -9,7 +9,7 @@ import {createStore} from "vuex";
  * vuex
  * auto-import all modules and prepare shared store
  */
-const vuexModules = import.meta.globEager("../vue/store/**/*.js");
+const vuexModules = import.meta.glob("../vue/store/**/*.js", {eager: true});
 const modules = {};
 
 Object.entries(vuexModules).forEach(([path, definition]) => {
@@ -45,7 +45,9 @@ const createVueApp = () => {
    * vue components
    * auto-import all vue components
    */
-  const components = import.meta.globEager("../vue/components/**/*.vue");
+  const components = import.meta.glob("../vue/components/**/*.vue", {
+    eager: true,
+  });
 
   Object.entries(components).forEach(([path, definition]) => {
     const component = definition.default;
@@ -66,7 +68,7 @@ const createVueApp = () => {
    * auto-register all mixins with a 'global' keyword in their filename
    */
   //   const mixins = require.context('./vue/mixins/', true, /.*global.*\.js$/)
-  const mixins = import.meta.globEager("./vue/mixins/*.js");
+  const mixins = import.meta.glob("../vue/mixins/global.*.js", {eager: true});
 
   Object.entries(mixins).forEach(([, definition]) => {
     app.mixin(definition.default);
@@ -76,7 +78,9 @@ const createVueApp = () => {
    * vue directives
    * auto-register all directives with a 'global' keyword in their filename
    */
-  const directives = import.meta.globEager("./vue/directives/*.js");
+  const directives = import.meta.glob("../vue/directives/global.*.js", {
+    eager: true,
+  });
 
   Object.entries(directives).forEach(([, definition]) => {
     const directive = definition.default;
