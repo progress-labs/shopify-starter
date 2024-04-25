@@ -7,8 +7,13 @@
     "src": "src/entrypoints/main.css"
   },
   "src/entrypoints/main.js": {
-    "css": ["main.a9b8ee90.min.css"],
-    "file": "main.414bfc38.min.js",
+    "css": [
+      "main.a9b8ee90.min.css"
+    ],
+    "file": "main.ccde8de7.min.js",
+    "imports": [
+      "_vendor.2599e29c.min.js"
+    ],
     "isEntry": true,
     "src": "src/entrypoints/main.js"
   },
