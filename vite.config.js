@@ -1,5 +1,5 @@
 import cleanup from "@by-association-only/vite-plugin-shopify-clean";
-import {defineConfig} from "vite";
+import {defineConfig, splitVendorChunkPlugin} from "vite";
 import {resolve} from "node:path";
 import shopify from "vite-plugin-shopify";
 import vue from "@vitejs/plugin-vue";
@@ -9,6 +9,7 @@ export default defineConfig({
   plugins: [
     vue(),
     cleanup(),
+    splitVendorChunkPlugin(),
     shopify({
       sourceCodeDir: "./src",
       entrypointsDir: "./src/entrypoints",
