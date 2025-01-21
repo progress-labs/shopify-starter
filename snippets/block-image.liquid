@@ -1,0 +1,44 @@
+{%- assign mobile_image_class = '' -%}
+{%- assign desktop_image_class = '' -%}
+
+{%- if block != blank -%}
+  {%- if block.settings.image != blank and block.settings.desktop_image != blank -%}
+    <picture>
+      <source
+        class="{{ desktop_image_class }}"
+        media="(min-width: 768px)"
+        sizes="(min-width: 768px) calc(100vw-2rem),(min-width: 1440px) 1440w"
+        srcset="{% render 'responsive-image-srcset', image: block.settings.desktop_image, width: 1440 %}"
+      >
+      <img
+        loading="{% if section.index0 > 1 %}eager{% else %}lazy{% endif %}"
+        alt="{{ block.settings.image.alt }}"
+        class="{{ mobile_image_class }}"
+        src="{{- block.settings.image | image_url: width: 768 -}}"
+        sizes="calc(100vw-2rem)"
+        srcset="{% render 'responsive-image-srcset', image: block.settings.image, width: 768 %}"
+      >
+    </picture>
+  {%- elsif block.settings.image != blank -%}
+    <img
+      loading="{% if section.index0 > 1 %}eager{% else %}lazy{% endif %}"
+      alt="{{ block.settings.image.alt }}"
+      class="{{ mobile_image_class }}"
+      src="{{- block.settings.image | image_url: width: 1440 -}}"
+      sizes="(min-width: 768px) calc(100vw-2rem),(min-width: 1440px) 1440w"
+      srcset="{% render 'responsive-image-srcset', image: block.settings.image, width: 1440 %}"
+    >
+  {%- elsif block.settings.desktop_image != blank -%}
+    <img
+      loading="{% if section.index0 > 1 %}eager{% else %}lazy{% endif %}"
+      alt="{{ block.settings.desktop_image.alt }}"
+      class="{{ desktop_image_class }}"
+      src="{{- block.settings.desktop_image | image_url: width: 1440 -}}"
+      sizes="(min-width: 768px) calc(100vw-2rem),(min-width: 1440px) 1440w"
+      srcset="{% render 'responsive-image-srcset', image: block.settings.desktop_image, width: 1440 %}"
+    >
+  {%- else -%}
+    {%- capture placeholder -%}image{%- endcapture -%}
+    {{- placeholder | placeholder_svg_tag: mobile_image_class -}}
+  {%- endif -%}
+{%- endif -%}

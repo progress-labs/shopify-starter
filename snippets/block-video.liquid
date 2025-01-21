@@ -1,0 +1,6 @@
+{%- if block != blank -%}
+  {{-
+    block.settings.video
+    | video_tag: controls: false, autoplay: true, muted: true, playsinline: true, loop: true, image_size: '1440x'
+  -}}
+{%- endif -%}

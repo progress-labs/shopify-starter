@@ -61,6 +61,69 @@ export default function (plop) {
         name: "name",
         message: "File name please",
       },
+      {
+        type: "checkbox",
+        name: "settings",
+        message: "Choose section settings",
+        choices: [
+          {
+            name: "Text Color",
+            value: "color",
+          },
+          {
+            name: "Background Color",
+            value: "bg_color",
+          },
+          {
+            name: "Background Image",
+            value: "bg_image",
+          },
+          {
+            name: "Vertical Padding",
+            value: "v_padding",
+          },
+        ],
+        default: ["color", "bg_color", "v_padding"],
+      },
+      {
+        type: "checkbox",
+        name: "blocks",
+        message: "Choose section blocks",
+        choices: [
+          {
+            name: "Card (Image, Title, Richtext and CTA controls)",
+            value: "card",
+          },
+          {
+            name: "Column (Percentage Range, Image, Title, Richtext and CTA controls)",
+            value: "column",
+          },
+          {
+            name: "Title",
+            value: "title",
+          },
+          {
+            name: "Richtext",
+            value: "richtext",
+          },
+          {
+            name: "CTA",
+            value: "cta",
+          },
+          {
+            name: "Image",
+            value: "image",
+          },
+          {
+            name: "Video",
+            value: "video",
+          },
+          {
+            name: "Video",
+            value: "video_url",
+          },
+        ],
+      },
     ], // array of inquirer prompts
     actions: [
       {
@@ -141,4 +204,6 @@ export default function (plop) {
       },
     ], // array of actions
   });
+
+  plop.setHelper("eq", (a, b) => a == b);
 }

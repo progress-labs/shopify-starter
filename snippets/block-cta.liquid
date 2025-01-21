@@ -1,0 +1,8 @@
+{%- if block != blank and block.settings.button_text -%}
+  {%- render 'button',
+    type: 'link',
+    url: block.settings.button_url,
+    label: block.settings.button_text,
+    style: block.settings.button_style
+  -%}
+{%- endif -%}
