@@ -4,6 +4,7 @@
   "author": "Progress Labs",
   "version": "4.7.0",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "start": "run-p -sr shopify:serve vite:watch",
     "build": "cross-env NODE_ENV=production vite build --mode 'production' --config vite.config.js",
