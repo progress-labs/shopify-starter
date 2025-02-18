@@ -29,22 +29,19 @@
     "deploy:new": "npm run vite:build && npm run shopify:push:new"
   },
   "dependencies": {
-    "@by-association-only/vite-plugin-shopify-clean": "^2.2.0",
     "@shopify/theme-currency": "^4.1.1",
-    "axios": "^1.6.7",
-    "focus-trap": "^7.5.4",
     "focus-trap-vue": "^4.0.3",
-    "gsap": "^3.10.3",
     "keen-slider": "^6.8.5",
     "klaviyo-subscribe": "^1.0.0",
     "lodash.isequal": "^4.5.0",
     "lodash.uniq": "^4.5.0",
-    "npm-run-all": "^4.1.5",
     "vue": "^3.2.26",
     "vue-screen": "^2.3.1",
     "vuex": "^4.0.2"
   },
   "devDependencies": {
+    "@by-association-only/vite-plugin-shopify-clean": "^2.2.0",
+    "npm-run-all": "^4.1.5",
     "@babel/core": "^7.16.0",
     "@babel/plugin-transform-runtime": "^7.16.4",
     "@babel/preset-env": "^7.16.4",
