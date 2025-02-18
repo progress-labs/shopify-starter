@@ -21,9 +21,9 @@
       <input type="hidden" name="attributes[locale]" value="{{ request.locale.iso_code }}">
 
       {% for item in cart.items %}
-        {% capture deleteUrl %}{% unless routes.root_url == '/' %}{{ routes.root_url }}{% endunless %}/cart/change?line={{ forloop.index }}&amp;quantity=0{% endcapture %}
+        {% capture delete_url %}{% unless routes.root_url == '/' %}{{ routes.root_url }}{% endunless %}/cart/change?line={{ forloop.index }}&amp;quantity=0{% endcapture %}
 
-        {% render 'layout-product-cart', class: 'mb-12 md:mb-8', product: item, deleteUrl: deleteUrl %}
+        {% render 'layout-product-cart', class: 'mb-12 md:mb-8', product: item, deleteUrl: delete_url %}
       {% endfor %}
 
       <div class="flex flex-col items-end border-t pt-6">
