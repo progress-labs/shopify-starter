@@ -1,15 +1,12 @@
 {% assign current_variant = product.selected_or_first_available_variant %}
 {% assign featured_image = current_variant.featured_image | default: product.featured_image %}
 
-{% comment %} This will initialize the product store {% endcomment %}
-<div vue>
+<div class="container max-w-screen-xl grid md:grid-cols-2 gap-10" vue>
+  {% comment %} This will initialize the product store {% endcomment %}
   <product-provider
     default-variant-id="{{- current_variant.id -}}"
     :product="{%- render 'helper-product-config', prod: product -%}"
   />
-</div>
-
-<div class="container max-w-screen-xl grid md:grid-cols-2 gap-10">
   <product-gallery v-slot="{ initialRender, currentImage, switchImage }">
     <div>
       <div>
@@ -23,15 +20,17 @@
           class="w-full h-auto object-cover object-center"
         >
 
-        <div v-else>
+        <div v-else-if="currentImage?.url">
           <img
             :src="currentImage.url"
             :key="currentImage.url"
             :alt="currentImage.alt"
+            width="0"
+            height="0"
+            :width="currentImage.width"
+            :height="currentImage.height"
             loading="lazy"
             class="w-full h-full object-cover object-center"
-            width="{{ featured_image.width }}"
-            height="{{ featured_image.height }}"
           >
         </div>
       </div>
