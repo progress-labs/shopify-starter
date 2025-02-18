@@ -8,7 +8,9 @@ import vue from "@vitejs/plugin-vue";
 export default defineConfig({
   plugins: [
     vue(),
-    cleanup(),
+    cleanup({
+      manifestFileName: "manifest.json",
+    }),
     shopify({
       sourceCodeDir: "./src",
       entrypointsDir: "./src/entrypoints",
@@ -24,7 +26,7 @@ export default defineConfig({
   },
   build: {
     sourcemap: true,
-    manifest: true,
+    manifest: "manifest.json",
     rollupOptions: {
       output: {
         entryFileNames: "[name].[hash].min.js",
@@ -34,5 +36,12 @@ export default defineConfig({
     },
     outDir: resolve(__dirname, "assets"),
     emptyOutDir: false,
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: "modern-compiler",
+      },
+    },
   },
 });
