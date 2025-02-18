@@ -15,15 +15,17 @@
           class="w-full h-auto object-cover object-center"
         >
 
-        <div v-else>
+        <div v-else-if="currentImage?.url">
           <img
             :src="currentImage.url"
             :key="currentImage.url"
             :alt="currentImage.alt"
+            width="0"
+            height="0"
+            :width="currentImage.width"
+            :height="currentImage.height"
             loading="lazy"
             class="w-full h-full object-cover object-center"
-            width="{{ featured_image.width }}"
-            height="{{ featured_image.height }}"
           >
         </div>
       </div>
