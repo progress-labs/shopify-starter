@@ -1,0 +1,79 @@
+<div class="accordion py-40 container">
+  <h3 class="text-2xl font-bold mb-10 text-center">{{ section.settings.headline }}</h3>
+
+  {%- if section.blocks.size > 0 -%}
+    <ul>
+      {%- for block in section.blocks -%}
+        <li class="py-10">
+          {%- render 'block-accordion', headline: block.settings.headline, text: block.settings.text -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.accordion.name",
+  "class": "shopify-section-vue",
+  "settings": [
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "t:common.headline",
+      "default": "Headline"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "accordion-item",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "headline",
+          "label": "t:common.headline",
+          "default": "Headline"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "t:common.text",
+          "default": "<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste quos hic praesentium recusandae dolores odio animi deleniti officia cum itaque.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.accordion.name",
+      "settings": {
+        "headline": "Accordion"
+      },
+      "blocks": [
+        {
+          "type": "accordion-item",
+          "settings": {
+            "headline": "Accordion Item 1",
+            "text": "<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste quos hic praesentium recusandae dolores odio animi deleniti officia cum itaque.</p>"
+          }
+        },
+        {
+          "type": "accordion-item",
+          "settings": {
+            "headline": "Accordion Item 2",
+            "text": "<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste quos hic praesentium recusandae dolores odio animi deleniti officia cum itaque.</p>"
+          }
+        },
+        {
+          "type": "accordion-item",
+          "settings": {
+            "headline": "Accordion Item 3",
+            "text": "<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste quos hic praesentium recusandae dolores odio animi deleniti officia cum itaque.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

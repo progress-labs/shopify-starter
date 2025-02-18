@@ -40,8 +40,7 @@
     },
     "mobile-navigation": {
       "name": "Mobile Navigation",
-      "settings": {
-      }
+      "settings": {}
     },
     "announcement-bar": {
       "name": "Announcement bar",
@@ -50,10 +49,13 @@
         "show-only-on-home-page": "Show only on home page"
       }
     },
+    "accordion": {
+      "name": "Accordion",
+      "settings": {}
+    },
     "banner": {
       "name": "Banner",
-      "settings": {
-      }
+      "settings": {}
     },
     "collection": {
       "name": "Collection",
@@ -65,18 +67,15 @@
     },
     "hero": {
       "name": "Hero",
-      "settings": {
-      }
+      "settings": {}
     },
     "image-row": {
       "name": "Image row",
-      "settings": {
-      }
+      "settings": {}
     },
     "newsletter": {
       "name": "Newsletter",
-      "settings": {
-      }
+      "settings": {}
     },
     "quotes": {
       "name": "Quotes",

@@ -55,3 +55,22 @@
 .fade-leave-to {
   opacity: 0;
 }
+
+/**
+ * slide-from-top
+ */
+
+.slide-from-top-enter-active,
+.slide-from-top-leave-active {
+  @apply transition duration-200;
+}
+
+.slide-from-top-enter-to,
+.slide-from-top-leave-from {
+  @apply translate-y-0 transform opacity-100;
+}
+
+.slide-from-top-enter-from,
+.slide-from-top-leave-to {
+  @apply absolute -translate-y-full transform opacity-0;
+}

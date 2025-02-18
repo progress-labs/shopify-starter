@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "section-hero": {
@@ -26,23 +35,54 @@
         "button-text": "Button"
       }
     },
+    "section_accordion_WbqQUF": {
+      "type": "section-accordion",
+      "blocks": {
+        "accordion_item_MxH9kP": {
+          "type": "accordion-item",
+          "settings": {
+            "headline": "Accordion Item 1",
+            "text": "<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste quos hic praesentium recusandae dolores odio animi deleniti officia cum itaque.</p>"
+          }
+        },
+        "accordion_item_zYxM8i": {
+          "type": "accordion-item",
+          "settings": {
+            "headline": "Accordion Item 2",
+            "text": "<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste quos hic praesentium recusandae dolores odio animi deleniti officia cum itaque.</p>"
+          }
+        },
+        "accordion_item_n7XTkt": {
+          "type": "accordion-item",
+          "settings": {
+            "headline": "Accordion Item 3",
+            "text": "<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste quos hic praesentium recusandae dolores odio animi deleniti officia cum itaque.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "accordion_item_MxH9kP",
+        "accordion_item_zYxM8i",
+        "accordion_item_n7XTkt"
+      ],
+      "settings": {
+        "headline": "Accordion"
+      }
+    },
     "section-image-row": {
       "type": "section-image-row",
       "blocks": {
         "image-1": {
           "type": "image",
-          "settings": {
-          }
+          "settings": {}
         },
         "image-2": {
           "type": "image",
-          "settings": {
-          }
+          "settings": {}
         },
         "image-3": {
           "type": "image",
-          "settings": {
-          }
+          "settings": {}
         }
       },
       "block_order": [
@@ -100,6 +140,7 @@
     "section-hero",
     "section-collection",
     "section-banner",
+    "section_accordion_WbqQUF",
     "section-image-row",
     "section-quotes",
     "section-newsletter"

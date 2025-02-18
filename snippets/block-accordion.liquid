@@ -1,0 +1,42 @@
+<div
+  class="flex flex-col gap-2"
+  vue
+>
+  <renderless-template-switch
+    v-slot="{ active, show }"
+    :initial="false"
+  >
+    <button
+      aria-labelledby="{{ headline | prepend: 'title-' | handleize }}"
+      id="{{ headline | prepend: 'btn-' | handleize }}"
+      type="button"
+      @click="show(!active)"
+      class="flex w-full justify-between gap-2 py-2"
+      :aria-expanded="active ? 'true' : 'false'"
+      aria-controls="{{ headline | prepend: 'text-' | handleize }}"
+    >
+      <h4 id="{{ headline | prepend: 'title-' | handleize }}">{{ headline }}</h4>
+      <div
+        :class="
+          [{
+              'rotate-90':active
+          }, 'transition-transform']
+        "
+      >
+        {%- render 'icon-chevron-right' -%}
+      </div>
+    </button>
+
+    <transition name="slide-from-top" v-cloak>
+      <div
+        role="region"
+        aria-labelledby="{{ headline | prepend: 'title-' | handleize }}"
+        class="mt-15"
+        id="{{ headline | prepend: 'text-' | handleize }}"
+        v-show="active"
+      >
+        {{ text }}
+      </div>
+    </transition>
+  </renderless-template-switch>
+</div>
