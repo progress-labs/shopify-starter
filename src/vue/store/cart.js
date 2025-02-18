@@ -1,6 +1,9 @@
-import {endpoints, headerConfigs} from "../../utils/config";
-
-import axios from "axios";
+import {
+  getCart,
+  updateCartItem,
+  addCartItem,
+  removeCartItem,
+} from "@/services/cart";
 
 /**
  * state
@@ -61,104 +64,79 @@ const actions = {
   },
 
   async initCart({commit}) {
-    return axios
-      .get(endpoints.cart)
-      .then(response => {
-        commit("initCart", response.data);
-        const srCartAlert = document.getElementById("sr-cart-alert");
-        if (srCartAlert) {
-          const itemCount = state.cartData.item_count;
-          const newItem = document.createElement("span");
-          newItem.textContent = `Product added to cart. You now have ${itemCount} items in your cart.`;
-          srCartAlert.appendChild(newItem);
-        }
-        return response.data;
-      })
-      .catch(error => {
-        return error.message;
-      });
+    commit("cartLoading");
+    const data = await getCart();
+    commit("initCart", data);
+    commit("cartLoading");
   },
 
-  removeItem: ({commit, state}, payload) => {
-    if (state.loading) return;
-    commit("cartLoading");
+  onCartModified: ({state}, payload) => {
+    let modifiedCartMsg;
+    const itemCount = state.cartData.item_count;
 
-    let products = Array.isArray(payload) ? payload : [payload];
+    switch (payload) {
+      case "REMOVED":
+        modifiedCartMsg = `Product removed from cart. You now have ${itemCount} items in your cart.`;
+        break;
+      case "UPDATED":
+        modifiedCartMsg = `Product changed in cart. You now have ${itemCount} items in your cart.`;
+        break;
+      case "ADDED":
+      default:
+        modifiedCartMsg = `Product added to cart. You now have ${itemCount} items in your cart.`;
+    }
 
-    const mappedPayload = products.reduce((acc, i) => {
-      acc[i.key] = 0;
-      return acc;
-    }, {});
-
-    axios
-      .post(
-        endpoints.update,
-        {
-          updates: mappedPayload,
-        },
-        headerConfigs,
-      )
-      .then(response => {
-        commit("initCart", response.data);
-        commit("cartLoading");
-      })
-      .catch(error => {
-        return error.message;
-      });
+    const srCartAlert = document.getElementById("sr-cart-alert");
+    if (srCartAlert) {
+      const newItem = document.createElement("span");
+      newItem.textContent = modifiedCartMsg;
+      srCartAlert.appendChild(newItem);
+    }
   },
 
-  addItem: ({commit, state, dispatch}, payload) => {
+  removeItem: async ({commit, state, dispatch}, payload) => {
     if (state.loading) return;
-    commit("cartLoading");
 
-    let products = Array.isArray(payload) ? payload : [payload];
-
-    axios
-      .post(
-        endpoints.add,
-        {
-          items: products,
-        },
-        headerConfigs,
-      )
-      .then(() => {
-        dispatch("initCart").then(() => {
-          dispatch("show");
-          commit("cartLoading");
-        });
-      })
-      .catch(error => {
-        return error.message;
-      });
+    try {
+      commit("cartLoading");
+      await removeCartItem(payload);
+      await dispatch("initCart");
+      dispatch("onCartModified", "REMOVED");
+    } catch (error) {
+      console.error(error.message);
+    } finally {
+      commit("cartLoading");
+    }
   },
 
-  updateItem: ({commit, state, dispatch}, payload) => {
+  addItem: async ({commit, state, dispatch}, payload) => {
     if (state.loading) return;
-    commit("cartLoading");
-    const updates = {};
-    const {item, type} = payload;
 
-    const quantity =
-      type === "increment" ? item.quantity + 1 : item.quantity - 1;
+    try {
+      commit("cartLoading");
+      await addCartItem(payload);
+      await dispatch("initCart");
+      dispatch("onCartModified", "ADDED");
+      dispatch("show");
+    } catch (error) {
+      console.error(error.message);
+    } finally {
+      commit("cartLoading");
+    }
+  },
 
-    if ((type === "decrement" && item.quantity > 0) || type === "increment") {
-      updates[item.key] = quantity;
+  updateItem: async ({commit, state, dispatch}, payload) => {
+    if (state.loading) return;
 
-      axios
-        .post(
-          endpoints.update,
-          {
-            updates,
-          },
-          headerConfigs,
-        )
-        .then(() => {
-          dispatch("initCart");
-          commit("cartLoading");
-        })
-        .catch(error => {
-          return error.message;
-        });
+    try {
+      commit("cartLoading");
+      await updateCartItem(payload);
+      await dispatch("initCart");
+      dispatch("onCartModified", "UPDATED");
+    } catch (error) {
+      console.error(error.message);
+    } finally {
+      commit("cartLoading");
     }
   },
 };
