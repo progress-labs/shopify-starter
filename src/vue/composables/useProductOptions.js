@@ -1,24 +1,16 @@
 import {ref, computed} from "vue";
-import {useStore} from "vuex";
 import isEqual from "lodash.isequal";
 import uniq from "lodash.uniq";
 
-export function useProductOptions(productData) {
-  const store = useStore();
-
-  const selectedVariant = computed(
-    () => store.getters["product/selectedVariant"],
-  );
-
-  const selectedOptions = ref();
-
+export function useProductOptions(productData, defaultVariant) {
+  const selectedOptions = ref([]);
   const firstOption = computed(() =>
     selectedOptions.value.find(option => option.position === 1),
   );
 
   const eligibleVariants = computed(() =>
     firstOption.value
-      ? this.productData.variants.filter(
+      ? productData.variants.filter(
           variant => variant.option1 === firstOption.value,
         )
       : [],
@@ -44,16 +36,15 @@ export function useProductOptions(productData) {
   });
 
   const productOptions = computed(() => {
-    if (!this.productData) return;
-    return this.productData.options;
+    if (!productData) return;
+    return productData.options;
   });
 
   const setInitialOptionValues = () => {
     const localOptions = [];
 
-    const firstAvailableVariant = productData.variants.find(
-      variant => variant.available,
-    );
+    const firstAvailableVariant =
+      defaultVariant ?? productData.variants.find(variant => variant.available);
 
     productData.options.map(option => {
       localOptions.push({
@@ -69,7 +60,7 @@ export function useProductOptions(productData) {
   const findVariantsByOptions = obj => {
     const index = selectedOptions.value.findIndex(opt => opt.type === obj.type);
 
-    if (index == -1) {
+    if (index === -1) {
       selectedOptions.value.push(obj);
     } else {
       selectedOptions.value.splice(index, 1, obj);
@@ -82,7 +73,6 @@ export function useProductOptions(productData) {
   };
 
   const isVisibleOption = option => {
-    // if (!this.selectedOptions) return false;
     /**
      * Option 1 is the "anchor" option that always needs to be skipped because it always needs to be available
      */
@@ -93,11 +83,20 @@ export function useProductOptions(productData) {
     }
   };
 
+  if (eligibleVariants.value.length === 1) {
+    const option = productData.options[0];
+    selectedOptions.value = [
+      {
+        type: option.name.toLowerCase(),
+        position: option.position,
+        value: option.value[0],
+      },
+    ];
+  }
+
   setInitialOptionValues();
 
   return {
-    productData,
-    selectedVariant,
     selectedOptions,
     firstOption,
     eligibleVariants,

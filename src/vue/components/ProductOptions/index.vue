@@ -15,42 +15,44 @@ export default {
 </script>
 
 <script setup>
-import {watch, toRefs, defineProps} from "vue";
+import {watch, computed, onMounted} from "vue";
 import {useStore} from "vuex";
 import {useProductOptions} from "@/vue/composables/useProductOptions";
 
-const props = defineProps({
-  productData: {
-    type: Object,
-    required: true,
-  },
-});
-
-const {productData} = toRefs(props);
 const store = useStore();
+const storeProduct = computed(() => store.state.product.product);
+const storeVariant = computed(() => store.state.product.selectedVariant);
 
 const {
-  variantToPurchase,
-  selectedVariant,
+  variantToPurchase: selectedVariant,
   selectedOptions,
-  eligibleVariants,
   findVariantsByOptions,
   isVisibleOption,
   isActiveOption,
-} = useProductOptions(productData.value);
+} = useProductOptions(storeProduct.value, storeVariant.value);
 
-if (eligibleVariants.length === 1) {
-  const option = productData.options[0];
-  selectedOptions.value = [
-    {
-      type: option.name.toLowerCase(),
-      position: option.position,
-      value: option.value[0],
-    },
-  ];
-}
+const updateProductUrl = (product, variant) => {
+  const url =
+    variant && product.variants.length > 1
+      ? `${location.origin}/products/${product.handle}?variant=${variant.id}`
+      : `${location.origin}/products/${product.handle}`;
+  history.pushState("", "", url);
+};
 
-watch(variantToPurchase, async newVal => {
+onMounted(() => {
+  const variantId = new URLSearchParams(location.search).get("variant");
+
+  const variant = storeProduct.value?.variants?.find(
+    variant => Number(variantId) === Number(variant.id),
+  );
+
+  if (variant) {
+    store.dispatch("product/setVariant", variant);
+  }
+});
+
+watch(selectedVariant, async newVal => {
   store.dispatch("product/setVariant", newVal);
+  updateProductUrl(storeProduct.value, newVal);
 });
 </script>

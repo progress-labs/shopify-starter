@@ -3,12 +3,8 @@ import {mapState, mapActions} from "vuex";
 
 export default {
   name: "AddToCart",
-  data: () => {
-    return {
-      loading: false,
-    };
-  },
   computed: {
+    ...mapState("cart", ["loading"]),
     ...mapState("product", ["quantity", "selectedVariant"]),
 
     disabled() {
@@ -20,7 +16,7 @@ export default {
 
     handleSubmit(e) {
       console.log("handle submit: ", e);
-      if (this.isLoading || !this.selectedVariant) return;
+      if (this.loading || !this.selectedVariant) return;
 
       this.addItem({
         id: this.selectedVariant.id,

@@ -14,7 +14,7 @@
     },
   {% endunless %}
   images: [
-  {% for image in product.images %}
+  {% for image in prod.images %}
     '{{ image | image_url: width: 300 }}',
   {% endfor %}
   ], media: [

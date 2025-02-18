@@ -11,12 +11,6 @@
           isVisibleOption
         }
       "
-      :product-data="
-        {%
-          render 'helper-product-config'
-          prod: product
-        %}
-      "
     >
       {%- for option in product.options_with_values -%}
         <fieldset class="product-options mb-20" id="product-option-{{ option.id }}">
@@ -31,7 +25,7 @@
                   {
                     'hidden': !isVisibleOption({
                       type: '{{ option.name | downcase }}',
-                      value: '{{ value | escape }}',
+                      value: '{{ value | url_encode }}',
                       position: {{ option.position }}
                     })
                   }
@@ -42,7 +36,7 @@
                   @click.prevent="
                     findVariantsByOptions({
                       type: '{{ option.name | handle }}',
-                      value: '{{ value }}',
+                      value: '{{ value | url_encode}}',
                       position: {{ option.position }}
                     })
                   "
@@ -50,7 +44,7 @@
                     {
                       'is-active': isActiveOption({
                         type: '{{ option.name | handle }}',
-                        value: '{{ value }}',
+                        value: '{{ value | url_encode }}',
                         position: {{ option.position }}
                       }),
                     }
@@ -65,7 +59,7 @@
                     :checked="
                       isActiveOption({
                         type: '{{ option.name | handle }}',
-                        value: '{{ value }}',
+                        value: '{{ value | url_encode }}',
                         position: {{ option.position }}
                       })
                     "
@@ -129,7 +123,7 @@
       <button
         type="submit"
         @click.prevent="addToCart"
-        :disabled="disabled"
+        {% comment %} :disabled="disabled" {% endcomment %}
         :class="
           {
             'opacity-50': disabled
