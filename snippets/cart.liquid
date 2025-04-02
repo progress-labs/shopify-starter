@@ -1,4 +1,5 @@
-<div class="open-cart {{ class | default: '' }}">
+<div class="{{ class | default: '' }}" vue>
+  {% comment %} Cart Trigger {% endcomment %}
   <a
     href="{{ routes.cart_url }}"
     @click.prevent="$store.dispatch('cart/toggle')"
@@ -13,5 +14,7 @@
       </div>
     {% endif %}
   </a>
-  {% render 'mini-cart' %}
+
+  {% comment %} Vue Cart Component {% endcomment %}
+  <cart v-cloak />
 </div>
