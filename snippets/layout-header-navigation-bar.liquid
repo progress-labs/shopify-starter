@@ -51,7 +51,7 @@
     <ul class="flex gap-10 items-center justify-center">
       {% for item in menu_list.links %}
         <li class="mx-10">
-          <a class="{{ menu_item_class }}" href="{{ item.handle }}"> {{ item.title }} </a>
+          <a class="{{ menu_item_class }}" href="{{ item.url }}"> {{ item.title }} </a>
         </li>
       {% endfor %}
     </ul>

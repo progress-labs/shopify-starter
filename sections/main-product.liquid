@@ -116,9 +116,13 @@
             :value="{{ current_variant.id }}"
             readonly
           >
-        {% else %}
-          {% render 'product-form', product as product %}
         {% endif %}
+
+        {%- if product.available -%}
+          {% render 'product-form', product as product %}
+        {%- else -%}
+          Out of Stock
+        {%- endif -%}
       </div>
     {% endform %}
 

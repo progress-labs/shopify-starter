@@ -21,7 +21,8 @@
   {%- for media in prod.media -%}
     {
     {%- if media.media_type == 'image' -%}
-      type: 'image', src: '{{ media | image_url: width: 300 }}', alt: '{{ media.alt }}', id: {{ media.id }}, width:
+      type: 'image', src: '{{ media | image_url: width: 300 }}', alt:
+      {{ media.alt | json | replace: "'", "\'" | json | replace: '"', "'" }}, id: {{ media.id }}, width:
       {{ media.width }}, height: {{ media.height }},
     {%- endif -%}
     {%- if media.media_type == 'video' -%}
