@@ -32,16 +32,16 @@
     <div v-if="items.length !== 0" class="mt-10">
       <p class="flex justify-between">
         <span>Subtotl: </span>
-        <span>{{ formatMoney(cartData.items_subtotal_price) }}</span>
+        <span>{{ fMoney(cartData.items_subtotal_price) }}</span>
       </p>
 
       <p class="flex justify-between">
         <span>total: </span>
-        <span>{{ formatMoney(cartData.total_price) }}</span>
+        <span>{{ fMoney(cartData.total_price) }}</span>
       </p>
 
       <a
-        class="mt-6 bg-blue-600 block text-white"
+        class="mt-6 bg-blue-600 block rounded-3xl bg-black text-center text-white"
         href="/checkout"
         :tabindex="!visible ? -1 : 0"
         >Checkout</a
@@ -51,41 +51,28 @@
 </template>
 
 <script>
-import {mapActions, mapState} from "vuex";
-import {formatMoney} from "@shopify/theme-currency";
-
 export default {
-  name: "StoreCart",
-  props: {},
-  computed: {
-    ...mapState("cart", ["cartData", "visible", "loading"]),
-    items() {
-      return this.cartData ? this.cartData.items : [];
-    },
-  },
-
-  beforeMount() {
-    console.log("before mount");
-    this.$store.dispatch("cart/initCart");
-  },
-
-  mounted() {
-    console.log("visible: ", this.visible);
-  },
-
-  methods: {
-    ...mapActions("cart", {
-      init: "initCart",
-      hide: "hide",
-    }),
-
-    close() {
-      this.hide();
-    },
-
-    formatMoney(value) {
-      return formatMoney(value, "${{amount}}");
-    },
-  },
+  name: "Cart",
 };
+</script>
+
+<script setup>
+import {formatMoney} from "@shopify/theme-currency";
+import {onBeforeMount, computed} from "vue";
+import {useStore} from "vuex";
+
+const store = useStore();
+const cartData = computed(() => store.state.cart.cartData);
+const visible = computed(() => store.state.cart.visible);
+const loading = computed(() => store.state.cart.loading);
+const items = computed(() => (cartData.value ? cartData.value.items : []));
+
+onBeforeMount(() => {
+  init();
+});
+
+const init = () => store.dispatch("cart/initCart");
+const close = () => store.dispatch("cart/hide");
+
+const fMoney = value => formatMoney(value, "${{amount}}");
 </script>

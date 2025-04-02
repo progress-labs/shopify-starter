@@ -1,36 +1,33 @@
-<script>
-import {mapState, mapActions} from "vuex";
+<template>
+  <slot :loading="loading" :disabled="disabled" :add-to-cart="submit" />
+</template>
 
+<script>
 export default {
   name: "AddToCart",
-  computed: {
-    ...mapState("cart", ["loading"]),
-    ...mapState("product", ["quantity", "selectedVariant"]),
+};
+</script>
 
-    disabled() {
-      return this.loading || !this.selectedVariant;
-    },
-  },
-  methods: {
-    ...mapActions("cart", ["addItem"]),
+<script setup>
+import {computed} from "vue";
+import {useStore} from "vuex";
 
-    handleSubmit(e) {
-      console.log("handle submit: ", e);
-      if (this.loading || !this.selectedVariant) return;
+const store = useStore();
 
-      this.addItem({
-        id: this.selectedVariant.id,
-        quantity: this.quantity,
-      });
-    },
-  },
+const loading = computed(() => store.state.cart.loading);
+const quantity = computed(() => store.state.product.quantity);
+const selectedVariant = computed(() => store.state.product.selectedVariant);
 
-  render() {
-    return this.$slots.default({
-      loading: this.loading,
-      disabled: this.disabled,
-      addToCart: this.handleSubmit,
-    });
-  },
+const disabled = computed(() => loading.value || !selectedVariant.value);
+
+const addItem = payload => store.dispatch("cart/addItem", payload);
+
+const submit = () => {
+  if (disabled.value) return;
+
+  addItem({
+    id: selectedVariant.value.id,
+    quantity: quantity.value,
+  });
 };
 </script>

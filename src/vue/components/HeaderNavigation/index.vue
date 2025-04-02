@@ -9,7 +9,7 @@ export default {
 </script>
 
 <script setup>
-import {toRefs, defineProps} from "vue";
+import {toRefs} from "vue";
 
 const props = defineProps({
   menuId: {

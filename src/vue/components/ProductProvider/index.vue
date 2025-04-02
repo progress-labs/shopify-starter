@@ -26,14 +26,13 @@ const props = defineProps({
   },
 });
 
-const {products, product, defaultVariantId} = toRefs(props);
+const {product, defaultVariantId} = toRefs(props);
 const store = useStore();
 
 const currentVariant = product.value.variants.find(
   variant => defaultVariantId.value === `${variant.id}`,
 );
 
-store.dispatch("product/setProducts", products.value);
 store.dispatch("product/setProduct", product.value);
 store.dispatch("product/setVariant", currentVariant);
 </script>

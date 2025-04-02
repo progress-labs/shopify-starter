@@ -1,26 +1,28 @@
-<script>
-import {ref} from "vue";
+<template>
+  <slot
+    :initialRender="initialRender"
+    :currentImage="currentImage"
+    :switchImage="switchImage"
+  />
+</template>
 
+<script>
 export default {
   name: "ProductGallery",
-  setup(props, {slots}) {
-    const initialRender = ref(true);
-    const currentImage = ref(null);
+};
+</script>
 
-    const switchImage = $el => {
-      initialRender.value = false;
-      currentImage.value = {
-        url: $el.target.dataset.url,
-        alt: $el.target.dataset.alt || "",
-      };
-    };
+<script setup>
+import {ref} from "vue";
 
-    return () =>
-      slots.default({
-        initialRender: initialRender.value,
-        currentImage: currentImage.value,
-        switchImage,
-      });
-  },
+const initialRender = ref(true);
+const currentImage = ref(null);
+
+const switchImage = $el => {
+  initialRender.value = false;
+  currentImage.value = {
+    url: $el.target.dataset.url,
+    alt: $el.target.dataset.alt || "",
+  };
 };
 </script>
