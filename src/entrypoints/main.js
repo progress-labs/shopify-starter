@@ -1,7 +1,3 @@
-import VueScreen from "vue-screen";
-/**
- * imports
- */
 import {createApp} from "vue";
 import {createStore} from "vuex";
 
@@ -91,7 +87,6 @@ const createVueApp = () => {
    */
 
   app.use(store);
-  app.use(VueScreen);
 
   return app;
 };
