@@ -5,6 +5,7 @@
 {% if paginate.pages > 1 %}
   <nav class="flex justify-center select-none space-x-2 mt-16">
     <a
+      aria-label="Previous page"
       href="{{ paginate.previous.url }}"
       class="{{ link_class }} {% if paginate.previous %}{{ link_class_arrow }}{% else %}{{ link_class_arrow_disabled }}{% endif %}"
     >
@@ -33,6 +34,7 @@
     {% endfor %}
 
     <a
+      aria-label="Next page"
       href="{{ paginate.next.url }}"
       class="{{ link_class }} {% if paginate.next %}{{ link_class_arrow }}{% else %}{{ link_class_arrow_disabled }}{% endif %}"
     >

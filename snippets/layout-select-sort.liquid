@@ -2,6 +2,7 @@
 
 <div class="w-full h-full {{ class | default: '' }}" style="{{ style | default: '' }}" vue>
   <select
+    aria-label="Sort Collection By:"
     onchange="
       const url = new window.URL(window.location.href);
       url.searchParams.set('sort_by', event.target.value);

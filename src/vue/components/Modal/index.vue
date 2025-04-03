@@ -1,7 +1,10 @@
 <template>
   <Teleport to="body">
     <Transition :name="transitionName">
-      <aside
+      <div
+        role="dialog"
+        :aria-label="modalId"
+        :id="modalId"
         v-if="isOpen"
         class="fixed left-0 top-0 z-50 h-screen w-full bg-opacity-50"
         :class="modalClass"
@@ -20,7 +23,7 @@
             <slot :isOpen="isOpen" :hide="hideModal" :show="showModal" />
           </div>
         </FocusTrap>
-      </aside>
+      </div>
     </Transition>
   </Teleport>
 </template>
