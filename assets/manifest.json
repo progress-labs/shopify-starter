@@ -1,19 +1,16 @@
 {
-  "src/entrypoints/main.css": {
-    "file": "main.a9b8ee90.min.css",
-    "src": "src/entrypoints/main.css"
-  },
   "src/entrypoints/main.js": {
-    "css": [
-      "main.a9b8ee90.min.css"
-    ],
-    "file": "main.fe1a916b.min.js",
+    "file": "main.CAx0nhQ5.min.js",
+    "name": "main",
+    "src": "src/entrypoints/main.js",
     "isEntry": true,
-    "src": "src/entrypoints/main.js"
+    "css": [
+      "main.B3jMbYMj.min.css"
+    ]
   },
   "src/entrypoints/main.scss": {
-    "file": "main.425b573c.min.css",
-    "isEntry": true,
-    "src": "src/entrypoints/main.scss"
+    "file": "main.D9sLqh98.min.css",
+    "src": "src/entrypoints/main.scss",
+    "isEntry": true
   }
 }
