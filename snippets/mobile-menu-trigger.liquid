@@ -10,7 +10,7 @@
     name="toggle"
     :aria-expanded="$store.state.modal.modals['mobile-menu']"
     aria-controls="mobile-menu"
-    @click="console.log($store); $store.dispatch('modal/show', 'mobile-menu')"
+    @click="$store.dispatch('modal/show', 'mobile-menu')"
   >
     {% render 'icon-menu', class: icon_class %}
   </button>
