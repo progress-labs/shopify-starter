@@ -10,11 +10,18 @@
   <product-gallery v-slot="{ initialRender, currentImage, switchImage }">
     <div>
       <div>
+        <link rel="preload" as="image" href="{{ featured_image | image_url: width: 180 }}">
         <img
           v-if="initialRender"
-          src="{{ featured_image | image_url: width: 750 }}"
+          src="{{ featured_image | image_url: width: 180 }}"
+          sizes="
+            (min-width: 1280px) 619px,
+            (min-width: 640px) 50vw,
+            100vw
+          "
+          srcset="{%- render 'responsive-image-srcset', image: featured_image, width: 676, desired_sizes: '187.0,375.0,414.0,676.0' -%}"
           alt="{{ featured_image.alt | escape }}"
-          loading="lazy"
+          loading="eager"
           width="{{ featured_image.width }}"
           height="{{ featured_image.height }}"
           class="w-full h-auto object-cover object-center"
