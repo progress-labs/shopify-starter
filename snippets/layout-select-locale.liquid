@@ -1,7 +1,8 @@
 {% form 'localization', class: 'select' %}
   <select
-    @change="submit"
+    aria-label="Locale Code"
     name="locale_code"
+    @change="submit"
     class="border p-1"
   >
     {% for locale in form.available_locales %}

@@ -1,0 +1,102 @@
+{%- comment -%}
+  Variables to pass in
+  	image
+  	width
+  	sizes
+  	classes *** optional
+  	height  *** optional
+    desired_sizes **** optional
+{%- endcomment -%}
+
+{%- comment -%} if no height is provided assume no crop {%- endcomment -%}
+
+{%- liquid
+  assign width = width | divided_by: 1.0
+
+  if height != blank
+    assign height = height | divided_by: 1.0
+    assign ratio = height | divided_by: width
+  endif
+
+  if sizes == blank
+    assign sizes = 'calc(100vw - 32px)'
+  endif
+
+  assign asset_width = image.width
+  assign asset_height = image.height
+
+  if desired_sizes == blank
+    assign desired_sizes = '187.0,375.0,414.0,676.0,1014.0,1352.0' | split: ','
+  else
+    assign desired_sizes = desired_sizes | split: ','
+  endif
+-%}
+
+{%- comment -%}
+  NOTE:
+  	If the image size is not available and we just get the normal asset then
+  	that is fine because the srcset url will be used instead of this by default.
+{%- endcomment -%}
+
+{%- if height != blank -%}
+  {%- for size in desired_sizes -%}
+    {%- assign s = size | times: 1.0 -%}
+    {%- assign desired_height = s | times: ratio | floor -%}
+    {%- if asset_width > s and asset_height > desired_height and s < width -%}
+      {%- assign new_width = s | floor -%}
+      {{-
+        image
+        | image_url: width: new_width, height: desired_height, crop: 'center'
+        | append: ' '
+        | append: new_width
+        | append: 'w,'
+      -}}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- comment -%} make a 1 to 1 requested size {%- endcomment -%}
+  {%- assign s = width | times: 1.0 -%}
+  {%- assign desired_height = s | times: ratio | floor -%}
+  {%- if asset_width > s and asset_height > desired_height -%}
+    {%- assign new_width = s | floor -%}
+    {{-
+      image
+      | image_url: width: new_width, height: desired_height, crop: 'center'
+      | append: ' '
+      | append: new_width
+      | append: 'w,'
+    -}}
+  {%- endif -%}
+  {%- comment -%} make a 2 to 1 requested size {%- endcomment -%}
+  {%- assign s = width | times: 2.0 -%}
+  {%- assign desired_height = s | times: ratio | floor -%}
+  {%- if asset_width > s and asset_height > desired_height -%}
+    {%- assign new_width = s | floor -%}
+    {{-
+      image
+      | image_url: width: new_width, height: desired_height, crop: 'center'
+      | append: ' '
+      | append: new_width
+      | append: 'w,'
+    -}}
+  {%- endif -%}
+{%- else -%}
+  {%- for size in desired_sizes -%}
+    {%- assign s = size | times: 1.0 -%}
+    {%- if asset_width > s -%}
+      {%- assign new_width = s | floor -%}
+      {{- image | image_url: width: new_width | append: ' ' | append: new_width | append: 'w,' -}}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- comment -%} make a 1 to 1 requested size {%- endcomment -%}
+  {%- assign s = width | times: 1.0 -%}
+  {%- if asset_width > s -%}
+    {%- assign new_width = s | floor -%}
+    {{- image | image_url: width: new_width | append: ' ' | append: new_width | append: 'w,' -}}
+  {%- endif -%}
+  {%- comment -%} make a 2 to 1 requested size {%- endcomment -%}
+  {%- assign s = width | times: 2.0 -%}
+  {%- if asset_width > s -%}
+    {%- assign new_width = s | floor -%}
+    {{- image | image_url: width: new_width | append: ' ' | append: new_width | append: 'w,' -}}
+  {%- endif -%}
+{%- endif -%}

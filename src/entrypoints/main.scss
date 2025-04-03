@@ -2,9 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Default transitions */
+/* Globals */
+:root {
+  --container-padding: 16px;
+}
+
+/* Transitions */
 @import url("../css/utils/transitions.scss");
-
-/* v-cloak to hide vue elements when they're not initialized */
-
-/* Components */

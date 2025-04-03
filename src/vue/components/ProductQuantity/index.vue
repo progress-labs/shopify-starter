@@ -1,27 +1,27 @@
-<script>
-import {mapState, mapActions} from "vuex";
+<template>
+  <slot
+    :loading="loading"
+    :quantity="quantity"
+    :increaseQuantity="increaseQuantity"
+    :decreaseQuantity="decreaseQuantity"
+  />
+</template>
 
+<script>
 export default {
   name: "ProductQuantity",
-  data: () => {
-    return {
-      loading: false,
-    };
-  },
-  computed: {
-    ...mapState("product", ["quantity"]),
-  },
-  methods: {
-    ...mapActions("product", ["increaseQuantity", "decreaseQuantity"]),
-  },
-
-  render() {
-    return this.$slots.default({
-      loading: this.loading,
-      quantity: this.quantity,
-      increaseQuantity: this.increaseQuantity,
-      decreaseQuantity: this.decreaseQuantity,
-    });
-  },
 };
+</script>
+
+<script setup>
+import {ref, computed} from "vue";
+import {useStore} from "vuex";
+
+const store = useStore();
+
+const loading = ref(false);
+
+const quantity = computed(() => store.state.product.quantity);
+const increaseQuantity = val => store.dispatch("product/increaseQuantity", val);
+const decreaseQuantity = val => store.dispatch("product/decreaseQuantity", val);
 </script>

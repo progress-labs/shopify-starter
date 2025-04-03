@@ -10,26 +10,27 @@
 <script>
 export default {
   name: "AnnouncementBar",
-  props: {
-    visible: {
-      type: Boolean,
-      required: false,
-      default: true,
-    },
-    content: {
-      type: String,
-      required: true,
-    },
-  },
-  data() {
-    return {
-      isOpen: this.visible,
-    };
-  },
-  methods: {
-    close() {
-      this.isOpen = false;
-    },
-  },
 };
+</script>
+
+<script setup>
+import {toRefs, ref} from "vue";
+
+const props = defineProps({
+  visible: {
+    type: Boolean,
+    required: false,
+    default: true,
+  },
+  content: {
+    type: String,
+    required: true,
+  },
+});
+
+const {visible, content} = toRefs(props);
+
+const isOpen = ref(visible.value);
+
+const close = () => (isOpen.value = false);
 </script>

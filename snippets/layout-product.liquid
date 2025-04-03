@@ -1,20 +1,24 @@
 <div class="{{ class | default: '' }}" style="{{ style | default: '' }}">
   <a href="{{ product.url | within: collection }}" class="block relative">
+    {%- if preload -%}
+      <link rel="preload" as="image" href="{{ product.featured_image | image_url: width: 180 }}">
+    {%- endif -%}
     <img
       sizes="
-        (min-width: 768px) 450px,
-        630px
+        (min-width: 1536px) 376px,
+        (min-width: 1280px) 312px,
+        (min-width: 1024px) 248px,
+        (min-width: 768px) 33vw,
+        (min-width: 640px) 50vw,
+        100vw
       "
-      srcset="
-        {{ product.featured_image.src | image_url: width: 450 }} 450w,
-        {{ product.featured_image.src | image_url: width: 630 }} 630w
-      "
-      src="{{ product.featured_image.src | image_url: width: 630 }}"
+      srcset="{%- render 'responsive-image-srcset', image: product.featured_image, desired_sizes: '180.0,248.0,312.0,376.0,676.0' -%}"
+      src="{{ product.featured_image | image_url: width: 180 }}"
       alt="{{ product.featured_image.alt | escape }}"
       width="{{ product.featured_image.width }}"
       height="{{ product.featured_image.height }}"
-      loading="lazy"
-      class="w-full h-80 sm:h-64 xl:h-80 2xl:max-h-96 object-cover object-center"
+      loading="{%- if preload -%}eager{%- else -%}lazy{%- endif -%}"
+      class="w-full object-cover object-center"
     >
 
     {% if product.compare_at_price %}

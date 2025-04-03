@@ -1,25 +1,41 @@
 {% assign current_variant = product.selected_or_first_available_variant %}
 {% assign featured_image = current_variant.featured_image | default: product.featured_image %}
 
-<div class="container max-w-screen-xl grid md:grid-cols-2 gap-10">
-  <renderless-product-gallery v-slot="{ initialRender, currentImage, switchImage }">
+<div class="container max-w-screen-xl grid md:grid-cols-2 gap-10" vue>
+  {% comment %} This will initialize the product store {% endcomment %}
+  <product-provider
+    default-variant-id="{{- current_variant.id -}}"
+    :product="{%- render 'helper-product-config', prod: product -%}"
+  />
+  <product-gallery v-slot="{ initialRender, currentImage, switchImage }">
     <div>
       <div>
+        <link rel="preload" as="image" href="{{ featured_image | image_url: width: 180 }}">
         <img
           v-if="initialRender"
-          src="{{ featured_image | image_url: width: 750 }}"
+          src="{{ featured_image | image_url: width: 180 }}"
+          sizes="
+            (min-width: 1280px) 619px,
+            (min-width: 640px) 50vw,
+            100vw
+          "
+          srcset="{%- render 'responsive-image-srcset', image: featured_image, width: 676, desired_sizes: '187.0,375.0,414.0,676.0' -%}"
           alt="{{ featured_image.alt | escape }}"
-          loading="lazy"
+          loading="eager"
           width="{{ featured_image.width }}"
           height="{{ featured_image.height }}"
           class="w-full h-auto object-cover object-center"
         >
 
-        <div v-else>
+        <div v-else-if="currentImage?.url">
           <img
             :src="currentImage.url"
             :key="currentImage.url"
             :alt="currentImage.alt"
+            width="0"
+            height="0"
+            :width="currentImage.width"
+            :height="currentImage.height"
             loading="lazy"
             class="w-full h-full object-cover object-center"
           >
@@ -58,7 +74,7 @@
         </div>
       {% endif %}
     </div>
-  </renderless-product-gallery>
+  </product-gallery>
 
   <div class="md:mt-12">
     {% if product.title %}
@@ -107,11 +123,13 @@
             :value="{{ current_variant.id }}"
             readonly
           >
-        {% else %}
-          <div vue>
-            {% render 'product-form', product as product %}
-          </div>
         {% endif %}
+
+        {%- if product.available -%}
+          {% render 'product-form', product as product %}
+        {%- else -%}
+          Out of Stock
+        {%- endif -%}
       </div>
     {% endform %}
 

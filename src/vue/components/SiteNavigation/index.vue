@@ -19,23 +19,22 @@
 <script>
 export default {
   name: "SiteNavigation",
-  props: {
-    menuId: {
-      type: String,
-      required: true,
-    },
-    menu: {
-      type: Array,
-      required: true,
-    },
-  },
-  data: () => {
-    return {};
-  },
-  computed: {},
-  mounted() {
-    console.log("site navigation -- mounted");
-  },
-  methods: {},
 };
+</script>
+
+<script setup>
+import {toRefs} from "vue";
+
+const props = defineProps({
+  menuId: {
+    type: String,
+    required: true,
+  },
+  menu: {
+    type: Array,
+    required: true,
+  },
+});
+
+const {menu, menuId} = toRefs(props);
 </script>
