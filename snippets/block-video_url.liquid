@@ -1,0 +1,5 @@
+{%- if block != blank and block.settings.video_url != blank -%}
+  <video autoplay muted loop playsinline>
+    <source type="video/mp4" src="{{- block.settings.video_url | asset_url -}}">
+  </video>
+{%- endif -%}

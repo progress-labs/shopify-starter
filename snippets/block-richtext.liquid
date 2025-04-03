@@ -1,0 +1,5 @@
+{% if block != blank and block.settings.richtext != blank %}
+  <div class="{% if block.settings.align_richtext == 'left' %}text-left{% elsif block.settings.align_richtext == 'right' %}text-right{% else %}text-center{% endif %}">
+    {{ block.settings.richtext }}
+  </div>
+{%- endif -%}
