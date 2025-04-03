@@ -122,6 +122,11 @@ export default function (plop) {
         path: "src/css/sections/{{ kebabCase name }}.scss",
         templateFile: `${plopDir}/css.hbs`,
       },
+      {
+        type: "append",
+        path: "src/entrypoints/main.scss",
+        template: `@import url("../sections/{{ kebabCase name }}.scss");`,
+      },
     ], // array of actions
   });
 
