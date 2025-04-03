@@ -9,28 +9,14 @@ export default function (plop) {
         name: "name",
         message: "Component Name?",
       },
-      {
-        type: "confirm",
-        name: "renderless",
-        message: "Create renderless component?",
-        default: false,
-      },
     ],
-    actions: data => {
+    actions: () => {
       let actions = [];
-      if (data.renderless) {
-        actions.push({
-          type: "add",
-          path: `src/vue/components/{{ pascalCase name }}/index.vue`,
-          templateFile: `${plopDir}/renderless-component.hbs`,
-        });
-      } else {
-        actions.push({
-          type: "add",
-          path: "src/vue/components/{{ pascalCase name }}/index.vue",
-          templateFile: `${plopDir}/render-component.hbs`,
-        });
-      }
+      actions.push({
+        type: "add",
+        path: "src/vue/components/{{ pascalCase name }}/index.vue",
+        templateFile: `${plopDir}/render-component.hbs`,
+      });
       return actions;
     },
   });

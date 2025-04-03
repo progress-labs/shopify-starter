@@ -1,0 +1,25 @@
+{%- if type != 'button' -%}
+  <a
+    class="button {% if is_disabled %}disabled{% endif %} {{ class | default: '' }}"
+    href="{{ url }}"
+    {% if is_disabled %}
+      disabled
+    {% endif %}
+    {% if onclick != blank %}
+      onclick="{{ onclick }}"
+    {% endif %}
+  >
+    {{- label -}}
+  </a>
+{%- else -%}
+  <button
+    class="button {{ disabled }}"
+    aria-label="{{ label | t }}"
+    href="{{ url }}"
+    {% if disable %}
+      disabled
+    {% endif %}
+  >
+    {{- label -}}
+  </button>
+{%- endif -%}

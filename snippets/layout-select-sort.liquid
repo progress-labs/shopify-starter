@@ -1,11 +1,12 @@
 {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
 
-<div class="w-full h-full {{ class | default: '' }}" style="{{ style | default: '' }}">
+<div class="w-full h-full {{ class | default: '' }}" style="{{ style | default: '' }}" vue>
   <select
-    @change="
-      appendParameter({
-        parameter: 'sort_by'
-      }, $event)
+    aria-label="Sort Collection By:"
+    onchange="
+      const url = new window.URL(window.location.href);
+      url.searchParams.set('sort_by', event.target.value);
+      window.location = url || window.location;
     "
     class="w-full h-full pl-4 pr-2"
   >

@@ -88,13 +88,13 @@
   {% if settings.klaviyo_id != blank %}
     <div vue>
       <Newsletter
-        v-slot="{ submitHandler, loading, message, success }"
+        v-slot="{ email, submit, loading, message, success }"
         list-id="{{ settings.klaviyo_id }}"
       >
-        <form class="flex pb-2 border-b border-sunset border border-black " @submit="submitHandler">
+        <form class="flex pb-2 border-b border-sunset border border-black " @submit.prevent="submit">
           <label class="block" for="email">
             <span class="sr-only">Email</span>
-            <input type="email" id="email" name="email" required>
+            <input type="email" id="email" name="email" v-model="email" required>
           </label>
 
           <button type="submit">Submit</button>

@@ -6,43 +6,41 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
-    <link rel="preload" href="{{ 'main.css' | asset_url }}" as="style">
-    <link rel="preload" href="{{ 'bundle.js' | asset_url }}" as="script">
 
     <title>{{ page_title | escape }}</title>
 
-    {% if page_description %}
+    {%- if page_description -%}
       <meta name="description" content="{{ page_description | escape }}">
-    {% endif %}
+    {%- endif -%}
 
-    {% if canonical_url != blank %}
+    {%- if canonical_url != blank -%}
       <link rel="canonical" href="{{ canonical_url }}">
-    {% endif %}
+    {%- endif -%}
 
     {% comment %}
       Theme Window Object
     {% endcomment %}
-    {% render 'helper-theme-global-js', menu: 'main-menu' %}
-    {% render 'helper-theme-menu-js' %}
+    {%- render 'helper-theme-global-js', menu: 'main-menu' -%}
+    {%- render 'helper-theme-menu-js' -%}
 
     {% comment %}
       Sturctured Data
     {% endcomment %}
-    {% render 'json-ld-global' %}
-    {% render 'json-ld-homepage' %}
+    {%- render 'json-ld-global' -%}
+    {%- render 'json-ld-homepage' -%}
 
     {% comment %}
       Body Classes
     {% endcomment %}
     {%- assign body_classes = '' -%}
 
-    {% capture template_name_class %}template-{{ template.name | handle }}{% endcapture %}
-    {% assign body_classes = body_classes | append: template_name_class | append: ' ' %}
+    {%- capture template_name_class -%}template-{{ template.name | handle }}{%- endcapture -%}
+    {%- assign body_classes = body_classes | append: template_name_class | append: ' ' -%}
 
-    {% if template.suffix %}
+    {%- if template.suffix -%}
       {% capture template_suffix_class %}template-{{ template.suffix | handle }}{% endcapture %}
       {% assign body_classes = body_classes | append: template_suffix_class | append: ' ' %}
-    {% endif %}
+    {%- endif -%}
 
     {% comment %}
       Google Fonts
@@ -51,16 +49,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 
-    {{ 'main.css' | asset_url | stylesheet_tag }}
+    {%- render 'vite-tag' with 'main.scss', preload_stylesheet: true -%}
 
-    {% style %}
+    {%- style -%}
       /* v-cloak is a Vue directive that gets removed after Vue is initialized. */
       /* Vue v-cloak does not support CSS transitions, because the DOM will be recreated after init: */
       /* https://stackoverflow.com/questions/50859676/vue-js-v-cloak-does-not-use-css-transition */
       [v-cloak] {
         display: none;
       }
-    {% endstyle %}
+    {%- endstyle -%}
 
     {% comment %}
       Header hook for Shopify plugins
@@ -69,16 +67,15 @@
   </head>
 
   <body id="{{ page_title | handle }}" class="min-h-screen flex flex-col font-sans {{ body_classes }}">
-    {% if request.page_type == 'captcha' %}
+    {%- if request.page_type == 'captcha' -%}
       {% comment %}
         fix: Shopify automatically inserts script tags on captcha pages into the content_for_layout tag
         but vue removes any script tags on mount, so don't initialize the vue instance on captcha pages
       {% endcomment %}
       {{ content_for_layout }}
-    {% else %}
-      {% section 'layout-announcement-bar' %}
-
-      {% section 'layout-header' %}
+    {%- else -%}
+      {%- section 'layout-announcement-bar' -%}
+      {%- section 'layout-header' -%}
 
       <main
         id="main"
@@ -88,14 +85,11 @@
         {{ content_for_layout }}
       </main>
 
-      {% section 'layout-footer' %}
-    {% endif %}
+      {%- section 'layout-footer' -%}
+    {%- endif -%}
 
-    {%- liquid
-      render 'vite-tag' with 'main.scss', preload_stylesheet: true
-      render 'vite-tag' with 'main.js'
-    -%}
+    {%- render 'vite-tag' with 'main.js' -%}
 
-    {% render 'console-credit' %}
+    {%- render 'console-credit' -%}
   </body>
 </html>

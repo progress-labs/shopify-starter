@@ -2,7 +2,9 @@ root: .
 
 MatchingTranslations:
   enabled: false
-AssetPreload: 
+AssetPreload:
   enabled: false
 LiquidTag:
   enabled: false
+ImgWidthAndHeight:
+  severity: warning

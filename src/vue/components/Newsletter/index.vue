@@ -1,64 +1,30 @@
-<script>
-import {subscribe} from "klaviyo-subscribe";
+<template>
+  <slot
+    :email="email"
+    :submit="submit"
+    :loading="isLoading"
+    :message="message"
+  />
+</template>
 
-/**
- * The only thing required for this to run:
- * input field with the `email`
- */
+<script>
 export default {
   name: "Newsletter",
-  props: {
-    listId: {
-      required: true,
-      type: String,
-    },
-  },
-  data: () => ({
-    loading: false,
-    success: false,
-    message: "",
-  }),
-  computed: {},
-  beforeMount() {},
-  mounted() {
-    console.log("-- mounted Newsletter --");
-  },
-  methods: {
-    submitHandler(e) {
-      e.preventDefault();
-      const {email} = e.target.elements;
-
-      this.loading = true;
-
-      const messages = {
-        success: "Success!",
-        error: "Error!",
-      };
-
-      subscribe(this.listID, email.value).then(resp => {
-        email.value = "Submitting...";
-        if (resp.success) {
-          this.success = true;
-          setTimeout(() => {
-            e.target.reset();
-            this.message = messages.success;
-          }, 600);
-        } else {
-          this.message = messages.error;
-          email.value = "";
-        }
-
-        this.loading = false;
-      });
-    },
-  },
-  render() {
-    return this.$slots.default({
-      submitHandler: this.submitHandler,
-      success: this.success,
-      message: this.message,
-      loading: this.loading,
-    });
-  },
 };
+</script>
+
+<script setup>
+import useNewsletter from "@/vue/composables/useNewsletter";
+import {toRefs} from "vue";
+
+const props = defineProps({
+  listId: {
+    required: true,
+    type: String,
+  },
+});
+
+const listId = toRefs(props);
+
+const {email, isLoading, message, submit} = useNewsletter(listId.value);
 </script>

@@ -1,4 +1,4 @@
 export const container = {
   center: true,
-  padding: "16px",
+  padding: "var(--container-padding, 16px)",
 };
