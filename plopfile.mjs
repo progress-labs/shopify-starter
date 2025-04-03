@@ -105,7 +105,7 @@ export default function (plop) {
             value: "video",
           },
           {
-            name: "Video",
+            name: "Video URL",
             value: "video_url",
           },
         ],
