@@ -2,14 +2,31 @@
   Variables to pass in
   	image
   	width
-  	classes *** optional
-  	height  *** optional
-  	sizes   *** optional
+  	lazy                *** optional
+  	classes             *** optional
+  	height              *** optional
+  	sizes               *** optional
+    use_aspect_ratio    *** optional
+    aspect_ratio        *** optional
+    alt                 *** optional
 {% endcomment %}
 
 {% comment %} if no height is provided assume no crop {% endcomment %}
 {%- liquid
+  assign preload = preload | default: false
+  assign lazy = lazy | default: true
+  assign use_aspect_ratio = use_aspect_ratio | default: false
+  assign aspect_ratio = aspect_ratio | divided_by: 1.0
   assign width = width | divided_by: 1.0
+  assign alt = alt | default: ''
+
+  if section.index0 < 2
+    assign preload = true
+    assign lazy = true
+  else
+    assign preload = false
+    assign lazy = false
+  endif
 
   if height != blank
     assign height = height | divided_by: 1.0
@@ -22,6 +39,7 @@
 
   assign asset_width = image.width
   assign asset_height = image.height
+  assign default_aspect_ratio = width | divided_by: height
 
   assign desired_sizes = '187.0,375.0,414.0,676.0,1014.0,1352.0' | split: ','
 -%}
@@ -33,14 +51,14 @@
 {% endcomment %}
 
 {% if height != blank %}
+  {%- assign new_width = width | floor -%}
+  {%- assign new_height = height | floor -%}
   <img
     class="responsive-image {{ classes }}"
-    src="
-      {% assign new_width = width | floor %}
-      {% assign new_height = height | floor %}
-      {{ image | image_url: width: new_width, height: new_height, crop: 'center' }}
-    "
-    style="aspect-ratio: {{ width | divided_by: height }};"
+    src="{{- image | image_url: width: new_width, height: new_height, crop: 'center' -}}"
+    {%- if use_aspect_ratio -%}
+      style="aspect-ratio: {{ aspect_ratio | default: default_aspect_ratio }};"
+    {%- endif -%}
     srcset="
       {% for size in desired_sizes %}
       	{% assign s = size | times: 1.0 %}
@@ -68,8 +86,8 @@
     width="{{ image.width }}"
     height="{{ image.height }}"
     sizes="{{ sizes }}"
-    alt="{{ image.alt | escape }}"
-    loading="lazy"
+    alt="{{ image.alt | default: alt | escape }}"
+    loading="{% if lazy %}lazy{% else %}eager{% endif %}"
   >
 
 {% else %}
