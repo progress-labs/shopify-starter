@@ -114,24 +114,7 @@
       </div>
     {% endif %}
 
-    {% form 'product', product %}
-      <div class="flex items-end gap-4 mb-6">
-        {% if product.has_only_default_variant %}
-          <input
-            name="id"
-            type="hidden"
-            :value="{{ current_variant.id }}"
-            readonly
-          >
-        {% endif %}
-
-        {%- if product.available -%}
-          {% render 'product-form', product as product %}
-        {%- else -%}
-          Out of Stock
-        {%- endif -%}
-      </div>
-    {% endform %}
+    {% render 'product-form', product as product %}
 
     {% if product.description %}
       <div class="mt-4">

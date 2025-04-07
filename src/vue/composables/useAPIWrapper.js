@@ -13,6 +13,7 @@ export default fn => {
       result.value = response;
       return response;
     } catch (e) {
+      console.error(e);
       error.value = e;
       result.value = null;
     } finally {

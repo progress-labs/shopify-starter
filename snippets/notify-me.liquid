@@ -1,0 +1,44 @@
+<notify-me
+  klaviyo-id="{{ settings.klaviyo_id }}"
+  :product="{%- render 'helper-product-config', prod: product -%}"
+  :variant="selectedVariant"
+  v-slot="{ messages, submit, isLoading, status, error}"
+>
+  <div class="mt-20 w-full">
+    <p class="mb-5" v-text="messages.message"></p>
+
+    <form @submit.prevent="submit">
+      <div class="flex gap-5">
+        <label for="notify-email" class="max-md:w-full">
+          <input
+            class="border rounded-full px-10 py-5 w-full"
+            type="email"
+            id="notify-email"
+            placeholder="email@address.com"
+            required
+          >
+        </label>
+        <button
+          class="border rounded-full whitespace-nowrap py-5 px-15 text-center"
+        >
+          <span v-if="!isLoading" v-text="messages.button"></span>
+          <span v-if="isLoading" v-text="messages.loading"></span>
+        </button>
+      </div>
+      <div
+        class="mt-5"
+        v-if="status"
+        :class="
+          {
+              'text-[green]': status === 'success',
+              'text-[red]': status === 'error'
+          }
+        "
+      >
+        <p v-if="status === 'success'" v-text="messages.success"></p>
+        {% comment %} <p v-if="status === 'error'" v-text="error"></p> {% endcomment %}
+        <p v-if="status === 'error'" v-text="messages.error"></p>
+      </div>
+    </form>
+  </div>
+</notify-me>
