@@ -8,8 +8,9 @@ export function useProductOptionsV2(product, defaultVariantId) {
   const setOptionsByVariantId = variantId => {
     const localOptions = [];
 
-    const firstAvailableVariant =
-      variantId ? product.variants.find(variant => variant.id === variantId) : product.variants.find(variant => variant.available);
+    const firstAvailableVariant = variantId
+      ? product.variants.find(variant => variant.id === variantId)
+      : product.variants.find(variant => variant.available);
 
     product.options.map(option => {
       localOptions.push({
