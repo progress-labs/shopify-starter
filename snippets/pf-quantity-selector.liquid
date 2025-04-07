@@ -1,0 +1,24 @@
+<fieldset>
+  <legend>Quantity</legend>
+  <div class="flex items-center gap-10 flex-row-reverse w-fit justify-between py-2">
+    <button
+      class="min-w-30 min-h-30 border border-gray-500 rounded-full"
+      aria-label="Increase Quantity by 1"
+      :id="`${formId}-increase-quantity`"
+      @click.prevent="increaseQuantityByOne()"
+    >
+      {%- render 'icon-plus' -%}
+    </button>
+
+    <span v-text="quantity" class="text-center min-w-6"></span>
+
+    <button
+      class="min-w-30 min-h-30 border border-gray-500 rounded-full"
+      aria-label="Decrease Quantity by 1"
+      :id="`${formId}-decrease-quantity`"
+      @click.prevent="decreaseQuantityByOne()"
+    >
+      {%- render 'icon-minus' -%}
+    </button>
+  </div>
+</fieldset>

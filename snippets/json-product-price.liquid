@@ -1,0 +1,24 @@
+{ id:
+{{- variant_id -}}
+,
+{%- if selling_plan_id -%}
+  selling_plan:
+  {{- selling_plan_id | default: 'null' -}}
+  ,
+{%- endif -%}
+{%- if quantity -%}
+  quantity:
+  {{- quantity | default: 0.0 -}}
+  ,
+{%- endif -%}
+{%- if price -%}
+  price:
+  {{- price | default: 0.0 -}}
+  ,
+{%- endif -%}
+{%- if compare_at_price -%}
+  compareAtPrice:
+  {{- compare_at_price | default: 0.0 -}}
+  ,
+{%- endif -%}
+},

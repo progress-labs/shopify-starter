@@ -1,6 +1,6 @@
 import {ref} from "vue";
 
-export default fn => {
+export const useAPIWrapper = fn => {
   const isLoading = ref(false);
   const result = ref(null);
   const error = ref(null);

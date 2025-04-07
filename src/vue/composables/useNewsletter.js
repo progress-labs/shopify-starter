@@ -1,6 +1,6 @@
 import {subscribe} from "klaviyo-subscribe";
 import {onBeforeUnmount, ref} from "vue";
-import useAPIWrapper from "./useAPIWrapper";
+import {useAPIWrapper} from "./useAPIWrapper";
 
 export default listId => {
   const email = ref("");
