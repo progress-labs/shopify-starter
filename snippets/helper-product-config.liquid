@@ -44,8 +44,8 @@
   {%- endfor -%}
   ], options: [
   {%- for option in prod.options_with_values -%}
-    { name: {{ option.name | json | replace: '"', "'" }}, position: {{ option.position | json | replace: '"', "'" }},
-    value: [
+    { name: {{ option.name | handle | json | replace: '"', "'" }}, position:
+    {{ option.position | json | replace: '"', "'" }}, value: [
     {%- for value in option.values -%}
       {{ value | url_encode | json | replace: '"', "'" }}
       {%- unless forloop.last %},{% endunless %}

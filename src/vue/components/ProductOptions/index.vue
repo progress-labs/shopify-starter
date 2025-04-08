@@ -29,7 +29,7 @@ const {
   findVariantsByOptions,
   isVisibleOption,
   isActiveOption,
-} = useProductOptions(storeProduct.value, storeVariant.value);
+} = useProductOptions(storeProduct.value, storeVariant.value.id);
 
 const updateProductUrl = (product, variant) => {
   const url =
