@@ -2,16 +2,35 @@ import {ref, computed} from "vue";
 import isEqual from "lodash.isequal";
 import uniq from "lodash.uniq";
 
-export function useProductOptions(productData, defaultVariant) {
+export function useProductOptions(product, defaultVariantId) {
   const selectedOptions = ref([]);
+
+  const setOptionsByVariantId = variantId => {
+    const localOptions = [];
+
+    const firstAvailableVariant = variantId
+      ? product.variants.find(variant => variant.id === variantId)
+      : product.variants.find(variant => variant.available);
+
+    product.options.map(option => {
+      localOptions.push({
+        type: option.name.toLowerCase(),
+        value: firstAvailableVariant[`option${option.position}`],
+        position: option.position,
+      });
+    });
+
+    selectedOptions.value = localOptions;
+  };
+
   const firstOption = computed(() =>
     selectedOptions.value.find(option => option.position === 1),
   );
 
   const eligibleVariants = computed(() =>
     firstOption.value
-      ? productData.variants.filter(
-          variant => variant.option1 === firstOption.value,
+      ? product.variants.filter(
+          variant => variant.option1 === firstOption.value.value,
         )
       : [],
   );
@@ -28,7 +47,7 @@ export function useProductOptions(productData, defaultVariant) {
     const flatOptions = selectedOptions.value
       .map(option => String(option.value))
       .sort();
-    const found = productData.variants.find(variant => {
+    const found = product.variants.find(variant => {
       return isEqual(flatOptions, variant.options.sort());
     });
 
@@ -36,26 +55,9 @@ export function useProductOptions(productData, defaultVariant) {
   });
 
   const productOptions = computed(() => {
-    if (!productData) return;
-    return productData.options;
+    if (!product) return;
+    return product.options;
   });
-
-  const setInitialOptionValues = () => {
-    const localOptions = [];
-
-    const firstAvailableVariant =
-      defaultVariant ?? productData.variants.find(variant => variant.available);
-
-    productData.options.map(option => {
-      localOptions.push({
-        type: option.name.toLowerCase(),
-        value: firstAvailableVariant[`option${option.position}`],
-        position: option.position,
-      });
-    });
-
-    selectedOptions.value = localOptions;
-  };
 
   const findVariantsByOptions = obj => {
     const index = selectedOptions.value.findIndex(opt => opt.type === obj.type);
@@ -84,7 +86,7 @@ export function useProductOptions(productData, defaultVariant) {
   };
 
   if (eligibleVariants.value.length === 1) {
-    const option = productData.options[0];
+    const option = product.options[0];
     selectedOptions.value = [
       {
         type: option.name.toLowerCase(),
@@ -94,7 +96,7 @@ export function useProductOptions(productData, defaultVariant) {
     ];
   }
 
-  setInitialOptionValues();
+  setOptionsByVariantId(defaultVariantId);
 
   return {
     selectedOptions,
@@ -104,6 +106,7 @@ export function useProductOptions(productData, defaultVariant) {
     variantToPurchase,
     productOptions,
     findVariantsByOptions,
+    setOptionsByVariantId,
     isVisibleOption,
     isActiveOption,
   };

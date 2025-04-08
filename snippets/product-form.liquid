@@ -24,13 +24,34 @@
                 :class="
                   {
                     'hidden': !isVisibleOption({
-                      type: '{{ option.name | downcase }}',
+                      type: '{{ option.name | handle }}',
                       value: '{{ value | url_encode }}',
                       position: {{ option.position }}
                     })
                   }
                 "
               >
+                <input
+                  {% comment %} class="sr-only" {% endcomment %}
+                  type="radio"
+                  id="{{ name | handle }}"
+                  name="{{ option.name | handle }}"
+                  title="Select {{ value }} for {{ option.name }}"
+                  :checked="
+                    isActiveOption({
+                      type: '{{ option.name | handle }}',
+                      value: '{{ value | url_encode }}',
+                      position: {{ option.position }}
+                    })
+                  "
+                  @change="
+                    findVariantsByOptions({
+                      type: '{{ option.name | handleize }}',
+                      value: '{{ value | url_encode}}',
+                      position: {{ option.position }}
+                    })
+                  "
+                >
                 <label
                   for="{{ name | handle }}"
                   @click.prevent="
@@ -50,21 +71,6 @@
                     }
                   "
                 >
-                  <input
-                    {% comment %} class="sr-only" {% endcomment %}
-                    type="radio"
-                    id="{{ name | handle }}"
-                    name="{{ option.name | downcase }}"
-                    title="Select {{ value }} for {{ option.name }}"
-                    :checked="
-                      isActiveOption({
-                        type: '{{ option.name | handle }}',
-                        value: '{{ value | url_encode }}',
-                        position: {{ option.position }}
-                      })
-                    "
-                  >
-
                   <span>{{ value }}</span>
                 </label>
               </li>
