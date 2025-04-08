@@ -32,7 +32,7 @@ compareAtPrice: {{ variant.compare_at_price | escape_once | json | replace: '"',
   {{ prod.featured_image.aspect_ratio }}
   },
 {% endunless %}
-available: {{ variant.available }}, productTitle: {{ prod.title | json | replace: '"', "'" }}, compareAtPrice:
+available: {{ variant.available }}, productTitle: {{ prod.title | escape | json | replace: '"', "'" }}, compareAtPrice:
 {{ variant.compare_at_price | json | replace: '"', "'" }}, availableCount:
 {{ variant.inventory_quantity | json | replace: '"', "'" }}, sellingPlans: [
 {%- for plan in variant.selling_plan_allocations -%}
