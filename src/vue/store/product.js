@@ -13,9 +13,9 @@ const state = {
  * getters
  */
 const getters = {
-  variants: () => state.product.variants,
-  product: () => state.product,
-  quantity: () => state.quantity,
+  variants: state => state.product.variants,
+  product: state => state.product,
+  quantity: state => state.quantity,
 };
 
 /**

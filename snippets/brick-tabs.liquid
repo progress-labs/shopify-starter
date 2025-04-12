@@ -1,0 +1,68 @@
+{% comment %} titles: string of titles separated by "||". {% endcomment %}
+{% comment %} contents: string of contents separated by "||". {% endcomment %}
+
+{%- liquid
+  assign id = id | default: section.id
+  assign active_index = active_index | default: 0
+  assign titles = titles | split: '||' | compact
+  assign contents = contents | split: '||' | compact
+  assign size = titles | size
+-%}
+
+<div class="tabs">
+  <template-switch :initial="{{ active_index }}" v-slot="{active, show, focus}" v-cloak>
+    <div
+      class="flex mt-[2px] gap-0 overflow-auto whitespace-nowrap"
+      role="tablist"
+      aria-labelledby="tablist-{{ id }}"
+    >
+      {%- for title in titles -%}
+        <button
+          type="radio"
+          name="{{- id -}}"
+          id="{{- id -}}-tab-{{ forloop.index0 }}"
+          :aria-selected="active === {{ forloop.index0 }} ? 'true' : 'false'"
+          :checked="active === {{ forloop.index0 }} ? 'true' : 'false'"
+          :tabindex="active === {{ forloop.index0 }} ? 0 : -1"
+          aria-controls="{{- id -}}-tabpanel-{{ forloop.index0 }}"
+          @change="show({{ forloop.index0 }})"
+          @focus="show({{ forloop.index0 }})"
+          @keyup.left=" show(({{ size }} + {{ forloop.index0 }} - 1) % {{ size }});focus('{{- id -}}-tab-' + (({{ size }} + {{ forloop.index0 }} - 1) % {{ size }}))"
+          @keyup.right="show(({{ size }} + {{ forloop.index0 }} + 1) % {{ size }});focus('{{- id -}}-tab-' + (({{ size }} + {{ forloop.index0 }} + 1) % {{ size }}))"
+          @keyup.home="show(0);focus('{{- id -}}-tab-0')"
+          @keyup.end="show({{ size | minus: 1 }});focus('{{- id -}}-tab-{{ size | minus: 1 }}')"
+          role="tab"
+          :class="
+            [{
+                'bg-[#efefef] rounded-t-lg': active === {{ forloop.index0 }},
+            }, 'py-5 px-10']
+          "
+        >
+          {{- title -}}
+        </button>
+      {%- endfor -%}
+    </div>
+
+    {%- for content in contents -%}
+      <div
+        key="{{- id -}}-tabpanel-{{ forloop.index0 }}"
+        id="{{- id -}}-tabpanel-{{ forloop.index0 }}"
+        v-show="active === {{ forloop.index0 }}"
+        role="tabpanel"
+        tabindex="0"
+        :class="
+          [
+              'bg-[#efefef] py-5 px-10 transition-all rounded-b-lg richtext',
+              {
+                  'rounded-tr-lg': active !== {{ size | minus: 1 }},
+                  'rounded-tl-lg': active !== 0,
+              }
+          ]
+        "
+        aria-labelledby="{{- id -}}-tab-{{ forloop.index0 }}"
+      >
+        {{- content -}}
+      </div>
+    {%- endfor -%}
+  </template-switch>
+</div>

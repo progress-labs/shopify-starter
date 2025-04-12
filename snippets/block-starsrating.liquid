@@ -1,0 +1,2 @@
+{%- assign stars_count = block.settings.stars_count | default: product.metafields.custom.stars_count -%}
+{%- render 'brick-starsrating', stars_count: stars_count -%}

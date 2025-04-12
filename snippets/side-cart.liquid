@@ -1,18 +1,28 @@
+{%- assign cart_count_class = 'w-20 h-20 flex justify-center items-center bg-black text-white text-xs border border-white rounded-full absolute top-0 right-0 translate-x-1/2 -translate-y-1/2' -%}
+
 <div class="{{ class | default: '' }}" vue>
   {% comment %} Cart Trigger {% endcomment %}
   <a
     href="{{ routes.cart_url }}"
     @click.prevent="$store.dispatch('cart/toggle')"
-    class="{{ link_class }} relative button p-0 bg-[color:var(--header-custom-secondary-color,#FEFEF9)] rounded-full  w-9 h-9 md:w-12 md:h-12 flex justify-center items-center"
+    class="{{ link_class }} relative button p-0 bg-[color:var(--header-custom-secondary-color,#FEFEF9)] rounded-full flex justify-center items-center"
     aria-label="{{ 'action.cart' | t }}"
   >
     {% render 'icon-cart', class: icon_class %}
 
-    {% if cart.item_count > 0 %}
-      <div class="w-5 h-5 md:w-6 md:h-6 flex justify-center items-center bg-black text-white text-sm border border-white rounded-full absolute -top-2 -right-2">
+    <span
+      class="{{ cart_count_class }}"
+      v-text="$store.getters['cart/cartCount'] ?? {{ cart.item_count }}"
+      v-cloak
+    ></span>
+    <span class="v-fallback {{ cart_count_class }}">
+      {{ cart.item_count }}
+    </span>
+    <noscript>
+      <span class="{{ cart_count_class }}">
         {{ cart.item_count }}
-      </div>
-    {% endif %}
+      </span>
+    </noscript>
   </a>
 
   {% comment %} Vue Cart Component {% endcomment %}

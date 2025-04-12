@@ -8,7 +8,7 @@
         'right-0': visible,
       }"
     >
-      <div class="mb-4 pb-4 relative flex justify-between border-b pt-10">
+      <div class="relative mb-20 flex justify-between border-b py-20">
         <div id="sr-cart-alert" class="sr-only" aria-live="polite"></div>
         <button
           class="absolute right-5 top-5"
@@ -21,23 +21,28 @@
         <p class="sr-only">{{ cartData.item_count }}</p>
       </div>
       <div>
-        <cart-item v-for="item in items" :key="item.key" :item="item" />
+        <cart-item
+          v-for="item in items"
+          :key="item.key"
+          :item="item"
+          :visible="visible"
+        />
 
         <div
           v-if="items.length == 0 && !loading"
-          class="tracking-2p py-8 text-center uppercase"
+          class="tracking-2p py-20 text-center uppercase"
         >
           No items in cart
         </div>
       </div>
       <div v-if="items.length !== 0" class="mt-10">
         <p class="flex justify-between">
-          <span>Subtotl: </span>
+          <span>Subtotal: </span>
           <span>{{ fMoney(cartData.items_subtotal_price) }}</span>
         </p>
 
         <p class="flex justify-between">
-          <span>total: </span>
+          <span>Total: </span>
           <span>{{ fMoney(cartData.total_price) }}</span>
         </p>
 

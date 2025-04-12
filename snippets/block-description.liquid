@@ -1,0 +1,28 @@
+<template-switch :initial="false" v-slot="{active, show}">
+  <button
+    type="button"
+    class="text-start flex items-center py-5 w-fit"
+    aria-controls="{{ block.id }}"
+    :aria-expanded="active ? 'true' : 'false'"
+    aria-label="{{- 'common.description' | t -}}"
+    @click.prevent="show(!active)"
+  >
+    <span>
+      {{- 'common.description' | t -}}
+    </span>
+    <div
+      :class="
+        ['[&_svg]:transition-transform', {
+          '[&_svg]:rotate-90': active
+        }]
+      "
+    >
+      {%- render 'icon-chevron-right' -%}
+    </div>
+  </button>
+  <transition name="fade" v-cloak>
+    <div v-show="active" id="{{ block.id }}" aria-label="{{ product.title }} description">
+      {%- render 'brick-description' -%}
+    </div>
+  </transition>
+</template-switch>

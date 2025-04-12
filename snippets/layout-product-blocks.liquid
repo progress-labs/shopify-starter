@@ -1,0 +1,32 @@
+{%- case block.type -%}
+  {%- when 'block-breadcrumb' -%}
+    {%- render 'block-breadcrumb', product: product, block: block -%}
+  {%- when 'block-badge' -%}
+    {%- render 'block-badge', product: product, block: block -%}
+  {%- when 'block-gallery' -%}
+    {%- render 'block-gallery', product: product, block: block -%}
+  {%- when 'block-gallery-2' -%}
+    {%- render 'block-gallery-2', product: product, block: block -%}
+  {%- when 'block-title' -%}
+    {%- render 'block-title', product: product, block: block -%}
+  {%- when 'block-description' -%}
+    {%- render 'block-description', product: product, block: block -%}
+  {%- when 'block-price' -%}
+    {%- render 'block-price', product: product, block: block -%}
+  {%- when 'block-starsrating' -%}
+    {%- render 'block-starsrating', product: product, block: block -%}
+  {%- when 'block-richtext' -%}
+    {%- render 'block-richtext', product: product, block: block -%}
+  {%- when 'block-product-form' -%}
+    {%- render 'block-product-form', product: product, block: block -%}
+  {%- when 'block-paymethods' -%}
+    {%- render 'block-paymethods', product: product, block: block -%}
+  {%- when 'block-tabs' -%}
+    {%- render 'block-tabs', product: product, block: block -%}
+  {%- when 'block-icons' -%}
+    {%- render 'block-icons', product: product, block: block -%}
+  {%- when 'block-social' -%}
+    {%- render 'block-social', product: product, block: block -%}
+  {%- when 'block-upsell' -%}
+    {%- render 'block-upsell', product: product, block: block -%}
+{%- endcase -%}

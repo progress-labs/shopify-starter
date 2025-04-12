@@ -1,0 +1,8 @@
+{%- if product.compare_at_price != blank
+  and product.compare_at_price > 0
+  and product.compare_at_price > product.price
+-%}
+  <div class="bg-red-500 text-white text-sm tracking-wider uppercase absolute top-0 left-0 px-2 py-1">
+    {{- 'common.sale' | t -}}
+  </div>
+{%- endif -%}

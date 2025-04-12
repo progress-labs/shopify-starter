@@ -1,17 +1,17 @@
-<div vue>
-  <form id="product-form" class="py-8">
-    <product-options
-      v-slot="
-        {
-          variantHandler,
-          findVariantsByOptions,
-          options,
-          selectedVariant,
-          isActiveOption,
-          isVisibleOption
-        }
-      "
-    >
+<form id="product-form" class="py-20">
+  <product-options
+    v-slot="
+      {
+        variantHandler,
+        findVariantsByOptions,
+        options,
+        selectedVariant,
+        isActiveOption,
+        isVisibleOption
+      }
+    "
+  >
+    <div class="flex gap-20">
       {%- for option in product.options_with_values -%}
         <fieldset class="product-options mb-20" id="product-option-{{ option.id }}">
           <legend>{{ option.name }}</legend>
@@ -62,13 +62,13 @@
                     })
                   "
                   :class="
-                    {
+                    ['ml-5',{
                       'is-active': isActiveOption({
                         type: '{{ option.name | handle }}',
                         value: '{{ value | url_encode }}',
                         position: {{ option.position }}
                       }),
-                    }
+                    }]
                   "
                 >
                   <span>{{ value }}</span>
@@ -77,68 +77,67 @@
             {%- endfor -%}
           </ul>
         </fieldset>
-        <hr>
       {%- endfor -%}
-      <hr>
-    </product-options>
+    </div>
+    <hr>
+  </product-options>
 
-    <fieldset id="quantity-select">
-      <legend>Quantity</legend>
-      <div class="flex justify-between py-10">
-        <product-quantity
-          v-slot="
-            {
-              quantity,
-              increaseQuantity,
-              decreaseQuantity,
-            }
-          "
-        >
-          <button
-            aria-label="Increase Quantity by 1"
-            id="increase-quantity"
-            @click.prevent="increaseQuantity(1)"
-          >
-            +
-          </button>
-
-          <label for="quantity-value">
-            <input id="quantity-value" type="text" :value="quantity" class="text-center">
-          </label>
-
-          <button
-            aria-label="Decrease Quantity by 1"
-            id="decrease-quantity"
-            @click.prevent="decreaseQuantity(1)"
-          >
-            -
-          </button>
-        </product-quantity>
-      </div>
-    </fieldset>
-
-    <add-to-cart
-      v-slot="
-        {
-          loading,
-          disabled,
-          addToCart
-        }
-      "
-    >
-      <button
-        type="submit"
-        @click.prevent="addToCart"
-        :disabled="disabled"
-        :class="
+  <fieldset id="quantity-select">
+    <legend>Quantity</legend>
+    <div class="flex flex-row-reverse justify-between py-10">
+      <product-quantity
+        v-slot="
           {
-            'opacity-50': disabled
+            quantity,
+            increaseQuantity,
+            decreaseQuantity,
           }
         "
       >
-        <span v-if="loading">Loading</span>
-        <span v-else>Add To Cart</span>
-      </button>
-    </add-to-cart>
-  </form>
-</div>
+        <button
+          aria-label="Increase Quantity by 1"
+          id="increase-quantity"
+          @click.prevent="increaseQuantity(1)"
+        >
+          +
+        </button>
+
+        <label for="quantity-value">
+          <input id="quantity-value" type="text" :value="quantity" class="text-center">
+        </label>
+
+        <button
+          aria-label="Decrease Quantity by 1"
+          id="decrease-quantity"
+          @click.prevent="decreaseQuantity(1)"
+        >
+          -
+        </button>
+      </product-quantity>
+    </div>
+  </fieldset>
+
+  <add-to-cart
+    v-slot="
+      {
+        loading,
+        disabled,
+        addToCart
+      }
+    "
+  >
+    <button
+      type="submit"
+      @click.prevent="addToCart"
+      :disabled="disabled"
+      :class="
+        {
+          'opacity-50': disabled
+        }
+      "
+    >
+      <span v-if="loading">Loading</span>
+      <span v-else>Add To Cart</span>
+    </button>
+  </add-to-cart>
+</form>

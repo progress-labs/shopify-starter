@@ -18,8 +18,8 @@ const state = {
  * getters
  */
 const getters = {
-  visible: () => state.visible,
-  cartCount: () => state.cartData.item_count,
+  visible: state => state.visible,
+  cartCount: state => state.cartData.item_count,
 };
 
 /**

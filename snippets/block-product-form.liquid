@@ -1,0 +1,18 @@
+{%- if product.available -%}
+  {%- if product.has_only_default_variant -%}
+    {% comment %} This brick doesn't have options, subscription options or quantity. Only the Add to Cart button. {% endcomment %}
+    {%- render 'brick-product-submit' -%}
+
+  {%- else -%}
+    {%- assign current_variant = product.selected_or_first_available_variant -%}
+
+    <product-provider
+      default-variant-id="{{- current_variant.id -}}"
+      :product="{%- render 'helper-product-config', prod: product -%}"
+    />
+
+    {%- render 'product-form', product: product -%}
+  {%- endif -%}
+{%- else -%}
+  <span>{{ 'common.sold_out' | t }}</span>
+{%- endif -%}

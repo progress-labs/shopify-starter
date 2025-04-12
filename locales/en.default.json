@@ -3,6 +3,7 @@
     "month_day_year": "%b %d, %Y"
   },
   "common": {
+    "home": "Home",
     "or": "or",
     "by": "by",
     "via": "via",
@@ -10,8 +11,13 @@
     "sort": "Sort",
     "product": "Product",
     "products": "Products",
+    "description": "Show Description",
+    "rating": "Rating",
+    "reviews": "Reviews",
     "price": "Price",
     "quantity": "Quantity",
+    "variant_id": "Variant ID",
+    "selling_plan": "Selling Plan",
     "total": "Total",
     "tax": "Tax",
     "sale": "Sale",

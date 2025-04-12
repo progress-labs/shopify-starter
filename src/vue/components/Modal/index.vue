@@ -1,100 +1,143 @@
 <template>
+  <slot :isOpen="isOpen" :close="close" :open="open" :toggle="toggle" />
+
   <Teleport to="body">
+    <Overlay v-if="showOverlay" v-show="isOpen" />
     <Transition :name="transitionName">
       <div
         role="dialog"
-        :aria-label="modalId"
-        :id="modalId"
-        v-if="isOpen"
-        class="fixed left-0 top-0 z-50 h-screen w-full bg-opacity-50"
-        :class="modalClass"
-        @click="hideModal"
+        v-show="isOpen"
+        aria-modal="true"
+        :id="id"
+        :aria-label="id"
+        class="[&>*]:absolute [&>*]:z-20"
+        :class="className"
+        ref="container-ref"
       >
-        <FocusTrap v-model:active="isOpen">
-          <div
-            role="dialog"
-            aria-modal="true"
-            :ref="trapRef"
-            class="container absolute bottom-0 left-0 h-[100vh] w-full max-w-screen-md bg-white py-15 md:h-[400px] lg:left-1/2 lg:top-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2"
-            :class="containerClass"
-            @click="event => event.stopImmediatePropagation()"
-            :aria-label="modalId"
-          >
-            <slot :isOpen="isOpen" :hide="hideModal" :show="showModal" />
-          </div>
-        </FocusTrap>
+        <slot
+          name="content"
+          :isOpen="isOpen"
+          :close="close"
+          :open="open"
+          :toggle="toggle"
+        />
       </div>
     </Transition>
   </Teleport>
 </template>
 
-<style>
-.modal--open {
-  overflow-y: hidden !important;
-}
-</style>
-
 <script>
-import {FocusTrap} from "focus-trap-vue";
-import {Teleport} from "vue";
-import {mapState, mapActions} from "vuex";
-
 export default {
   name: "Modal",
-  props: {
-    modalId: {
-      type: String,
-      required: true,
-    },
-    modalClass: String,
-    containerClass: String,
-    transitionName: {
-      type: String,
-      default: "fade",
-    },
-  },
-  data() {
-    return {
-      isOpen: false,
-      trapRef: null,
-    };
-  },
-  computed: {
-    ...mapState("modal", ["modals"]),
-  },
-  methods: {
-    ...mapActions("modal", ["show", "hide"]),
-    showModal() {
-      this.show(this.modalId);
-    },
-    hideModal() {
-      this.hide(this.modalId);
-    },
-    handleEscapeKey(e) {
-      if (e.key === "Escape") {
-        this.hideModal();
-      }
-    },
-  },
-  watch: {
-    modals() {
-      this.isOpen = this.modals[this.modalId];
-    },
-  },
-  mounted() {
-    const modalId = this.modalId;
-    this.isOpen = this.modals[modalId];
-    if (new URLSearchParams(location.search).get(this.modalId) === "true") {
-      this.showModal();
-    }
-    document.addEventListener("keyup", this.handleEscapeKey);
-  },
-  unmounted() {
-    document.removeEventListener("keyup", this.handleEscapeKey);
-  },
-  components: {
-    Teleport,
-    FocusTrap,
-  },
 };
+</script>
+
+<script setup>
+import useCustomEventListener from "@/vue/composables/useCustomEventListener";
+import Overlay from "../Overlay";
+import {
+  onUnmounted,
+  ref,
+  onMounted,
+  toRefs,
+  useTemplateRef,
+  watchEffect,
+} from "vue";
+import {useFocusTrap} from "@/vue/composables/useFocusTrap";
+
+const props = defineProps({
+  id: {
+    type: String,
+    required: true,
+  },
+  showOverlay: {
+    type: Boolean,
+    default: true,
+  },
+  className: String,
+  transitionName: {
+    type: String,
+    default: "fade",
+  },
+});
+
+const {id, className, transitionName} = toRefs(props);
+
+const isOpen = ref(false);
+const interval = ref(null);
+
+const container = useTemplateRef("container-ref");
+
+const {setFocusTrap, removeFocusTrap} = useFocusTrap();
+
+const open = e => {
+  e.stopImmediatePropagation();
+  isOpen.value = true;
+  document.addEventListener("keyup", handleEscapeKey);
+  document.addEventListener("click", handleClickOutside);
+  setFocusTrap(`#${id.value}`, {
+    allowOutsideClick: true,
+    checkCanFocusTrap: trapContainers => {
+      const results = trapContainers.map(trapContainer => {
+        return new Promise(resolve => {
+          const canFocusTrap = () => {
+            if (
+              getComputedStyle(trapContainer.children[0]).visibility !==
+              "hidden"
+            ) {
+              resolve();
+            } else {
+              requestAnimationFrame(canFocusTrap);
+            }
+          };
+
+          requestAnimationFrame(canFocusTrap);
+        });
+      });
+      return Promise.all(results);
+    },
+  });
+};
+
+const close = () => {
+  isOpen.value = false;
+  document.removeEventListener("keyup", handleEscapeKey);
+  document.removeEventListener("click", handleClickOutside);
+  removeFocusTrap();
+};
+
+const toggle = e => (isOpen.value ? close(e) : open(e));
+
+const handleEscapeKey = e => {
+  if (e.key === "Escape") {
+    close();
+  }
+};
+
+const handleClickOutside = e => {
+  if (!container.value.contains(e.target)) {
+    close();
+  }
+};
+
+useCustomEventListener(`modal:${id.value}:open`, open);
+useCustomEventListener(`modal:${id.value}:close`, close);
+useCustomEventListener(`modal:${id.value}:toggle`, toggle);
+
+onMounted(() => {
+  document.addEventListener("keyup", handleEscapeKey);
+  if (new URLSearchParams(location.search).get(id) === "true") {
+    open();
+  }
+});
+
+onUnmounted(() => {
+  clearInterval(interval.value);
+  document.removeEventListener("keyup", handleEscapeKey);
+  document.removeEventListener("click", handleClickOutside);
+});
+
+watchEffect(isOpen, () => {
+  isOpen.value ? setFocusTrap() : removeFocusTrap();
+});
 </script>

@@ -12,7 +12,7 @@
         (min-width: 640px) 50vw,
         100vw
       "
-      srcset="{%- render 'responsive-image-srcset', image: product.featured_image, desired_sizes: '180.0,248.0,312.0,376.0,676.0' -%}"
+      srcset="{%- render 'responsive-image-srcset', image: product.featured_image, width: 676, desired_sizes: '180.0,248.0,312.0,376.0,676.0' -%}"
       src="{{ product.featured_image | image_url: width: 180 }}"
       alt="{{ product.featured_image.alt | escape }}"
       width="{{ product.featured_image.width }}"
@@ -21,11 +21,7 @@
       class="w-full object-cover object-center"
     >
 
-    {% if product.compare_at_price %}
-      <div class="bg-red-500 text-white text-sm tracking-wider uppercase absolute top-0 left-0 px-2 py-1">
-        {{ 'common.sale' | t }}
-      </div>
-    {% endif %}
+    {%- render 'brick-badge', product: product -%}
   </a>
 
   <div class="mt-4">
