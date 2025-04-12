@@ -28,7 +28,16 @@
     "including_tax": "Including VAT",
     "excluding_tax": "Excluding VAT"
   },
+  "subscription": {
+    "sub": "Subscribe",
+    "otp": "One Time Purchase",
+    "selling_plans": "Selling Plans",
+    "add_to_cart_sub": "Subscribe"
+  },
   "action": {
+    "add_to_cart": "Add To Cart",
+    "add_to_cart_error": "It wasn't possible to add this product to the cart.",
+    "loading": "Loading",
     "search": "Search",
     "cart": "Cart",
     "account": "Account",
@@ -55,7 +64,6 @@
     "update_address": "Update Address",
     "edit": "Edit",
     "delete": "Delete",
-    "add_to_cart": "Add to cart",
     "continue_shopping": "Continue shopping",
     "track_shipment": "Track shipment",
     "subscribe": "Subscribe",

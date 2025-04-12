@@ -1,0 +1,43 @@
+<div v-if="hasSubscription" class="py-4">
+  <fieldset>
+    <legend>Subscription</legend>
+    <div class="py-2">
+      <div class="flex gap-10">
+        {%- assign otp_label = 'subscription.otp' | t | default: 'One Time Purchase' -%}
+        {%- assign sub_label = 'subscription.sub' | t | default: 'Subscribe' -%}
+
+        {%- render 'vue-radio-input',
+          name: '`${formId}-payment-type`',
+          checked: 'isActive',
+          on_change_name: 'setSubscriptionActive(true);',
+          label: sub_label
+        -%}
+        {%- render 'vue-radio-input',
+          name: '`${formId}-payment-type`',
+          checked: '!isActive',
+          on_change_name: 'setSubscriptionActive(false);',
+          label: otp_label
+        -%}
+      </div>
+    </div>
+  </fieldset>
+  <transition name="fade">
+    <fieldset v-if="isActive">
+      <legend>{{ 'subscription.selling_plans' | t | default: 'Selling Plans' }}</legend>
+      <div class="flex py-2 gap-2 flex-col">
+        {%- for selling_plan_group in product.selling_plan_groups -%}
+          {%- for selling_plan in selling_plan_group.selling_plans -%}
+            {%- assign on_change_name = 'setSellingPlanId(' | append: selling_plan.id | append: ');' -%}
+            {%- assign checked = 'sellingPlan === ' | append: selling_plan.id -%}
+            {%- render 'vue-radio-input',
+              name: '`${formId}-selling_plan`',
+              checked: checked,
+              on_change_name: on_change_name,
+              label: selling_plan.name
+            -%}
+          {%- endfor -%}
+        {%- endfor -%}
+      </div>
+    </fieldset>
+  </transition>
+</div>

@@ -1,0 +1,66 @@
+{%- unless product.has_only_default_variant -%}
+  <div class="py-2">
+    <h3>Variants</h3>
+    <div class="flex gap-4 py-10">
+      {%- for option in product.options_with_values -%}
+        <fieldset class="product-options" id="product-option-{{ forloop.index0 }}">
+          <legend>{{ option.name }}</legend>
+          <ul>
+            {%- for value in option.values -%}
+              {% liquid
+                assign name = option.name | append: '-' | append: value | handleize
+              %}
+              <li
+                :class="
+                  {
+                    'opacity-50 pointer-events-none': !isVisibleOption({
+                      type: '{{ option.name | handleize }}',
+                      value: '{{ value | url_encode }}',
+                      position: {{ option.position }}
+                    })
+                  }
+                "
+              >
+                <label
+                  :for="`${formId}-{{ name | handleize }}`"
+                  :class="
+                    {
+                      'is-active': isActiveOption({
+                        type: '{{ option.name | handleize }}',
+                        value: '{{ value | url_encode }}',
+                        position: {{ option.position }}
+                      }),
+                    }
+                  "
+                >
+                  <input
+                    tabindex="0"
+                    type="radio"
+                    :id="`${formId}-{{ name | handleize }}`"
+                    :name="`${formId}-{{ option.name | downcase }}`"
+                    title="Select {{ value }} for {{ option.name }}"
+                    @change="
+                      findVariantsByOptions({
+                        type: '{{ option.name | handleize }}',
+                        value: '{{ value | url_encode}}',
+                        position: {{ option.position }}
+                      })
+                    "
+                    :checked="
+                      isActiveOption({
+                        type: '{{ option.name | handleize }}',
+                        value: '{{ value | url_encode }}',
+                        position: {{ option.position }}
+                      })
+                    "
+                  >
+                  <span>{{ value }}</span>
+                </label>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </fieldset>
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endunless -%}

@@ -1,0 +1,62 @@
+<div class="flex flex-col gap-4 p-2" vue>
+  {%- form 'product', product -%}
+    <product-form
+      product="{%- render 'json-product', prod: product -%}"
+      v-slot="
+        {
+          formId,
+          id,
+          quantity,
+          sellingPlan,
+          price,
+          compareAtPrice,
+
+          increaseQuantityByOne,
+          decreaseQuantityByOne,
+
+          hasSubscription,
+          isActive,
+          setSubscriptionActive,
+
+          sellingPlans,
+          setSellingPlanId,
+          getSellingPlan,
+
+          findVariantsByOptions,
+          options,
+          selectedVariant,
+          isActiveOption,
+          isVisibleOption,
+
+          addToCart,
+          loading,
+          error,
+          available
+        }
+      "
+    >
+      {% comment %} Info only {% endcomment %}
+      <div class="sr-only">
+        <h2>{{ product.title }}</h2>
+        <label for="id">Current Variant ID</label>
+        <input id="id" type="text" :value="id" disabled>
+        <label for="quantity">Quantity</label>
+        <input id="quantity" type="text" :value="quantity" disabled>
+        <label for="selling_plan">Selected Selling Plan</label>
+        <input id="selling_plan" type="text" :value="sellingPlan" disabled>
+      </div>
+
+      <div class="flex flex-col gap-20">
+        {%- render 'pf-price-display', product: product -%}
+
+        {%- render 'pf-quantity-selector', product: product -%}
+
+        {%- render 'pf-subscription-selector', product: product -%}
+
+        {%- render 'pf-product-options', product: product -%}
+
+        {%- render 'pf-add-to-cart', product: product -%}
+      </div>
+    </product-form>
+  {%- endform -%}
+</div>

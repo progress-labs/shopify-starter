@@ -1,0 +1,25 @@
+[
+{%- for variant in product.variants -%}
+  {%- comment -%} One Time Purchase prices {%- endcomment -%}
+  {%- render 'json-product-price',
+    variant_id: variant.id,
+    price: variant.price,
+    compare_at_price: variant.compare_at_price
+  -%}
+  {%- comment -%} Subscription prices {%- endcomment -%}
+  {%- for group in product.selling_plan_groups -%}
+    {%- for selling_plan in group.selling_plans -%}
+      {%- assign price = variant.selling_plan_allocations[forloop.index0].price | default: variant.price -%}
+      {%- assign compare_at_price = variant.selling_plan_allocations[forloop.index0].compare_at_price
+        | default: variant.compare_at_price
+      -%}
+      {%- render 'json-product-price',
+        variant_id: variant.id,
+        selling_plan_id: selling_plan.id,
+        price: price,
+        compare_at_price: compare_at_price
+      -%}
+    {%- endfor -%}
+  {%- endfor -%}
+{%- endfor -%}
+]

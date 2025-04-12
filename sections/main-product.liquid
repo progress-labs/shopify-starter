@@ -5,7 +5,7 @@
   {% comment %} This will initialize the product store {% endcomment %}
   <product-provider
     default-variant-id="{{- current_variant.id -}}"
-    :product="{%- render 'helper-product-config', prod: product -%}"
+    :product="{%- render 'json-product', prod: product -%}"
   />
   <product-gallery v-slot="{ initialRender, currentImage, switchImage }">
     <div>

@@ -1,8 +1,8 @@
 import {
-  getCart,
-  updateCartItem,
-  addCartItem,
-  removeCartItem,
+  fetchCart,
+  fetchUpdateItem,
+  fetchAddItem,
+  fetchRemoveItem,
 } from "@/services/cart";
 
 /**
@@ -65,7 +65,7 @@ const actions = {
 
   async initCart({commit}) {
     commit("cartLoading");
-    const data = await getCart();
+    const data = await fetchCart();
     commit("initCart", data);
     commit("cartLoading");
   },
@@ -99,7 +99,7 @@ const actions = {
 
     try {
       commit("cartLoading");
-      await removeCartItem(payload);
+      await fetchRemoveItem(payload);
       await dispatch("initCart");
       dispatch("onCartModified", "REMOVED");
     } catch (error) {
@@ -114,7 +114,7 @@ const actions = {
 
     try {
       commit("cartLoading");
-      await addCartItem(payload);
+      await fetchAddItem(payload);
       await dispatch("initCart");
       dispatch("onCartModified", "ADDED");
       dispatch("show");
@@ -130,7 +130,7 @@ const actions = {
 
     try {
       commit("cartLoading");
-      await updateCartItem(payload);
+      await fetchUpdateItem(payload);
       await dispatch("initCart");
       dispatch("onCartModified", "UPDATED");
     } catch (error) {

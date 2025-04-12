@@ -1,0 +1,11 @@
+<div class="relative">
+  <button class="button button--primary {{ class }}" @click.prevent="addToCart" :disabled="!available">
+    {{ 'action.add_to_cart' | t | default: 'Add To Cart' }}
+  </button>
+  <span v-if="loading">
+    {{ 'action.loading' | t | default: 'Loading...' }}
+  </span>
+  <div v-if="error">
+    {{ 'action.add_to_cart_error' | t }}
+  </div>
+</div>
