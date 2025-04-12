@@ -34,5 +34,35 @@
         "info": "Klaviyo ID used for all newsletter forms."
       }
     ]
+  },
+  {
+    "name": "t:settings_schema.social_media.name",
+    "settings": [
+      {
+        "type": "url",
+        "id": "facebook_url",
+        "label": "t:settings_schema.social_media.settings.facebook"
+      },
+      {
+        "type": "url",
+        "id": "instagram_url",
+        "label": "t:settings_schema.social_media.settings.instagram"
+      },
+      {
+        "type": "url",
+        "id": "twitter_url",
+        "label": "t:settings_schema.social_media.settings.twitter"
+      },
+      {
+        "type": "url",
+        "id": "youtube_url",
+        "label": "t:settings_schema.social_media.settings.youtube"
+      },
+      {
+        "type": "url",
+        "id": "tiktok_url",
+        "label": "t:settings_schema.social_media.settings.tiktok"
+      }
+    ]
   }
 ]
