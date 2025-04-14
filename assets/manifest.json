@@ -1,15 +1,12 @@
 {
   "src/entrypoints/main.js": {
-    "file": "main.ExhjveuE.min.js",
+    "file": "main.CKZPQrV0.min.js",
     "name": "main",
     "src": "src/entrypoints/main.js",
-    "isEntry": true,
-    "css": [
-      "main.B3jMbYMj.min.css"
-    ]
+    "isEntry": true
   },
   "src/entrypoints/main.scss": {
-    "file": "main.D9sLqh98.min.css",
+    "file": "main.mEpA08vk.min.css",
     "src": "src/entrypoints/main.scss",
     "isEntry": true
   }
