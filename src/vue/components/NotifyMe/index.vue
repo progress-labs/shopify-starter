@@ -25,8 +25,7 @@ const props = defineProps({
   },
   variant: {
     type: Object,
-    required: true,
-    default: () => {},
+    required: false,
   },
   klaviyoId: {
     type: String,
@@ -45,15 +44,14 @@ const messages = {
   button: "Notify Me",
 };
 
-const formHandler = async evt => {
-  const form = evt.target;
-  const elements = form.elements;
+const formHandler = async () => {
+  const email = document.querySelector("#notify-email").value;
 
   const formData = {
     a: klaviyoId,
-    email: elements["notify-email"].value,
+    email,
     platform: "shopify",
-    variant: variant.id,
+    variant: variant ? variant.id : product.variants[0].id,
     product: product.id,
   };
 
@@ -76,8 +74,6 @@ const formHandler = async evt => {
     }
   } catch (e) {
     throw e;
-  } finally {
-    form.reset();
   }
 };
 
