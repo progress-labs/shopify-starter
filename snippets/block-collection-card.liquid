@@ -1,0 +1,51 @@
+{%- liquid
+  if collection != blank
+    assign image = collection.featured_image | default: title
+    assign title = collection.title | default: title
+    assign description = collection.description | default: description
+    assign cta_label = cta_label | default: collection.title
+    assign cta_url = collection.url
+  endif
+-%}
+
+<a
+  href="{{- cta_url -}}"
+  aria-label="{{- title | default: 'Card ' | append: index | strip_html  -}}"
+  class="card-{{- index -}}"
+>
+  <div class="relative justify-between w-full h-full flex flex-col overflow-hidden">
+    {%- assign classes = 'object-cover transition-opacity overflow-hidden hover:opacity-50 transition-opacity' -%}
+    {%- if image_desktop != blank -%}
+      {%- assign classes = classes | append: ' block lg:hidden' -%}
+    {%- endif -%}
+    {%- if image != blank -%}
+      {{- image | image_url: width: 1312 | image_tag: class: classes, preload: false, loading: 'lazy' -}}
+    {%- else -%}
+      {%- assign svg_classes = classes | append: '' -%}
+      {%- capture placeholder -%}collection-1{%- endcapture -%}
+      {{- placeholder | placeholder_svg_tag: svg_classes -}}
+    {%- endif -%}
+    {%- if image_desktop != blank -%}
+      {%- assign classes = 'object-cover transition-opacity hidden lg:block overflow-hidden' -%}
+      {{- image_desktop | image_url: width: 1312 | image_tag: class: classes, preload: false, loading: 'lazy' -}}
+    {%- endif -%}
+
+    {%- if title != blank or description != blank or cta_label != blank -%}
+      <div class="absolute bottom-0 w-full">
+        {%- if title != blank -%}
+          <h3>{{- title -}}</h3>
+        {%- endif -%}
+        {%- if description != blank -%}
+          <div>{{- description | newline_to_br -}}</div>
+        {%- endif -%}
+        {%- if cta_label != blank -%}
+          <div
+            class="text-center border px-10 py-5 rounded-full relative w-full"
+          >
+            {{- cta_label -}}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</a>

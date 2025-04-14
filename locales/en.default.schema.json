@@ -1,16 +1,22 @@
 {
   "common": {
     "headline": "Headline",
+    "description": "Description",
     "text": "Text",
     "content": "Content",
     "link": "Link",
     "author": "Author",
     "image": "Image",
     "collection": "Collection",
+    "mobile": "Mobile",
+    "tablet": "Tablet",
+    "desktop": "Desktop",
     "button": {
       "text": "Button text",
       "url": "Button URL"
-    }
+    },
+    "mobile_image": "Mobile Image",
+    "desktop_image": "Desktop Image"
   },
   "settings_schema": {
     "custom_settings": {
@@ -62,6 +68,25 @@
         "max-products-to-display": "Max. products to display",
         "4-products": "4 Products",
         "8-products": "8 Products"
+      },
+      "blocks": {
+        "common": {
+          "options": {
+            "option1": "1",
+            "option2": "2",
+            "option3": "3",
+            "option4": "4"
+          }
+        },
+        "card": {
+          "settings": {
+            "name": "Card",
+            "settings": "Card Settings",
+            "offset": "Position",
+            "size": "Size",
+            "row": "Row"
+          }
+        }
       }
     },
     "product": {
