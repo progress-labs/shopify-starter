@@ -1,7 +1,7 @@
 {
   "sections": {
     "main": {
-      "type": "main-collection-v2"
+      "type": "main-collection-2"
     }
   },
   "order": ["main"]
