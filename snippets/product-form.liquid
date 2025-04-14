@@ -117,27 +117,34 @@
     </div>
   </fieldset>
 
-  <add-to-cart
-    v-slot="
-      {
-        loading,
-        disabled,
-        addToCart
-      }
-    "
-  >
-    <button
-      type="submit"
-      @click.prevent="addToCart"
-      :disabled="disabled"
-      :class="
+  <template v-if="!selectedVariant?.available">
+    {%- if settings.klaviyo_id != blank -%}
+      {%- render 'notify-me', product: product -%}
+    {%- endif -%}
+  </template>
+  <template v-else>
+    <add-to-cart
+      v-slot="
         {
-          'opacity-50': disabled
+          loading,
+          disabled,
+          addToCart
         }
       "
     >
-      <span v-if="loading">Loading</span>
-      <span v-else>Add To Cart</span>
-    </button>
-  </add-to-cart>
+      <button
+        type="submit"
+        @click.prevent="addToCart"
+        :disabled="disabled"
+        :class="
+          {
+            'opacity-50': disabled
+          }
+        "
+      >
+        <span v-if="loading">Loading</span>
+        <span v-else>Add To Cart</span>
+      </button>
+    </add-to-cart>
+  </template>
 </form>
