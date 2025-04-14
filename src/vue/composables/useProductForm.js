@@ -40,7 +40,7 @@ const useProductForm = ({
 
   // When product option changes, variant changes.
 
-  watch(productOptions.variantToPurchase, (value, oldValue) => {
+  watch(productOptions.selectedVariant, (value, oldValue) => {
     if (value !== oldValue) {
       currentVariantId.value = value ? value.id : null;
       available.value = value ? product.available && value.available : false;
@@ -96,11 +96,15 @@ const useProductForm = ({
 
   const updateURLWithVariant = variantId => {
     const url = new URL(location);
-    url.searchParams.set("variant", variantId);
+    if (variantId) {
+      url.searchParams.set("variant", variantId);
+    } else {
+      url.searchParams.delete("variant");
+    }
     history.pushState("", "", url);
   };
 
-  const {loading, error, execute: addToCart} = useAPIWrapper(addToCartFn);
+  const {isLoading, error, execute: addToCart} = useAPIWrapper(addToCartFn);
 
   return {
     available,
@@ -108,7 +112,7 @@ const useProductForm = ({
     ...productQuantity,
     ...productSubscription,
     ...productOptions,
-    loading,
+    isLoading,
     error,
     addToCart,
     currentPrice,

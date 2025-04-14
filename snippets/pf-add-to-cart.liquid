@@ -1,9 +1,12 @@
 <div class="relative">
-  <button class="button button--primary {{ class }}" @click.prevent="addToCart" :disabled="!available">
-    {{ 'action.add_to_cart' | t | default: 'Add To Cart' }}
-  </button>
+  <button
+    class="button button--primary {{ class }}"
+    @click.prevent="addToCart"
+    :disabled="!available"
+    v-text="available ? '{{ 'action.add_to_cart' | t }}' :  '{{ 'common.sold_out' | t }}'"
+  ></button>
   <span v-if="loading">
-    {{ 'action.loading' | t | default: 'Loading...' }}
+    {{ 'action.loading' | t }}
   </span>
   <div v-if="error">
     {{ 'action.add_to_cart_error' | t }}

@@ -29,4 +29,9 @@
   {%- assign contents = contents | append: block.settings.content_4 | append: '||' -%}
 {%- endif -%}
 
-{%- render 'brick-tabs', id: 'block-tabs', titles: titles, contents: contents -%}
+{%- capture title_suffix -%}
+  {{- "common.description_tabs" | t -}} 
+{%- endcapture -%}
+{%- assign title = product.title | append: ' ' | append: title_suffix -%}
+
+{%- render 'brick-tabs', id: 'block-tabs', title: title, titles: titles, contents: contents -%}

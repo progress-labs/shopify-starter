@@ -1,7 +1,7 @@
 {%- unless product.has_only_default_variant -%}
   <div class="py-2">
     <h3>Variants</h3>
-    <div class="flex gap-4 py-10">
+    <div class="flex gap-10 py-10">
       {%- for option in product.options_with_values -%}
         <fieldset class="product-options" id="product-option-{{ forloop.index0 }}">
           <legend>{{ option.name }}</legend>

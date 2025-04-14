@@ -89,6 +89,13 @@
       "settings": {
         "proportion": {
           "name": "Left / Right"
+        },
+        "left_sticky": {
+          "name": "Should left content be sticky?"
+        },
+
+        "right_sticky": {
+          "name": "Should right content be sticky?"
         }
       },
       "blocks": {
@@ -104,11 +111,14 @@
         "block-product-form": {
           "name": "Product Form"
         },
+        "block-product-form-2": {
+          "name": "Product Form v2"
+        },
         "block-gallery": {
           "name": "Gallery"
         },
         "block-gallery-2": {
-          "name": "Gallery 2"
+          "name": "Gallery v2"
         },
         "block-icons": {
           "name": "Icons",
@@ -124,13 +134,16 @@
             "link": "Link"
           }
         },
-        "block-paymethods": {
+        "block-pay-methods": {
           "name": "Payment methods"
         },
         "block-price": {
           "name": "Price"
         },
-        "block-starsrating": {
+        "block-price-2": {
+          "name": "Price v2"
+        },
+        "block-stars-rating": {
           "name": "Stars Rating"
         },
         "block-richtext": {

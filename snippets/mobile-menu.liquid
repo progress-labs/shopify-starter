@@ -1,5 +1,5 @@
 <div class="mobile-menu md:hidden" vue>
-  <modal id="mobile-menu" :show-overlay="false" transition-name="fade" v-cloak>
+  <modal id="mobile-menu" :show-overlay="false" v-cloak>
     <template v-slot="{ isOpen, toggle }">
       <button
         class="{{ link_class }}"
@@ -14,20 +14,23 @@
     </template>
 
     <template v-slot:content="{ isOpen, close }">
-      <div
-        id="mobile-menu"
-        class="z-10 p-10 absolute w-full w-96 right-0 top-[var(--header-size,0)] bottom-0 bg-white h-full"
-      >
-        <button
-          class="absolute top-10 right-10"
-          name="toggle"
-          aria-label="{{ 'action.close' | t | default: 'Close modal button' }}"
-          @click="close"
+      <Transition name="fade">
+        <div
+          v-if="isOpen"
+          id="mobile-menu"
+          class="z-10 p-10 absolute overflow-y-scroll w-full w-96 right-0 top-[var(--header-size,0)] bottom-0 bg-white h-full"
         >
-          {% render 'icon-close', class: icon_class %}
-        </button>
-        {% render 'layout-menu', class: 'flex flex-col items-start gap-15' %}
-      </div>
+          <button
+            class="absolute top-10 right-10"
+            name="toggle"
+            aria-label="{{ 'action.close' | t | default: 'Close modal button' }}"
+            @click="close"
+          >
+            {% render 'icon-close', class: icon_class %}
+          </button>
+          {% render 'layout-menu', class: 'flex flex-col items-start gap-15' %}
+        </div>
+      </Transition>
     </template>
   </modal>
   {% comment %} On page load, everything inside templates will be hidden. So we add these styles and this icon  {% endcomment %}

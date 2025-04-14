@@ -2,29 +2,28 @@
 
 <div class="{{ class | default: '' }}" vue>
   {% comment %} Cart Trigger {% endcomment %}
-  <a
-    href="{{ routes.cart_url }}"
-    @click.prevent="$store.dispatch('cart/toggle')"
-    class="{{ link_class }} relative button p-0 bg-[color:var(--header-custom-secondary-color,#FEFEF9)] rounded-full flex justify-center items-center"
-    aria-label="{{ 'action.cart' | t }}"
-  >
-    {% render 'icon-cart', class: icon_class %}
+  <cart v-slot="{ isOpen, open, toggle, close }">
+    <a
+      href="{{ routes.cart_url }}"
+      @click.prevent="toggle"
+      class="{{ link_class }} relative button p-0 bg-[color:var(--header-custom-secondary-color,#FEFEF9)] rounded-full flex justify-center items-center"
+      aria-label="{{ 'action.cart' | t }}"
+    >
+      {% render 'icon-cart', class: icon_class %}
 
-    <span
-      class="{{ cart_count_class }}"
-      v-text="$store.getters['cart/cartCount'] ?? {{ cart.item_count }}"
-      v-cloak
-    ></span>
-    <span class="v-fallback {{ cart_count_class }}">
-      {{ cart.item_count }}
-    </span>
-    <noscript>
-      <span class="{{ cart_count_class }}">
+      <span
+        class="{{ cart_count_class }}"
+        v-text="$store.getters['cart/cartCount'] ?? {{ cart.item_count }}"
+        v-cloak
+      ></span>
+      <span class="v-fallback {{ cart_count_class }}">
         {{ cart.item_count }}
       </span>
-    </noscript>
-  </a>
-
-  {% comment %} Vue Cart Component {% endcomment %}
-  <cart v-cloak />
+      <noscript>
+        <span class="{{ cart_count_class }}">
+          {{ cart.item_count }}
+        </span>
+      </noscript>
+    </a>
+  </cart>
 </div>

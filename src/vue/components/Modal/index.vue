@@ -3,26 +3,22 @@
 
   <Teleport to="body">
     <Overlay v-if="showOverlay" v-show="isOpen" />
-    <Transition :name="transitionName">
-      <div
-        role="dialog"
-        v-show="isOpen"
-        aria-modal="true"
-        :id="id"
-        :aria-label="id"
-        class="[&>*]:absolute [&>*]:z-20"
-        :class="className"
-        ref="container-ref"
-      >
-        <slot
-          name="content"
-          :isOpen="isOpen"
-          :close="close"
-          :open="open"
-          :toggle="toggle"
-        />
-      </div>
-    </Transition>
+    <div
+      role="dialog"
+      aria-modal="true"
+      :id="id"
+      :aria-label="id"
+      :class="className"
+      ref="container-ref"
+    >
+      <slot
+        name="content"
+        :isOpen="isOpen"
+        :close="close"
+        :open="open"
+        :toggle="toggle"
+      />
+    </div>
   </Teleport>
 </template>
 
@@ -50,18 +46,23 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  className: String,
+
   showOverlay: {
     type: Boolean,
     default: true,
   },
-  className: String,
-  transitionName: {
-    type: String,
-    default: "fade",
+  onOpen: {
+    type: Function,
+    required: false,
+  },
+  onClose: {
+    type: Function,
+    required: false,
   },
 });
 
-const {id, className, transitionName} = toRefs(props);
+const {id, className, onOpen, onClose} = toRefs(props);
 
 const isOpen = ref(false);
 const interval = ref(null);
@@ -71,8 +72,10 @@ const container = useTemplateRef("container-ref");
 const {setFocusTrap, removeFocusTrap} = useFocusTrap();
 
 const open = e => {
-  e.stopImmediatePropagation();
+  onOpen.value && onOpen.value();
+  e?.stopImmediatePropagation && e.stopImmediatePropagation();
   isOpen.value = true;
+  document.body.parentElement.style.overflowY = "hidden";
   document.addEventListener("keyup", handleEscapeKey);
   document.addEventListener("click", handleClickOutside);
   setFocusTrap(`#${id.value}`, {
@@ -100,10 +103,12 @@ const open = e => {
 };
 
 const close = () => {
+  removeFocusTrap();
+  onClose.value && onClose.value();
   isOpen.value = false;
+  document.body.parentElement.style.removeProperty("overflow-y");
   document.removeEventListener("keyup", handleEscapeKey);
   document.removeEventListener("click", handleClickOutside);
-  removeFocusTrap();
 };
 
 const toggle = e => (isOpen.value ? close(e) : open(e));
@@ -132,6 +137,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
+  document.body.parentElement.style.removeProperty("overflow-y");
   clearInterval(interval.value);
   document.removeEventListener("keyup", handleEscapeKey);
   document.removeEventListener("click", handleClickOutside);

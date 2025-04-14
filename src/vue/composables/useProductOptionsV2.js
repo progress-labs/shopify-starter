@@ -43,7 +43,7 @@ export function useProductOptionsV2(product, defaultVariantId) {
     ),
   );
 
-  const variantToPurchase = computed(() => {
+  const selectedVariant = computed(() => {
     const flatOptions = selectedOptions.value
       .map(option => String(option.value))
       .sort();
@@ -103,7 +103,7 @@ export function useProductOptionsV2(product, defaultVariantId) {
     firstOption,
     eligibleVariants,
     eligibleOptions,
-    variantToPurchase,
+    selectedVariant,
     productOptions,
     findVariantsByOptions,
     setOptionsByVariantId,

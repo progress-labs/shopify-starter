@@ -18,7 +18,6 @@ const state = {
  * getters
  */
 const getters = {
-  visible: state => state.visible,
   cartCount: state => state.cartData.item_count,
 };
 
@@ -104,6 +103,7 @@ const actions = {
       dispatch("onCartModified", "REMOVED");
     } catch (error) {
       console.error(error.message);
+      throw error;
     } finally {
       commit("cartLoading");
     }
@@ -120,6 +120,7 @@ const actions = {
       dispatch("show");
     } catch (error) {
       console.error(error.message);
+      throw error;
     } finally {
       commit("cartLoading");
     }
@@ -135,6 +136,7 @@ const actions = {
       dispatch("onCartModified", "UPDATED");
     } catch (error) {
       console.error(error.message);
+      throw error;
     } finally {
       commit("cartLoading");
     }

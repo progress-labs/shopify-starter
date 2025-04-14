@@ -37,7 +37,7 @@
       {% if search and search.results != empty %}
         {% render 'layout-sort-bar', amount: search.results_count, class: 'mb-8' %}
 
-        <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8">
+        <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8" vue>
           {% for product in search.results %}
             {% render 'layout-product', product: product %}
           {% endfor %}

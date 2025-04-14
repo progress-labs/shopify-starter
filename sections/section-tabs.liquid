@@ -2,15 +2,17 @@
   {%- liquid
     assign titles = ''
     assign contents = ''
-    assign size = section.blocks | size
 
     for block in section.blocks
       assign titles = titles | append: block.settings.title | append: '||'
       assign contents = contents | append: block.settings.content | append: '||'
     endfor
   -%}
-
-  {%- render 'brick-tabs', titles: titles, contents: contents -%}
+  
+  {%- capture title -%}
+    {{ 'common.description_tabs' | t }}
+  {%- endcapture -%}
+  {%- render 'brick-tabs', title: title, titles: titles, contents: contents -%}
 </div>
 {% schema %}
 {

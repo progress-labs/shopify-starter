@@ -1,0 +1,31 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- if current_variant.available -%}
+  <div class="flex gap-5" v-if="$store.state.product.selectedVariant">
+    <span
+      class="inline-block text-lg {% if current_variant.compare_at_price != blank %}text-error{% endif %}"
+      v-text="$store.getters['product/price']"
+      v-cloak
+    >
+    </span>
+    <span class="v-fallback inline-block text-lg {% if current_variant.compare_at_price != blank %}text-error{% endif %}">
+      {{- current_variant.price | money -}}
+    </span>
+
+    {%- if current_variant.compare_at_price != blank -%}
+      <span v-if="$store.getters['product/compareAtPrice']">
+        <s class="text-lg" v-text="$store.getters['product/compareAtPrice']" v-cloak> </s>
+        <s class="v-fallback text-lg">
+          {{- current_variant.compare_at_price | money -}}
+        </s>
+      </span>
+    {%- endif -%}
+  </div>
+  <div v-else class="min-h-[28px]" v-cloak>
+    <span class="inline-block text-lg {% if current_variant.compare_at_price != blank %}text-error{% endif %}">
+      {{- current_variant.price | money -}}
+    </span>
+    <s class="text-lg">
+      {{- current_variant.compare_at_price | money -}}
+    </s>
+  </div>
+{%- endif -%}

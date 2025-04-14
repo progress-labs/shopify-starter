@@ -1,7 +1,7 @@
 {%- assign current_variant = product.selected_or_first_available_variant -%}
 {%- if current_variant.available -%}
   <div class="flex gap-5">
-    <span class="inline-block text-lg {% if current_variant.compare_at_price != blank %}text-red-500{% endif %}">
+    <span class="inline-block text-lg {% if current_variant.compare_at_price != blank %}text-error{% endif %}">
       {{- current_variant.price | money -}}
     </span>
 
@@ -10,7 +10,7 @@
         {{- current_variant.compare_at_price | money -}}
       </del>
 
-      <div class="bg-red-500 text-black text-sm tracking-wider uppercase px-2 py-1">
+      <div class="bg-error text-black text-sm tracking-wider uppercase px-2 py-1">
         {{- 'common.sale' | t -}}
       </div>
     {%- endif -%}

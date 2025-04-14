@@ -1,5 +1,5 @@
-<div class="{{ class | default: '' }}" style="{{ style | default: '' }}">
-  <a href="{{ product.url | within: collection }}" class="block relative">
+<div class="relative {{ class | default: '' }}" style="{{ style | default: '' }}">
+  <a href="{{ product.url | within: collection }}" class="block relative [&:hover_.submit]:opacity-100">
     {%- if preload -%}
       <link rel="preload" as="image" href="{{ product.featured_image | image_url: width: 180 }}">
     {%- endif -%}
@@ -22,6 +22,12 @@
     >
 
     {%- render 'brick-badge', product: product -%}
+
+    <div class="hidden lg:block lg:absolute bottom-0 w-full opacity-0 transition-opacity submit focus-within:opacity-100">
+      {%- render 'brick-product-submit', product: product -%}
+      {% comment %} Use this options to show options, subscriptions, quantity {% endcomment %}
+      {% comment %} {%- render 'brick-product-form-2', product: product -%} {% endcomment %}
+    </div>
   </a>
 
   <div class="mt-4">
@@ -33,7 +39,7 @@
 
     {% if product.available %}
       <div>
-        <span class="{% if product.compare_at_price %}text-red-500{% endif %}">
+        <span class="{% if product.compare_at_price %}text-price{% endif %}">
           {{ product.price | money }}
         </span>
 
@@ -48,5 +54,11 @@
         {{ 'common.sold_out' | t }}
       </div>
     {% endif %}
+
+    <div class="relative lg:hidden w-full transition-opacity">
+      {%- render 'brick-product-submit', product: product -%}
+      {% comment %} Use this options to show options, subscriptions, quantity {% endcomment %}
+      {% comment %} {%- render 'brick-product-form-m2it', product: product -%} {% endcomment %}
+    </div>
   </div>
 </div>

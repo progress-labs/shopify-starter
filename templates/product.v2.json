@@ -18,6 +18,12 @@
             "position": "top"
           }
         },
+        "block-badge": {
+          "type": "block-badge",
+          "settings": {
+            "position": "left"
+          }
+        },
         "block-gallery": {
           "type": "block-gallery",
           "settings": {
@@ -38,25 +44,33 @@
           }
         },
         "block_starsrating_XdeQBC": {
-          "type": "block-starsrating",
-          "settings": {
-            "position": "right"
-          }
-        },
-        "block-badge": {
-          "type": "block-badge",
+          "type": "block-stars-rating",
           "settings": {
             "position": "right"
           }
         },
         "block-price": {
           "type": "block-price",
+          "disabled": true,
+          "settings": {
+            "position": "right"
+          }
+        },
+        "block-price-2": {
+          "type": "block-price-2",
           "settings": {
             "position": "right"
           }
         },
         "block_product_form_6EPMCQ": {
           "type": "block-product-form",
+          "disabled": true,
+          "settings": {
+            "position": "right"
+          }
+        },
+        "block_product_form_2_6EPMCQ": {
+          "type": "block-product-form-2",
           "settings": {
             "position": "right"
           }
@@ -77,7 +91,6 @@
         },
         "block-tabs": {
           "type": "block-tabs",
-          "disabled": true,
           "settings": {
             "position": "right",
             "title_1": "Goals",
@@ -114,8 +127,9 @@
             "link_4": ""
           }
         },
-        "block-paymethods": {
-          "type": "block-paymethods",
+        "block-pay-methods": {
+          "type": "block-pay-methods",
+          "disabled": true,
           "settings": {
             "position": "right"
           }
@@ -129,23 +143,27 @@
       },
       "block_order": [
         "block-breadcrumb",
+        "block-badge",
         "block-gallery",
         "block_gallery_2_har7nD",
         "block-title",
         "block_starsrating_XdeQBC",
-        "block-badge",
         "block-price",
+        "block-price-2",
         "block_product_form_6EPMCQ",
+        "block_product_form_2_6EPMCQ",
         "block-richtext",
         "block-description",
         "block-tabs",
         "block-upsell",
         "block-icons",
-        "block-paymethods",
+        "block-pay-methods",
         "block_social_cMKcVU"
       ],
       "settings": {
-        "proportion_desktop": 55
+        "proportion_desktop": 55,
+        "left_sticky": true,
+        "right_sticky": true
       }
     }
   },

@@ -1,10 +1,10 @@
 {% case type %}
   {% when 'error' %}
-    {% assign notification_type_class = 'bg-red-100 border-red-500 text-red-800' %}
+    {% assign notification_type_class = 'bg-white border-error text-error' %}
   {% when 'warning' %}
     {% assign notification_type_class = 'bg-yellow-100 border-yellow-500 text-yellow-800' %}
   {% when 'success' %}
-    {% assign notification_type_class = 'bg-green-100 border-green-500 text-green-800' %}
+    {% assign notification_type_class = 'bg-green-100 border-success text-success' %}
   {% else %}
     {% assign notification_type_class = 'bg-blue-100 border-blue-500 text-blue-800' %}
 {% endcase %}
