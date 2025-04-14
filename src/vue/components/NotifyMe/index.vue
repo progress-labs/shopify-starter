@@ -16,7 +16,7 @@ export default {
 
 <script setup>
 import {computed} from "vue";
-import useAPIWrapper from "@/vue/composables/useAPIWrapper";
+import {useAPIWrapper} from "@/vue/composables/useAPIWrapper";
 
 const props = defineProps({
   product: {
