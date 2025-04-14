@@ -5,7 +5,11 @@
 /* Globals */
 :root {
   --container-padding: 16px;
+  --header-size: 70px;
 }
 
 /* Transitions */
 @import url("../css/utils/transitions.scss");
+
+/* Richtext */
+@import url("../css/utils/richtext.scss");

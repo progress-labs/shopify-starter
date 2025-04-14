@@ -1,0 +1,50 @@
+<div class="grid lg:grid-cols-2 gap-10 max-lg:[&>img:nth-child(n+3)]:hidden">
+  {%- for media in product.media -%}
+    {%- if forloop.index0 < 1 -%}
+      {%- assign preload = true -%}
+      {%- assign preload_video = 'auto' -%}
+    {%- else -%}
+      {%- assign preload = false -%}
+      {%- assign preload_video = 'none' -%}
+    {%- endif -%}
+    {%- case media.media_type -%}
+      {%- when 'external_video' -%}
+        {%- assign video_class = media.host -%}
+        {%- if media.host == 'youtube' -%}
+          {{
+            media
+            | external_video_url: autoplay: true, loop: loop, playlist: media.external_id
+            | external_video_tag: class: video_class, loading: 'lazy', class: class
+          }}
+        {%- else -%}
+          {{
+            media
+            | external_video_url: autoplay: true, loop: loop
+            | external_video_tag: class: video_class, loading: 'lazy', class: class
+          }}
+        {%- endif -%}
+      {%- when 'video' -%}
+        {{
+          media
+          | media_tag:
+            class: class,
+            image_size: '380x',
+            playsinline: true,
+            autoplay: true,
+            loop: loop,
+            controls: false,
+            preload: preload_video
+        }}
+      {%- when 'model' -%}
+        {{ media | media_tag: image_size: '380x', toggleable: true, class: class }}
+      {%- else -%}
+        {%- render 'responsive-image',
+          class: class,
+          image: media,
+          preload: preload,
+          width: 380,
+          desired_sizes: '180.0,280.0,380.0'
+        -%}
+    {%- endcase -%}
+  {%- endfor -%}
+</div>

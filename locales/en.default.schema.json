@@ -1,16 +1,22 @@
 {
   "common": {
     "headline": "Headline",
+    "description": "Description",
     "text": "Text",
     "content": "Content",
     "link": "Link",
     "author": "Author",
     "image": "Image",
     "collection": "Collection",
+    "mobile": "Mobile",
+    "tablet": "Tablet",
+    "desktop": "Desktop",
     "button": {
       "text": "Button text",
       "url": "Button URL"
-    }
+    },
+    "mobile_image": "Mobile Image",
+    "desktop_image": "Desktop Image"
   },
   "settings_schema": {
     "custom_settings": {
@@ -18,6 +24,16 @@
       "settings": {
         "header": "About JSON settings",
         "paragraph": "The settings_schema.json file controls the content of the Theme settings area of the theme editor. Settings in this file translate to global theme settings, which can be accessed through the Liquid settings object. [Learn more](https://shopify.dev/themes/architecture/settings)"
+      }
+    },
+    "social_media": {
+      "name": "Social Media",
+      "settings": {
+        "facebook": "Facebook",
+        "instagram": "Instagram",
+        "twitter": "X (Twitter)",
+        "youtube": "Youtube",
+        "tiktok": "TikTok"
       }
     }
   },
@@ -29,19 +45,11 @@
       }
     },
     "footer": {
-      "name": "Footer",
-      "settings": {
-        "header": {
-          "content": "Social Icons",
-          "info": "Select which social icons to display"
-        },
-        "show-icon": "Show Icon"
-      }
+      "name": "Footer"
     },
     "mobile-navigation": {
       "name": "Mobile Navigation",
-      "settings": {
-      }
+      "settings": {}
     },
     "announcement-bar": {
       "name": "Announcement bar",
@@ -61,8 +69,7 @@
     },
     "banner": {
       "name": "Banner",
-      "settings": {
-      }
+      "settings": {}
     },
     "collection": {
       "name": "Collection",
@@ -70,28 +77,155 @@
         "max-products-to-display": "Max. products to display",
         "4-products": "4 Products",
         "8-products": "8 Products"
+      },
+      "blocks": {
+        "common": {
+          "options": {
+            "option1": "1",
+            "option2": "2",
+            "option3": "3",
+            "option4": "4"
+          }
+        },
+        "card": {
+          "settings": {
+            "name": "Card",
+            "settings": "Card Settings",
+            "offset": "Position",
+            "size": "Size",
+            "row": "Row"
+          }
+        }
+      }
+    },
+    "product": {
+      "name": "Main Product",
+      "common": {
+        "position": {
+          "label": "Position",
+          "top": "Top",
+          "bottom": "Bottom",
+          "left": "Left",
+          "right": "Right"
+        },
+        "layout": {
+          "label": "Layout",
+          "primary": "Primary",
+          "secondary": "Secondary"
+        },
+        "icon": "Icon",
+        "text": "Text",
+        "cta_url": "CTA URL",
+        "cta_label": "CTA Label",
+        "one_time": "One Time Purchase",
+        "subscription": "Subscrition"
+      },
+      "settings": {
+        "proportion": {
+          "name": "Left / Right"
+        },
+        "left_sticky": {
+          "name": "Should left content be sticky?"
+        },
+
+        "right_sticky": {
+          "name": "Should right content be sticky?"
+        }
+      },
+      "blocks": {
+        "block-badge": {
+          "name": "Badge"
+        },
+        "block-breadcrumb": {
+          "name": "Breadcrumb"
+        },
+        "block-description": {
+          "name": "Description"
+        },
+        "block-product-form": {
+          "name": "Product Form"
+        },
+        "block-product-form-2": {
+          "name": "Product Form v2"
+        },
+        "block-gallery": {
+          "name": "Gallery"
+        },
+        "block-gallery-2": {
+          "name": "Gallery v2"
+        },
+        "block-icons": {
+          "name": "Icons",
+          "settings": {
+            "width": "Width",
+            "height": "Height",
+            "icon_1_header": "Icon 1",
+            "icon_2_header": "Icon 2",
+            "icon_3_header": "Icon 3",
+            "icon_4_header": "Icon 4",
+            "icon": "Icon",
+            "content": "Content",
+            "link": "Link"
+          }
+        },
+        "block-pay-methods": {
+          "name": "Payment methods"
+        },
+        "block-price": {
+          "name": "Price"
+        },
+        "block-price-2": {
+          "name": "Price v2"
+        },
+        "block-stars-rating": {
+          "name": "Stars Rating"
+        },
+        "block-richtext": {
+          "name": "Richtext"
+        },
+        "block-social": {
+          "name": "Social media"
+        },
+        "block-submit": {
+          "name": "Submit"
+        },
+        "block-tabs": {
+          "name": "Tabs",
+          "settings": {
+            "tab_1": "Tab 1",
+            "tab_2": "Tab 2",
+            "tab_3": "Tab 3",
+            "tab_4": "Tab 4"
+          }
+        },
+        "block-title": {
+          "name": "Title"
+        },
+        "block-upsell": {
+          "name": "Upsell"
+        }
       }
     },
     "hero": {
       "name": "Hero",
-      "settings": {
-      }
+      "settings": {}
     },
     "image-row": {
       "name": "Image row",
-      "settings": {
-      }
+      "settings": {}
     },
     "newsletter": {
       "name": "Newsletter",
-      "settings": {
-      }
+      "settings": {}
     },
     "quotes": {
       "name": "Quotes",
       "settings": {
         "quote": "Quote"
       }
+    },
+    "tabs": {
+      "name": "Tabs"
     }
   }
 }

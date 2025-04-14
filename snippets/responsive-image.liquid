@@ -18,110 +18,54 @@
   assign use_aspect_ratio = use_aspect_ratio | default: false
   assign aspect_ratio = aspect_ratio | divided_by: 1.0
   assign width = width | divided_by: 1.0
-  assign alt = alt | default: ''
-
-  if section.index0 < 2
-    assign preload = true
-    assign lazy = true
-  else
-    assign preload = false
-    assign lazy = false
-  endif
+  assign new_width = width | floor
 
   if height != blank
     assign height = height | divided_by: 1.0
-    assign ratio = height | divided_by: width
+  else
+    if image.width != blank and image.height != blank
+      assign estimated_height = image.width | divided_by: image.height | times: new_width | floor
+    endif
   endif
 
   if sizes == blank
     assign sizes = 'calc(100vw - 32px)'
   endif
 
-  assign asset_width = image.width
-  assign asset_height = image.height
-  assign default_aspect_ratio = width | divided_by: height
-
-  assign desired_sizes = '187.0,375.0,414.0,676.0,1014.0,1352.0' | split: ','
+  assign desired_sizes = desired_sizes | default: '187.0,375.0,414.0,676.0,1014.0,1352.0'
 -%}
 
 {% comment %}
   NOTE:
-  	If the image size is not available and we just get the normal asset then
-  	that is fine because the srcset url will be used instead of this by default.
+  If the image size is not available and we just get the normal asset then
+  that is fine because the srcset url will be used instead of this by default.
 {% endcomment %}
 
-{% if height != blank %}
-  {%- assign new_width = width | floor -%}
+{%- if preload -%}
+  <link rel="preload" as="image" href="{{ image | image_url: width: new_width }}">
+{%- endif -%}
+{%- if height != blank -%}
   {%- assign new_height = height | floor -%}
   <img
     class="responsive-image {{ classes }}"
     src="{{- image | image_url: width: new_width, height: new_height, crop: 'center' -}}"
-    {%- if use_aspect_ratio -%}
-      style="aspect-ratio: {{ aspect_ratio | default: default_aspect_ratio }};"
-    {%- endif -%}
-    srcset="
-      {% for size in desired_sizes %}
-      	{% assign s = size | times: 1.0 %}
-      	{% assign desired_height = s | times: ratio | floor %}
-      	{% if asset_width > s and asset_height > desired_height and s < width %}
-      		{% assign new_width = s | floor %}
-      		{{ image | image_url: width: new_width, height: desired_height, crop: 'center' }} {{ new_width }}w,
-      	{% endif %}
-      {% endfor %}
-      {% comment %} make a 1 to 1 requested size {% endcomment %}
-      {% assign s = width | times: 1.0 %}
-      {% assign desired_height = s | times: ratio | floor %}
-      {% if asset_width > s and asset_height > desired_height %}
-      	{% assign new_width = s | floor %}
-      	{{ image | image_url: width: new_width, height: desired_height, crop: 'center' }} {{ new_width }}w,
-      {% endif %}
-      {% comment %} make a 2 to 1 requested size {% endcomment %}
-      {% assign s = width | times: 2.0 %}
-      {% assign desired_height = s | times: ratio | floor %}
-      {% if asset_width > s and asset_height > desired_height %}
-      	{% assign new_width = s | floor %}
-      	{{ image | image_url: width: new_width, height: desired_height, crop: 'center' }} {{ new_width }}w,
-      {% endif %}
-    "
-    width="{{ image.width }}"
-    height="{{ image.height }}"
-    sizes="{{ sizes }}"
-    alt="{{ image.alt | default: alt | escape }}"
-    loading="{% if lazy %}lazy{% else %}eager{% endif %}"
-  >
-
-{% else %}
-  <img
-    class="responsive-image {{ classes }}"
-    src="
-      {% assign new_width = width | floor %}
-      {{ image | image_url: width: new_width }}
-    "
-    srcset="
-      {% for size in desired_sizes %}
-      	{% assign s = size | times: 1.0 %}
-      	{% if asset_width > s %}
-      		{% assign new_width = s | floor %}
-      		{{ image | image_url: width: new_width }} {{ new_width }}w,
-      	{% endif %}
-      {% endfor %}
-      {% comment %} make a 1 to 1 requested size {% endcomment %}
-      {% assign s = width | times: 1.0 %}
-      {% if asset_width > s %}
-      	{% assign new_width = s | floor %}
-      	{{ image | image_url: width: new_width }} {{ new_width }}w,
-      {% endif %}
-      {% comment %} make a 2 to 1 requested size {% endcomment %}
-      {% assign s = width | times: 2.0 %}
-      {% if asset_width > s %}
-      	{% assign new_width = s | floor %}
-      	{{ image | image_url: width: new_width }} {{ new_width }}w,
-      {% endif %}
-    "
+    style="aspect-ratio: {{ width | divided_by: height }};"
+    srcset="{%- render 'responsive-image-srcset', image: image, width: new_width, height: new_height, desired_sizes: desired_sizes -%}"
+    width="{{ new_width | default: image.width }}"
+    height="{{ new_height | default: estimated_height | default: image.height }}"
     sizes="{{ sizes }}"
     alt="{{ image.alt | escape }}"
-    width="{{ image.width }}"
-    height="{{ image.height }}"
-    loading="lazy"
+    loading="{% if preload %}eager{% else %}lazy{% endif %}"
   >
-{% endif %}
+{%- else -%}
+  <img
+    class="responsive-image {{ classes }}"
+    src="{{- image | image_url: width: new_width -}}"
+    srcset="{%- render 'responsive-image-srcset', image: image, width: new_width, desired_sizes: desired_sizes -%}"
+    sizes="{{ sizes }}"
+    alt="{{ image.alt | escape }}"
+    width="{{ new_width | default: image.width }}"
+    height="{{ estimated_height | default: image.height }}"
+    loading="{% if preload %}eager{% else %}lazy{% endif %}"
+  >
+{%- endif -%}

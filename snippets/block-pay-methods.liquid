@@ -1,0 +1,7 @@
+{%- if shop.enabled_payment_types != blank -%}
+  <div class="flex flex-wrap gap-x-5">
+    {%- for type in shop.enabled_payment_types -%}
+      {{- type | payment_type_svg_tag: viewBox: '0 0 40 22' -}}
+    {%- endfor -%}
+  </div>
+{%- endif -%}

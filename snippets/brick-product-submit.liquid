@@ -1,0 +1,42 @@
+{%- if product and product.available -%}
+  <product-submit
+    :id="{{ product.selected_or_first_available_variant.id }}"
+    :quantity="{{ quantity | default: 1 }}"
+    {%- if product.selected_or_first_available_selling_plan_allocation.selling_plan.id != blank -%}
+      :selling-plan="{{ product.selected_or_first_available_selling_plan_allocation.selling_plan.id }}"
+    {%- endif -%}
+    v-slot="{loading, error, submit}"
+  >
+    {%- form 'product', product -%}
+      <input
+        aria-label="{{ 'common.variant_id' | t }}"
+        name="id"
+        value="{{ product.selected_or_first_available_variant.id }}"
+        class="sr-only"
+        tabindex="-1"
+      >
+      <input
+        aria-label="{{ 'common.quantity' | t }}"
+        name="quantity"
+        value="{{ quantity | default: 1 }}"
+        class="sr-only"
+        tabindex="-1"
+      >
+      <input
+        name="selling_plan"
+        value="{{ product.selected_or_first_available_selling_plan_allocation.selling_plan.id }}"
+        class="sr-only"
+        aria-label="{{ 'common.selling_plan' | t }}"
+        tabindex="-1"
+      >
+      <button class="w-full bg-white border rounded-full text-center p-5" @click.prevent="submit">
+        {{- 'action.add_to_cart' | t -}}
+        <span v-if="loading" v-text="'{{- 'action.loading' | t -}}'"></span>
+      </button>
+
+      <div class="text-error" v-text="error"></div>
+    {%- endform -%}
+  </product-submit>
+{%- else -%}
+  <span>{{- 'common.sold_out' | t -}}</span>
+{%- endif -%}

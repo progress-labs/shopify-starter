@@ -1,56 +1,72 @@
-<div class="{{ class | default: '' }}" style="{{ style | default: '' }}">
-  <a href="{{ product.url | within: collection }}" class="block relative">
-    {%- if preload -%}
-      <link rel="preload" as="image" href="{{ product.featured_image | image_url: width: 180 }}">
+<div class="relative {{ class | default: '' }}" style="{{ style | default: '' }}">
+  <a href="{{ product.url | within: collection }}" class="block relative [&:hover_.submit]:opacity-100">
+    {%- if product.featured_image != blank -%}
+      {%- if preload -%}
+        <link rel="preload" as="image" href="{{ product.featured_image | image_url: width: 180 }}">
+      {%- endif -%}
+      <img
+        sizes="
+          (min-width: 1536px) 376px,
+          (min-width: 1280px) 312px,
+          (min-width: 1024px) 248px,
+          (min-width: 768px) 33vw,
+          (min-width: 640px) 50vw,
+          100vw
+        "
+        srcset="{%- render 'responsive-image-srcset', image: product.featured_image, width: 676, desired_sizes: '180.0,248.0,312.0,376.0,676.0' -%}"
+        src="{{ product.featured_image | image_url: width: 180 }}"
+        alt="{{ product.featured_image.alt | escape }}"
+        width="{{ product.featured_image.width }}"
+        height="{{ product.featured_image.height }}"
+        loading="{%- if preload -%}eager{%- else -%}lazy{%- endif -%}"
+        class="w-full object-cover object-center"
+      >
+    {%- else -%}
+      {%- capture placeholder -%}product-1{%- endcapture -%}
+      {{- placeholder | placeholder_svg_tag: 'w-full h-full' -}}
     {%- endif -%}
-    <img
-      sizes="
-        (min-width: 1536px) 376px,
-        (min-width: 1280px) 312px,
-        (min-width: 1024px) 248px,
-        (min-width: 768px) 33vw,
-        (min-width: 640px) 50vw,
-        100vw
-      "
-      srcset="{%- render 'responsive-image-srcset', image: product.featured_image, desired_sizes: '180.0,248.0,312.0,376.0,676.0' -%}"
-      src="{{ product.featured_image | image_url: width: 180 }}"
-      alt="{{ product.featured_image.alt | escape }}"
-      width="{{ product.featured_image.width }}"
-      height="{{ product.featured_image.height }}"
-      loading="{%- if preload -%}eager{%- else -%}lazy{%- endif -%}"
-      class="w-full object-cover object-center"
-    >
 
-    {% if product.compare_at_price %}
-      <div class="bg-red-500 text-white text-sm tracking-wider uppercase absolute top-0 left-0 px-2 py-1">
-        {{ 'common.sale' | t }}
-      </div>
-    {% endif %}
+    {%- render 'brick-badge', product: product -%}
+
+    <div
+      class="hidden lg:block lg:absolute bottom-0 w-full opacity-0 transition-opacity submit focus-within:opacity-100"
+      v-cloak
+    >
+      {%- render 'brick-product-submit', product: product -%}
+      {% comment %} Use this options to show options, subscriptions, quantity {% endcomment %}
+      {% comment %} {%- render 'brick-product-form-2', product: product -%} {% endcomment %}
+    </div>
   </a>
 
-  <div class="mt-4">
-    {% if product.title %}
+  <div class="mt-5">
+    {%- if product.title != blank -%}
       <a href="{{ product.url | within: collection }}" class="text-lg font-bold">
         {{ product.title }}
       </a>
-    {% endif %}
+    {%- endif -%}
 
     {% if product.available %}
       <div>
-        <span class="{% if product.compare_at_price %}text-red-500{% endif %}">
+        <span class="{% if product.compare_at_price %}text-price{% endif %}">
           {{ product.price | money }}
         </span>
-
-        {% if product.compare_at_price %}
-          <del class="ml-2">
+        {%- if product.compare_at_price != 0 and product.compare_at_price > product.price -%}
+          <del class="ml-5">
             {{ product.compare_at_price | money }}
           </del>
-        {% endif %}
+        {%- endif -%}
+        {%- render 'block-product-submit', product: product -%}
       </div>
     {% else %}
       <div>
         {{ 'common.sold_out' | t }}
       </div>
     {% endif %}
+
+    <div class="relative lg:hidden w-full transition-opacity" v-cloak>
+      {%- render 'brick-product-submit', product: product -%}
+      {% comment %} Use this options to show options, subscriptions, quantity {% endcomment %}
+      {% comment %} {%- render 'brick-product-form-m2it', product: product -%} {% endcomment %}
+    </div>
   </div>
 </div>

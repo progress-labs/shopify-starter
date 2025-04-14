@@ -1,17 +1,17 @@
-<div vue>
-  {% if section.settings.visible %}
-    {% if section.settings.home_page_only == false or template.name == 'index' %}
+{%- if section.settings.visible -%}
+  {%- if section.settings.home_page_only == false or template.name == 'index' -%}
+    <div vue>
       <announcement-bar
         :visible="{{ section.settings.visible }}"
         content="{{ section.settings.content }}"
       />
-    {% endif %}
-  {% endif %}
-</div>
-
+    </div>
+  {%- endif -%}
+{%- endif -%}
 {% schema %}
 {
   "name": "t:sections.announcement-bar.name",
+  "class": "shopify-section-vue",
   "tag": "section",
   "settings": [
     {

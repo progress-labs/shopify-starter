@@ -1,0 +1,12 @@
+{%- form 'product', product -%}
+  <input name="id" value="{{ product.selected_or_first_available_variant.id }}" class="sr-only">
+  <input name="quantity" value="{{ quantity | default: 1 }}" class="sr-only">
+  <input
+    name="selling_plan"
+    value="{{ product.selected_or_first_available_selling_plan_allocation.selling_plan.id }}"
+    class="sr-only"
+  >
+  <button class="w-full border rounded-full text-center p-5">
+    {{ 'action.add_to_cart' | t }}
+  </button>
+{%- endform -%}

@@ -31,7 +31,7 @@
             name="contact[name]"
             id="ContactFormName"
             value="{% if form.name %}{{ form.name }}{% endif %}"
-            class="w-full"
+            class="w-full border"
             required
           >
         </div>
@@ -49,7 +49,7 @@
             name="contact[email]"
             id="ContactFormEmail"
             value="{% if form.email %}{{ form.email }}{% endif %}"
-            class="w-full"
+            class="w-full border"
             required
           >
         </div>
@@ -68,7 +68,7 @@
           name="contact[phone]"
           id="ContactFormPhone"
           value="{% if form.phone %}{{ form.phone }}{% endif %}"
-          class="w-full"
+          class="w-full border"
         >
       </div>
 
@@ -84,7 +84,7 @@
           rows="10"
           name="contact[body]"
           id="ContactFormMessage"
-          class="w-full"
+          class="w-full border"
           required
         >
           {% if form.body %}

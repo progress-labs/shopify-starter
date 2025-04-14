@@ -1,20 +1,39 @@
 <div class="mobile-menu md:hidden" vue>
-  {% render 'mobile-menu-trigger' %}
-  <nav>
-    <modal modal-id="mobile-menu" transition-name="slide-mobile-menu">
-      <template v-slot="{ hide }" v-cloak>
-        <div id="mobile-menu">
+  <modal id="mobile-menu" :show-overlay="false" v-cloak>
+    <template v-slot="{ isOpen, toggle }">
+      <button
+        class="{{ link_class }}"
+        aria-label="{{ 'action.menu' | t | default: 'Mobile menu toggle' }}"
+        name="toggle"
+        :aria-expanded="isOpen"
+        aria-controls="mobile-menu"
+        @click="toggle"
+      >
+        {% render 'icon-menu', class: icon_class %}
+      </button>
+    </template>
+
+    <template v-slot:content="{ isOpen, close }">
+      <Transition name="fade">
+        <div
+          v-if="isOpen"
+          id="mobile-menu"
+          class="z-10 p-10 absolute overflow-y-scroll w-full w-96 right-0 top-[var(--header-size,0)] bottom-0 bg-white h-full"
+        >
           <button
             class="absolute top-10 right-10"
             name="toggle"
             aria-label="{{ 'action.close' | t | default: 'Close modal button' }}"
-            @click="hide"
+            @click="close"
           >
             {% render 'icon-close', class: icon_class %}
           </button>
           {% render 'layout-menu', class: 'flex flex-col items-start gap-15' %}
         </div>
-      </template>
-    </modal>
-  </nav>
+      </Transition>
+    </template>
+  </modal>
+  {% comment %} On page load, everything inside templates will be hidden. So we add these styles and this icon  {% endcomment %}
+  {%- assign fallback_icon_class = icon_class | append: ' v-fallback' -%}
+  {% render 'icon-menu', class: fallback_icon_class %}
 </div>

@@ -1,0 +1,8 @@
+{%- if settings.instagram_url != blank
+  or settings.twitter_url != blank
+  or settings.facebook_url != blank
+  or settings.youtube_url != blank
+  or settings.tiktok_url != blank
+-%}
+  {%- render 'layout-social' -%}
+{%- endif -%}

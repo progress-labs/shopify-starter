@@ -1,0 +1,31 @@
+{%- assign width = width | plus: 0 | default: 50 -%}
+{%- assign height = height | plus: 0 | default: null -%}
+
+{%- if width < 1 -%}
+  {%- assign width = 50 -%}
+{%- endif -%}
+{%- if height < 1 -%}
+  {%- assign height = null -%}
+{%- endif -%}
+
+{%- if content != blank or icon != blank -%}
+  <div class="flex flex-col items-center gap-5 max-w-[130px]">
+    {%- if link != blank -%}
+      <a aria-label="{{ icon.alt }}" href="{{ link }}">
+        {%- if icon != blank -%}
+          {{- icon | image_url: width: width, height: height | image_tag -}}
+        {%- endif -%}
+        {%- if content != blank -%}
+          <div class="text-center text-sm">{{ content }}</div>
+        {%- endif -%}
+      </a>
+    {%- else -%}
+      {%- if icon != blank -%}
+        {{- icon | image_url: width: width, height: height | image_tag -}}
+      {%- endif -%}
+      {%- if content != blank -%}
+        <div class="text-center text-sm">{{ content }}</div>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+{%- endif -%}

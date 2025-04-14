@@ -2,7 +2,6 @@
   Variables to pass in
   	image
   	width
-  	sizes
   	classes *** optional
   	height  *** optional
     desired_sizes **** optional
@@ -16,10 +15,6 @@
   if height != blank
     assign height = height | divided_by: 1.0
     assign ratio = height | divided_by: width
-  endif
-
-  if sizes == blank
-    assign sizes = 'calc(100vw - 32px)'
   endif
 
   assign asset_width = image.width
@@ -76,7 +71,7 @@
       | image_url: width: new_width, height: desired_height, crop: 'center'
       | append: ' '
       | append: new_width
-      | append: 'w,'
+      | append: 'w'
     -}}
   {%- endif -%}
 {%- else -%}
@@ -97,6 +92,6 @@
   {%- assign s = width | times: 2.0 -%}
   {%- if asset_width > s -%}
     {%- assign new_width = s | floor -%}
-    {{- image | image_url: width: new_width | append: ' ' | append: new_width | append: 'w,' -}}
+    {{- image | image_url: width: new_width | append: ' ' | append: new_width | append: 'w' -}}
   {%- endif -%}
 {%- endif -%}

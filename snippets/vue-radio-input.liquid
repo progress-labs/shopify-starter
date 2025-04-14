@@ -1,0 +1,26 @@
+<div>
+  <label
+    class="flex items-center flex-wrap gap-10"
+    @click.prevent="{{ on_change_name }}"
+    @keyup.enter.prevent="{{ on_change_name }}"
+    tabindex="0"
+  >
+    <div class="w-20 h-20 flex-shrink-0">
+      <input
+        type="radio"
+        class="sr-only"
+        :name="{{ name }}"
+        :checked="{{ checked }}"
+        aria-label="{{ label }}"
+        tabindex="-1"
+      >
+      <span v-if="{{ checked }}" v-cloak>
+        {%- render 'icon-radio-filled' -%}
+      </span>
+      <span v-else>
+        {%- render 'icon-radio-outline' -%}
+      </span>
+    </div>
+    <span>{{ label }}</span>
+  </label>
+</div>

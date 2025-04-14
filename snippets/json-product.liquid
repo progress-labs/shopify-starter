@@ -1,0 +1,102 @@
+{%- if prod != blank -%}
+  { id:
+  {{- prod.id | json -}}
+  , title:
+  {{- prod.title | json | replace: "'", '' | replace: '"', "'" -}}
+  , url:
+  {{- prod.url | json | replace: "'", '' | replace: '"', "'" -}}
+  , price:
+  {{- prod.price -}}
+  , available:
+  {{- prod.available -}}
+  , description_stripped:
+  {{- prod.description | strip_html | json | replace: "'", '' | replace: '"', "'" -}}
+  , compareAtPrice: '
+  {{- prod.compare_at_price -}}
+  ', handle:
+  {{- prod.handle | escape_once | json | replace: '"', "'" -}}
+  , type:
+  {{- prod.type | escape_once | json | replace: '"', "'" -}}
+  ,
+  {%- for media in prod.media -%}
+    {%- capture featured_image_srcset -%}
+        {%- render 'responsive-image-srcset', image: media.src, width: 676 -%} 
+      {%- endcapture -%}
+    featured_image: { id:
+    {{- media.id | json -}}
+    , srcset:
+    {{- featured_image_srcset | replace: "'", "\'" | json | replace: '"', "'" -}}
+    , src:
+    {{- media.src | image_url: width: 676 | replace: "'", "\'" | json | replace: '"', "'" -}}
+    , alt:
+    {{- media.alt | json | replace: "'", '' | replace: "'", "\'" | json | replace: '"', "'" -}}
+    , aspect_ratio:
+    {{- media.aspect_ratio -}}
+    },
+    {%- break -%}
+  {%- endfor -%}
+  images: [
+  {%- for image in prod.images -%}
+    '
+    {{- image | image_url: width: 300 -}}
+    ',
+  {%- endfor -%}
+  ], media: [
+  {%- for media in prod.media -%}
+    {
+    {%- if media.media_type == 'image' -%}
+      type: 'image', src: '
+      {{- media | image_url: width: 300 -}}
+      ', alt: '
+      {{- media.alt | replace: "'", '' -}}
+      ', id:
+      {{- media.id -}}
+      , width:
+      {{- media.width -}}
+      , height:
+      {{- media.height -}}
+      ,
+    {%- endif -%}
+    {%- if media.media_type == 'video' -%}
+      type: 'video', tag:
+      {{
+        media
+        | video_tag: controls: false, autoplay: true, muted: true, playsinline: true, loop: true, image_size: '1024x'
+        | json
+        | replace: '"', "'"
+      -}}
+      , id:
+      {{- media.id -}}
+      , src: '
+      {{- media.preview_image | image_url: width: 300 -}}
+      '
+    {%- endif -%}
+    },
+  {%- endfor -%}
+  ], variants: [
+  {%- for variant in prod.variants -%}
+    {%- render 'json-variant', variant: variant, prod: prod -%}
+    {%- unless forloop.last -%},{%- endunless -%}
+  {%- endfor -%}
+  ], options: [
+  {%- for option in prod.options_with_values -%}
+    { name:
+    {{- option.name | json | replace: '"', "'" -}}
+    , position:
+    {{- option.position | json | replace: '"', "'" -}}
+    , value: [
+    {%- for value in option.values -%}
+      {{- value | url_encode | json | replace: '"', "'" -}}
+      {%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+    ]}
+    {%- unless forloop.last -%},{%- endunless -%}
+  {%- endfor -%}
+  ],sellingPlanGroups:
+  {{- prod.selling_plan_groups | json | replace: '"', "'" | default: '[]' -}}
+  , prices:
+  {%- render 'json-product-prices', product: prod -%}
+  ,}
+{%- else -%}
+  false
+{%- endif -%}
