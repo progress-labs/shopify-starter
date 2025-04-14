@@ -3,6 +3,7 @@
     "month_day_year": "%b %d, %Y"
   },
   "common": {
+    "home": "Home",
     "or": "or",
     "by": "by",
     "via": "via",
@@ -10,8 +11,14 @@
     "sort": "Sort",
     "product": "Product",
     "products": "Products",
+    "description": "Show Description",
+    "description_tabs": "Description Tabs",
+    "rating": "Rating",
+    "reviews": "Reviews",
     "price": "Price",
     "quantity": "Quantity",
+    "variant_id": "Variant ID",
+    "selling_plan": "Selling Plan",
     "total": "Total",
     "tax": "Tax",
     "sale": "Sale",
@@ -22,7 +29,16 @@
     "including_tax": "Including VAT",
     "excluding_tax": "Excluding VAT"
   },
+  "subscription": {
+    "sub": "Subscribe",
+    "otp": "One Time Purchase",
+    "selling_plans": "Selling Plans",
+    "add_to_cart_sub": "Subscribe"
+  },
   "action": {
+    "add_to_cart": "Add To Cart",
+    "add_to_cart_error": "It wasn't possible to add this product to the cart.",
+    "loading": "Loading",
     "search": "Search",
     "cart": "Cart",
     "account": "Account",
@@ -49,7 +65,6 @@
     "update_address": "Update Address",
     "edit": "Edit",
     "delete": "Delete",
-    "add_to_cart": "Add to cart",
     "continue_shopping": "Continue shopping",
     "track_shipment": "Track shipment",
     "subscribe": "Subscribe",

@@ -1,11 +1,11 @@
 {% assign current_variant = product.selected_or_first_available_variant %}
 {% assign featured_image = current_variant.featured_image | default: product.featured_image %}
 
-<div class="container max-w-screen-xl grid md:grid-cols-2 gap-10" vue>
+<div class="container grid md:grid-cols-2 gap-10" vue>
   {% comment %} This will initialize the product store {% endcomment %}
   <product-provider
     default-variant-id="{{- current_variant.id -}}"
-    :product="{%- render 'helper-product-config', prod: product -%}"
+    :product="{%- render 'json-product', prod: product -%}"
   />
   <product-gallery v-slot="{ initialRender, currentImage, switchImage }">
     <div>
@@ -43,12 +43,12 @@
       </div>
 
       {% if product.has_only_default_variant %}
-        <div class="flex gap-4 mt-4">
+        <div class="flex">
           {% for image in product.images %}
             <link rel="preload" as="image" href="{{ image.src | image_url: width: 750 }}">
 
             <button
-              class="w-20 md:w-24 h-20 md:h-24"
+              class="w-30 h-30"
               data-url="{{ image.src | image_url: width: 750 }}"
               data-alt="{{ image.alt | escape }}"
               @click="switchImage"
@@ -84,23 +84,9 @@
     {% endif %}
     {% if current_variant.available %}
       <div class="mb-10">
-        <div class="flex gap-3">
-          <span class="inline-block text-lg {% if current_variant.compare_at_price %}text-red-500{% endif %}">
-            {{ current_variant.price | money }}
-          </span>
+        {%- render 'block-price', product: product -%}
 
-          {% if current_variant.compare_at_price %}
-            <del class="text-lg">
-              {{ current_variant.compare_at_price | money }}
-            </del>
-
-            <div class="bg-red-500 text-white text-sm tracking-wider uppercase px-2 py-1">
-              {{ 'common.sale' | t }}
-            </div>
-          {% endif %}
-        </div>
-
-        <div class="text-gray-600 text-sm">
+        <div class="text-dark-gray text-sm">
           {% if shop.taxes_included %}
             {{ 'common.including_tax' | t }}
           {% else %}
@@ -114,7 +100,24 @@
       </div>
     {% endif %}
 
-    {% render 'product-form', product as product %}
+    {% form 'product', product %}
+      <div class="flex flex-col gap-10 mb-6" vue>
+        {% if product.has_only_default_variant %}
+          <input
+            name="id"
+            type="hidden"
+            :value="{{ current_variant.id }}"
+            readonly
+          >
+        {% endif %}
+
+        {%- if product.available -%}
+          {% render 'product-form', product as product %}
+        {%- else -%}
+          Out of Stock
+        {%- endif -%}
+      </div>
+    {% endform %}
 
     {% if product.description %}
       <div class="mt-4">
@@ -123,3 +126,11 @@
     {% endif %}
   </div>
 </div>
+
+{% schema %}
+{
+  "name": "t:sections.product.name",
+  "class": "shopify-section-vue",
+  "settings": []
+}
+{% endschema %}

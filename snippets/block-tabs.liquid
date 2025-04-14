@@ -1,0 +1,37 @@
+{% comment %}
+  Variables:
+  - title_1: text
+  - title_2: text
+  - title_3: text
+  - title_4: text
+  - content_1: richtext
+  - content_2: richtext
+  - content_3: richtext
+  - content_4: richtext
+{% endcomment %}
+{%- assign titles = '' -%}
+{%- assign contents = '' -%}
+
+{%- if block.settings.title_1 != blank -%}
+  {%- assign titles = titles | append: block.settings.title_1 | append: '||' -%}
+  {%- assign contents = contents | append: block.settings.content_1 | append: '||' -%}
+{%- endif -%}
+{%- if block.settings.title_2 != blank -%}
+  {%- assign titles = titles | append: block.settings.title_2 | append: '||' -%}
+  {%- assign contents = contents | append: block.settings.content_2 | append: '||' -%}
+{%- endif -%}
+{%- if block.settings.title_3 != blank -%}
+  {%- assign titles = titles | append: block.settings.title_3 | append: '||' -%}
+  {%- assign contents = contents | append: block.settings.content_3 | append: '||' -%}
+{%- endif -%}
+{%- if block.settings.title_4 != blank -%}
+  {%- assign titles = titles | append: block.settings.title_4 | append: '||' -%}
+  {%- assign contents = contents | append: block.settings.content_4 | append: '||' -%}
+{%- endif -%}
+
+{%- capture title_suffix -%}
+  {{- "common.description_tabs" | t -}} 
+{%- endcapture -%}
+{%- assign title = product.title | append: ' ' | append: title_suffix -%}
+
+{%- render 'brick-tabs', id: 'block-tabs', title: title, titles: titles, contents: contents -%}

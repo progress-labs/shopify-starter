@@ -21,6 +21,8 @@ const currentImage = ref(null);
 const switchImage = $el => {
   initialRender.value = false;
   currentImage.value = {
+    srcset: $el.target.dataset.srcset || "",
+    sizes: $el.target.dataset.sizes || "",
     url: $el.target.dataset.url,
     alt: $el.target.dataset.alt || "",
   };

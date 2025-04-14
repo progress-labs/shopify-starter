@@ -31,10 +31,10 @@ Aside from the baseline features of UI Crooks we've included the following.
 10. ~~PDP Add To Cart - With Options~~
 11. ~~Klaviyo Back In Stock Notification~~
 12. ~~Convert to Shopify CLI 3.0~~
-13. PDP Add To Cart - Subscription
-14. PDP Add To Cart - Sold Out / Notify Me
-15. FAQ Page / Accordion Section
-16. ADA Compliant Mobile Menu
+13. [~~PDP Add To Cart - Subscription~~](https://github.com/progress-labs/shopify-starter/pull/30)
+14. [~~PDP Add To Cart - Sold Out / Notify Me~~](https://github.com/progress-labs/shopify-starter/pull/30)
+15. FAQ Page / [~~Accordion Section~~](https://github.com/progress-labs/shopify-starter/pull/32)
+16. [~~ADA Compliant Mobile Menu~~](https://github.com/progress-labs/shopify-starter/pull/30)
 17. ADA Compliant Purchase Form
 18. ON HOLD [Pinia Migration](https://pinia.vuejs.org/) (vuex alternative) migration
 

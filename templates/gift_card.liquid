@@ -5,7 +5,7 @@
     {{ shop.name }}
   </h1>
 
-  <div class="max-w-sm border mx-auto p-6 mb-16">
+  <div class="max-w-sm border mx-auto p-10 mb-16">
     <div class="flex justify-between mb-20">
       <div class="text-2xl font-bold">
         {{ 'gift_card.title' | t }}
@@ -40,7 +40,7 @@
     </div>
 
     {% comment %} code - start {% endcomment %}
-    <div class="bg-gray-100 text-gray-600 text-sm sm:text-lg text-center px-4 py-3">
+    <div class="bg-gray text-dark-gray text-sm sm:text-lg text-center px-4 py-3">
       {% if gift_card.enabled %}
         {{ gift_card.code | format_code }}
       {% else %}
@@ -53,14 +53,14 @@
     {% assign gift_card_expiry_date = gift_card.expires_on | date: format: 'month_day_year' %}
 
     {% if gift_card.expired and gift_card.enabled %}
-      <div class="text-xs text-gray-600 text-center mt-4">
+      <div class="text-xs text-gray text-center mt-4">
         {{ 'gift_card.expired' | t }}
         {{ gift_card_expiry_date }}
       </div>
     {% endif %}
 
     {% if gift_card.expired != true and gift_card.expires_on and gift_card.enabled %}
-      <div class="text-xs text-gray-600 text-center mt-4">
+      <div class="text-xs text-gray text-center mt-4">
         {{ 'gift_card.expires' | t }}
         {{ gift_card_expiry_date }}
       </div>

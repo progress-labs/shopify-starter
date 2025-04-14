@@ -1,6 +1,6 @@
 <notify-me
   klaviyo-id="{{ settings.klaviyo_id }}"
-  :product="{%- render 'helper-product-config', prod: product -%}"
+  :product="{%- render 'json-product', prod: product -%}"
   :variant="selectedVariant"
   v-slot="{ messages, submit, isLoading, status, error}"
 >

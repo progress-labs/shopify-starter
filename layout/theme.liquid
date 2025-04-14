@@ -58,6 +58,14 @@
       [v-cloak] {
         display: none;
       }
+      {% comment %} This is a fallback for vue components minding possible Content Layout Shift issues. {% endcomment %}
+      .v-fallback {
+        display: none;
+      }
+
+      [v-cloak] + .v-fallback {
+        display: flex;
+      }
     {%- endstyle -%}
 
     {% comment %}
@@ -80,7 +88,7 @@
       <main
         id="main"
         role="main"
-        class="flex-1 pt-8 {% if request.page_type == 'index' %}md:pt-12{% else %}md:pt-20 pb-16 md:pb-32{% endif %}"
+        class="flex-1"
       >
         {{ content_for_layout }}
       </main>
