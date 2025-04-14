@@ -35,12 +35,11 @@ export default {
 </script>
 
 <script setup>
-import {computed, watch, onBeforeMount} from "vue";
+import {watch, onBeforeMount} from "vue";
 import {useStore} from "vuex";
 import JSON5 from "json5";
 import useProductForm from "@/vue/composables/useProductForm";
 import {formatMoney} from "@shopify/theme-currency";
-import {triggerEvent} from "@/utils/custom-events";
 
 const formId = "" + Math.random(); // Please notice: useId might be the same between two different Vue instances, so random might work better.
 const props = defineProps(["product"]);
@@ -131,6 +130,5 @@ const handleAddToCart = async () => {
 
   store.dispatch("cart/initCart");
   store.dispatch("cart/show");
-  // triggerEvent("modal:cart:open");
 };
 </script>
