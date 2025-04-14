@@ -1,0 +1,364 @@
+<div class="container">
+  <h1 class="sr-only text-2xl md:text-3xl font-bold text-center mb-10 md:mb-20">
+    {{- collection.title -}}
+  </h1>
+  {%- if collection.description != blank -%}
+    <div class="sr-only max-w-screen-sm mx-auto mb-10 md:mb-20">
+      {{- collection.description | newline_to_br -}}
+    </div>
+  {%- endif -%}
+
+  {%- if collection and collection.products -%}
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
+      {%- liquid
+        assign cards = blank
+        assign styles = blank
+
+        assign mobile_spaces_filled_with_cards = 0
+        assign tablet_spaces_filled_with_cards = 0
+        assign desktop_spaces_filled_with_cards = 0
+
+        assign grid_size = collection.products | size
+      -%}
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign mobile_size = block.settings.size
+          assign tablet_size = block.settings.size_tablet
+          assign desktop_size = block.settings.size_desktop
+
+          assign current_loop_index = forloop.index
+
+          assign mobile_row_index = block.settings.row
+
+          if block.settings.row_tablet == 0
+            assign tablet_row_index = block.settings.row
+          else
+            assign tablet_row_index = block.settings.row_tablet
+          endif
+
+          if block.settings.row_desktop == 0
+            assign desktop_row_index = block.settings.row
+          else
+            assign desktop_row_index = block.settings.row_desktop
+          endif
+
+          assign mobile_row_size = 2
+          assign tablet_row_size = 3
+          assign desktop_row_size = 4
+
+          assign mobile_loop_fix = mobile_row_size | plus: mobile_spaces_filled_with_cards
+          assign tablet_loop_fix = tablet_row_size | plus: tablet_spaces_filled_with_cards
+          assign desktop_loop_fix = desktop_row_size | plus: desktop_spaces_filled_with_cards
+
+          assign mobile_offset = block.settings.offset | plus: 0 | minus: 1
+          assign tablet_offset = block.settings.offset_tablet | plus: 0 | minus: 1
+          assign desktop_offset = block.settings.offset_desktop | plus: 0 | minus: 1
+
+          assign mobile_order = mobile_row_index | times: mobile_row_size | minus: mobile_loop_fix | plus: mobile_offset
+          assign tablet_order = tablet_row_index | times: tablet_row_size | minus: tablet_loop_fix | plus: tablet_offset
+          assign desktop_order = desktop_row_index | times: desktop_row_size | minus: desktop_loop_fix | plus: desktop_offset
+        -%}
+
+        {%- case block.type -%}
+          {%- when 'card' -%}
+            {%- capture card -%}
+                {%- render 'block-collection-card',
+                    index: current_loop_index,
+                    type: block.type,
+                    collection: block.settings.collection,
+                    image: block.settings.image,
+                    image_desktop: block.settings.image_desktop,
+                    title: block.settings.title,
+                    description: block.settings.description,
+                    cta_label: block.settings.cta_label,
+                    cta_url: block.settings.cta_url,
+                    image: block.settings.image
+                    -%}
+                {%- endcapture -%}
+            {%- capture style -%}
+                #shopify-section-{{ section.id }} .card-{{ current_loop_index }} {
+                    order: {{mobile_order}};
+                    grid-column: span {{mobile_size}} / span {{mobile_size}};
+                    {%- if mobile_order > grid_size -%}
+                        display: none;
+                    {%- else -%}
+                        display: block;
+                    {%- endif -%}
+                }
+                @media (min-width: 768px) {
+                    #shopify-section-{{ section.id }} .card-{{ current_loop_index }} {
+                        order: {{tablet_order}};
+                        grid-column: span {{tablet_size}} / span {{tablet_size}};
+                        {%- if tablet_order > grid_size -%}
+                            display: none;
+                        {%- else -%}
+                            display: block;
+                        {%- endif -%}
+                    }
+                }
+                @media (min-width: 1024px) {
+                    #shopify-section-{{ section.id }} .card-{{ current_loop_index }} {
+                        order: {{desktop_order}};
+                        grid-column: span {{desktop_size}} / span {{desktop_size}};
+
+                        {%- if desktop_order > grid_size -%}
+                            display: none;
+                        {%- else -%}
+                            display: block;
+                        {%- endif -%}
+                    }
+                }
+            {%- endcapture -%}
+
+            {%- assign cards = cards | append: card -%}
+            {%- assign styles = styles | append: style -%}
+        {%- endcase -%}
+
+        {%- liquid
+          assign mobile_spaces_filled_with_cards = mobile_spaces_filled_with_cards | plus: mobile_size
+          assign tablet_spaces_filled_with_cards = tablet_spaces_filled_with_cards | plus: tablet_size
+          assign desktop_spaces_filled_with_cards = desktop_spaces_filled_with_cards | plus: desktop_size
+        -%}
+      {%- endfor -%}
+
+      {{- cards -}}
+      <style>
+        {{- styles -}}
+      </style>
+
+      {%- assign index = 0 -%}
+      {%- for product in collection.products -%}
+        {%- liquid
+          assign order = 'order:' | append: index | append: ';'
+          assign product_classes = ''
+          assign preload_image = false
+          if forloop.index0 < 6
+            assign preload_image = true
+          endif
+        -%}
+        {%- render 'layout-product',
+          index: forloop.index,
+          product: product,
+          section: section,
+          style: order,
+          class: product_classes,
+          preload: preload_image,
+          enable_tag: true
+        -%}
+        {%- assign index = index | plus: 1 -%}
+      {%- endfor -%}
+    </div>
+  {%- else -%}
+    <div>
+      {{ 'common.no_products' | t }}
+    </div>
+  {%- endif -%}
+</div>
+
+{%- schema -%}
+{
+  "name": "t:sections.collection.name",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "t:sections.collection.blocks.card.settings.name",
+      "settings": [
+        {
+          "type": "header",
+          "content": "t:common.mobile"
+        },
+        {
+          "type": "select",
+          "id": "size",
+          "label": "t:sections.collection.blocks.card.settings.size",
+          "options": [
+            {
+              "value": "1",
+              "label": "t:sections.collection.blocks.common.options.option1"
+            },
+            {
+              "value": "2",
+              "label": "t:sections.collection.blocks.common.options.option2"
+            }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "select",
+          "id": "offset",
+          "label": "t:sections.collection.blocks.card.settings.offset",
+          "options": [
+            {
+              "value": "1",
+              "label": "t:sections.collection.blocks.common.options.option1"
+            },
+            {
+              "value": "2",
+              "label": "t:sections.collection.blocks.common.options.option2"
+            }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "number",
+          "id": "row",
+          "label": "t:sections.collection.blocks.card.settings.row",
+          "default": 1
+        },
+
+        {
+          "type": "header",
+          "content": "t:common.tablet"
+        },
+        {
+          "type": "select",
+          "id": "size_tablet",
+          "label": "t:sections.collection.blocks.card.settings.size",
+          "options": [
+            {
+              "value": "1",
+              "label": "t:sections.collection.blocks.common.options.option1"
+            },
+            {
+              "value": "2",
+              "label": "t:sections.collection.blocks.common.options.option2"
+            },
+            {
+              "value": "3",
+              "label": "t:sections.collection.blocks.common.options.option3"
+            }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "select",
+          "id": "offset_tablet",
+          "label": "t:sections.collection.blocks.card.settings.offset",
+          "options": [
+            {
+              "value": "1",
+              "label": "t:sections.collection.blocks.common.options.option1"
+            },
+            {
+              "value": "2",
+              "label": "t:sections.collection.blocks.common.options.option2"
+            },
+            {
+              "value": "3",
+              "label": "t:sections.collection.blocks.common.options.option3"
+            }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "number",
+          "id": "row_tablet",
+          "label": "t:sections.collection.blocks.card.settings.row",
+          "default": 1
+        },
+
+        {
+          "type": "header",
+          "content": "t:common.desktop"
+        },
+        {
+          "type": "select",
+          "id": "size_desktop",
+          "label": "t:sections.collection.blocks.card.settings.size",
+          "options": [
+            {
+              "value": "1",
+              "label": "t:sections.collection.blocks.common.options.option1"
+            },
+            {
+              "value": "2",
+              "label": "t:sections.collection.blocks.common.options.option2"
+            },
+            {
+              "value": "3",
+              "label": "t:sections.collection.blocks.common.options.option3"
+            },
+            {
+              "value": "4",
+              "label": "t:sections.collection.blocks.common.options.option4"
+            }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "select",
+          "id": "offset_desktop",
+          "label": "t:sections.collection.blocks.card.settings.offset",
+          "options": [
+            {
+              "value": "1",
+              "label": "t:sections.collection.blocks.common.options.option1"
+            },
+            {
+              "value": "2",
+              "label": "t:sections.collection.blocks.common.options.option2"
+            },
+            {
+              "value": "3",
+              "label": "t:sections.collection.blocks.common.options.option3"
+            },
+            {
+              "value": "4",
+              "label": "t:sections.collection.blocks.common.options.option4"
+            }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "number",
+          "id": "row_desktop",
+          "label": "t:sections.collection.blocks.card.settings.row",
+          "default": 1
+        },
+
+        {
+          "type": "header",
+          "content": "t:sections.collection.blocks.card.settings.settings"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "t:common.collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:common.mobile_image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_desktop",
+          "label": "t:common.desktop_image"
+        },
+        {
+          "type": "richtext",
+          "id": "title",
+          "label": "t:common.headline"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "t:common.description"
+        },
+        {
+          "type": "text",
+          "id": "cta_label",
+          "label": "t:common.button.text"
+        },
+        {
+          "type": "text",
+          "id": "cta_url",
+          "label": "t:common.button.url",
+          "default": "/collections/all"
+        }
+      ]
+    }
+  ]
+}
+{%- endschema -%}
