@@ -23,7 +23,10 @@
 
     {%- render 'brick-badge', product: product -%}
 
-    <div class="hidden lg:block lg:absolute bottom-0 w-full opacity-0 transition-opacity submit focus-within:opacity-100">
+    <div
+      class="hidden lg:block lg:absolute bottom-0 w-full opacity-0 transition-opacity submit focus-within:opacity-100"
+      v-cloak
+    >
       {%- render 'brick-product-submit', product: product -%}
       {% comment %} Use this options to show options, subscriptions, quantity {% endcomment %}
       {% comment %} {%- render 'brick-product-form-2', product: product -%} {% endcomment %}
@@ -55,7 +58,7 @@
       </div>
     {% endif %}
 
-    <div class="relative lg:hidden w-full transition-opacity">
+    <div class="relative lg:hidden w-full transition-opacity" v-cloak>
       {%- render 'brick-product-submit', product: product -%}
       {% comment %} Use this options to show options, subscriptions, quantity {% endcomment %}
       {% comment %} {%- render 'brick-product-form-m2it', product: product -%} {% endcomment %}

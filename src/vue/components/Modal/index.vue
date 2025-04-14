@@ -78,32 +78,41 @@ const open = e => {
   document.body.parentElement.style.overflowY = "hidden";
   document.addEventListener("keyup", handleEscapeKey);
   document.addEventListener("click", handleClickOutside);
-  setFocusTrap(`#${id.value}`, {
-    allowOutsideClick: true,
-    checkCanFocusTrap: trapContainers => {
-      const results = trapContainers.map(trapContainer => {
-        return new Promise(resolve => {
-          const canFocusTrap = () => {
-            if (
-              getComputedStyle(trapContainer.children[0]).visibility !==
-              "hidden"
-            ) {
-              resolve();
-            } else {
-              requestAnimationFrame(canFocusTrap);
-            }
-          };
+  try {
+    setFocusTrap(`#${id.value}`, {
+      allowOutsideClick: true,
+      checkCanFocusTrap: trapContainers => {
+        const results = trapContainers.map(trapContainer => {
+          return new Promise(resolve => {
+            const canFocusTrap = () => {
+              if (
+                getComputedStyle(trapContainer.children[0]).visibility !==
+                "hidden"
+              ) {
+                resolve();
+              } else {
+                requestAnimationFrame(canFocusTrap);
+              }
+            };
 
-          requestAnimationFrame(canFocusTrap);
+            requestAnimationFrame(canFocusTrap);
+          });
         });
-      });
-      return Promise.all(results);
-    },
-  });
+        return Promise.all(results);
+      },
+    });
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 const close = () => {
-  removeFocusTrap();
+  try {
+    removeFocusTrap();
+  } catch (e) {
+    console.error(e);
+  }
+
   onClose.value && onClose.value();
   isOpen.value = false;
   document.body.parentElement.style.removeProperty("overflow-y");
