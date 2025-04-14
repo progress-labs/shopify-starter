@@ -1,0 +1,29 @@
+<ul class="flex flex-col gap-2">
+  {%- for block in section.blocks -%}
+    <template-switch :initial="false" v-slot="{active, show}">
+      <li>
+        <button
+          type="button"
+          class="font-medium"
+          id="{{ block.id }}-accord-btn-{{ forloop.index0 }}"
+          aria-controls="{{ block.id }}-accord-region-{{ forloop.index0 }}"
+          aria-expanded="active === {{ forloop.index0 }} ? 'true' : 'false'"
+          @click.prevent="show(!active)"
+        >
+          {{ block.settings.title }}
+        </button>
+        <transition name="fade" v-cloak>
+          <div
+            class="text-sm"
+            role="region"
+            id="{{ block.id }}-accord-region-{{ forloop.index0 }}"
+            aria-labelledby="{{ block.id }}-accord-btn-{{ forloop.index0 }}"
+            v-show="active"
+          >
+            {{ block.settings.text }}
+          </div>
+        </transition>
+      </li>
+    </template-switch>
+  {%- endfor -%}
+</ul>

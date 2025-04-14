@@ -1,0 +1,103 @@
+<div class="flex gap-2 container">
+  {%- if section.settings.image != blank -%}
+    <div class="relative w-1/2 h-full">
+      {% render 'responsive-image',
+        image: section.settings.image,
+        width: 800,
+        sizes: '(min-width: 1440px) 768px, 50vw',
+        class: 'object-cover w-full h-full'
+      %}
+    </div>
+  {%- else -%}
+    <div class="relative w-1/2 h-full">
+      {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover' }}
+    </div>
+  {%- endif -%}
+
+  <div class="p-10 w-1/2" vue>
+    <h3 class="text-2xl lg:text-3xl font-bold mb-2">{{ section.settings.headline }}</h3>
+
+    {%- if section.settings.multiple -%}
+      {%- render 'vue-accordion-multiple', section: section -%}
+    {%- else -%}
+      {%- render 'vue-accordion-radio', section: section -%}
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.accordion.name",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:common.image"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "t:common.headline",
+      "default": "Accordion"
+    },
+    {
+      "type": "checkbox",
+      "id": "multiple",
+      "label": "t:sections.accordion.settings.multiple.label",
+      "info": "t:sections.accordion.settings.multiple.info",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Accordion Item",
+      "type": "accordion_item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:common.headline",
+          "default": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "t:common.text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.accordion.name",
+      "settings": {
+        "headline": "Accordion"
+      },
+      "blocks": [
+        {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Item 1",
+            "text": "<p>Lorem Ipsum 1</p>"
+          }
+        },
+        {
+          "type": "accordion_item",
+
+          "settings": {
+            "title": "Item 2",
+            "text": "<p>Lorem Ipsum 2</p>"
+          }
+        },
+        {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Item 3",
+            "text": "<p>Lorem Ipsum 3</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
