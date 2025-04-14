@@ -3,3 +3,4 @@ node_modules/
 *.log
 assets/*.js.map
 src/fonts
+.shopify
