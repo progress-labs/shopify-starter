@@ -1,0 +1,7 @@
+{%- if prod != blank -%}
+  <div class="upsell">
+    <h3>{{- prod.title -}}</h3>
+
+    {%- render 'brick-product-submit', product: prod -%}
+  </div>
+{%- endif -%}

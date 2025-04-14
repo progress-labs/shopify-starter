@@ -1,0 +1,171 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product-v2",
+      "blocks": {
+        "block-breadcrumb": {
+          "type": "block-breadcrumb",
+          "settings": {
+            "position": "top"
+          }
+        },
+        "block-badge": {
+          "type": "block-badge",
+          "settings": {
+            "position": "left"
+          }
+        },
+        "block-gallery": {
+          "type": "block-gallery",
+          "settings": {
+            "position": "left"
+          }
+        },
+        "block_gallery_2_har7nD": {
+          "type": "block-gallery-2",
+          "disabled": true,
+          "settings": {
+            "position": "left"
+          }
+        },
+        "block-title": {
+          "type": "block-title",
+          "settings": {
+            "position": "right"
+          }
+        },
+        "block_starsrating_XdeQBC": {
+          "type": "block-stars-rating",
+          "settings": {
+            "position": "right"
+          }
+        },
+        "block-price": {
+          "type": "block-price",
+          "disabled": true,
+          "settings": {
+            "position": "right"
+          }
+        },
+        "block-price-2": {
+          "type": "block-price-2",
+          "settings": {
+            "position": "right"
+          }
+        },
+        "block_product_form_6EPMCQ": {
+          "type": "block-product-form",
+          "disabled": true,
+          "settings": {
+            "position": "right"
+          }
+        },
+        "block_product_form_2_6EPMCQ": {
+          "type": "block-product-form-2",
+          "settings": {
+            "position": "right"
+          }
+        },
+        "block-richtext": {
+          "type": "block-richtext",
+          "disabled": true,
+          "settings": {
+            "position": "right",
+            "content": "{{ product.description }}"
+          }
+        },
+        "block-description": {
+          "type": "block-description",
+          "settings": {
+            "position": "right"
+          }
+        },
+        "block-tabs": {
+          "type": "block-tabs",
+          "settings": {
+            "position": "right",
+            "title_1": "Goals",
+            "content_1": "{{ product.description }}",
+            "title_2": "Features",
+            "content_2": "<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. </p><p>Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. </p>",
+            "title_3": "Updates",
+            "content_3": "<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. </p><p>Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean</p>",
+            "title_4": "Formulas",
+            "content_4": "<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>"
+          }
+        },
+        "block-upsell": {
+          "type": "block-upsell",
+          "settings": {
+            "position": "right"
+          }
+        },
+        "block-icons": {
+          "type": "block-icons",
+          "settings": {
+            "position": "right",
+            "width": 0,
+            "icon_1": "shopify://shop_images/birthday-cake-svgrepo-com.svg",
+            "content_1": "<p>Birthday <strong>cake</strong> everyday</p>",
+            "link_1": "",
+            "icon_2": "shopify://shop_images/chef-man-cap-svgrepo-com.svg",
+            "content_2": "<p>Exclusive <em>chiefs</em>  recipe</p>",
+            "link_2": "",
+            "icon_3": "shopify://shop_images/donuts-cake-svgrepo-com.svg",
+            "content_3": "<p>Donut. <strong>Who</strong> doesn't love them?</p>",
+            "link_3": "",
+            "content_4": "",
+            "link_4": ""
+          }
+        },
+        "block-pay-methods": {
+          "type": "block-pay-methods",
+          "disabled": true,
+          "settings": {
+            "position": "right"
+          }
+        },
+        "block_social_cMKcVU": {
+          "type": "block-social",
+          "settings": {
+            "position": "right"
+          }
+        }
+      },
+      "block_order": [
+        "block-breadcrumb",
+        "block-badge",
+        "block-gallery",
+        "block_gallery_2_har7nD",
+        "block-title",
+        "block_starsrating_XdeQBC",
+        "block-price",
+        "block-price-2",
+        "block_product_form_6EPMCQ",
+        "block_product_form_2_6EPMCQ",
+        "block-richtext",
+        "block-description",
+        "block-tabs",
+        "block-upsell",
+        "block-icons",
+        "block-pay-methods",
+        "block_social_cMKcVU"
+      ],
+      "settings": {
+        "proportion_desktop": 55,
+        "left_sticky": true,
+        "right_sticky": true
+      }
+    }
+  },
+  "order": ["main"]
+}

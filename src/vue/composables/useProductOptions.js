@@ -48,7 +48,8 @@ export function useProductOptions(product, defaultVariantId) {
       .map(option => String(option.value))
       .sort();
     const found = product.variants.find(variant => {
-      return isEqual(flatOptions, variant.options.sort());
+      const options = [...variant.options];
+      return isEqual(flatOptions, options.sort());
     });
 
     return found;

@@ -1,0 +1,8 @@
+{%- if icon_1 != blank or icon_2 != blank or icon_3 != blank or icon_4 != blank -%}
+  <div class="flex gap-5">
+    {%- render 'brick-icon', link: link_1, icon: icon_1, content: content_1, width: width, height: height -%}
+    {%- render 'brick-icon', link: link_2, icon: icon_2, content: content_2, width: width, height: height -%}
+    {%- render 'brick-icon', link: link_3, icon: icon_3, content: content_3, width: width, height: height -%}
+    {%- render 'brick-icon', link: link_4, icon: icon_4, content: content_4, width: width, height: height -%}
+  </div>
+{%- endif -%}

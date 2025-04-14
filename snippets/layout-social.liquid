@@ -1,48 +1,59 @@
-<div class="flex space-x-3 {{ class | default: '' }}" style="{{ style | default: '' }}">
-  {% assign link_class = 'w-6 h-auto text-gray-600 hover:text-black transition duration-150' %}
-  {% assign icon_class = 'w-full h-auto' %}
+<div class="flex gap-5 {{ class | default: '' }}" style="{{ style | default: '' }}">
+  {%- assign link_class = 'w-25 h-auto text-dark-gray hover:text-black transition duration-150' -%}
+  {%- assign icon_class = 'w-full h-auto' -%}
 
-  {% if social_instagram_visible %}
+  {%- if settings.instagram_url != blank -%}
     <a
-      href="{{ social_instagram_link }}"
+      href="{{ settings.instagram_url }}"
       target="_blank"
       class="{{ link_class }}"
       aria-label="Instagram"
     >
-      {% render 'icon-social-instagram', class: icon_class %}
+      {%- render 'icon-social-instagram', class: icon_class -%}
     </a>
-  {% endif %}
+  {%- endif -%}
 
-  {% if social_twitter_visible %}
+  {%- if settings.twitter_url != blank -%}
     <a
-      href="{{ social_twitter_link }}"
+      href="{{ settings.twitter_url }}"
       target="_blank"
       class="{{ link_class }}"
       aria-label="Twitter"
     >
-      {% render 'icon-social-twitter', class: icon_class %}
+      {%- render 'icon-social-twitter', class: icon_class -%}
     </a>
-  {% endif %}
+  {%- endif -%}
 
-  {% if social_facebook_visible %}
+  {%- if settings.facebook_url != blank -%}
     <a
-      href="{{ social_facebook_link }}"
+      href="{{ settings.facebook_url }}"
       target="_blank"
       class="{{ link_class }}"
       aria-label="Facebook"
     >
-      {% render 'icon-social-facebook', class: icon_class %}
+      {%- render 'icon-social-facebook', class: icon_class -%}
     </a>
-  {% endif %}
+  {%- endif -%}
 
-  {% if social_youtube_visible %}
+  {%- if settings.youtube_url != blank -%}
     <a
-      href="{{ social_youtube_link }}"
+      href="{{ settings.youtube_url }}"
       target="_blank"
       class="{{ link_class }}"
       aria-label="Youtube"
     >
-      {% render 'icon-social-youtube', class: icon_class %}
+      {%- render 'icon-social-youtube', class: icon_class -%}
     </a>
-  {% endif %}
+  {%- endif -%}
+
+  {%- if settings.tiktok_url != blank -%}
+    <a
+      href="{{ settings.tiktok_url }}"
+      target="_blank"
+      class="{{ link_class }}"
+      aria-label="TikTok"
+    >
+      {%- render 'icon-social-tiktok', class: icon_class -%}
+    </a>
+  {%- endif -%}
 </div>
