@@ -8,7 +8,7 @@
       assign contents = contents | append: block.settings.content | append: '||'
     endfor
   -%}
-  
+
   {%- capture title -%}
     {{ 'common.description_tabs' | t }}
   {%- endcapture -%}
