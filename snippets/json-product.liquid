@@ -81,7 +81,7 @@
   ], options: [
   {%- for option in prod.options_with_values -%}
     { name:
-    {{- option.name | json | replace: '"', "'" -}}
+    {{- option.name | handle | json | replace: '"', "'" -}}
     , position:
     {{- option.position | json | replace: '"', "'" -}}
     , value: [
