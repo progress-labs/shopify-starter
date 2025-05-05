@@ -2,13 +2,21 @@
   Variables to pass in
   	image
   	width
-  	classes *** optional
-  	height  *** optional
-  	sizes   *** optional
+  	lazy                *** optional
+  	classes             *** optional
+  	height              *** optional
+  	sizes               *** optional
+    use_aspect_ratio    *** optional
+    aspect_ratio        *** optional
+    alt                 *** optional
 {% endcomment %}
 
 {% comment %} if no height is provided assume no crop {% endcomment %}
 {%- liquid
+  assign preload = preload | default: false
+  assign lazy = lazy | default: true
+  assign use_aspect_ratio = use_aspect_ratio | default: false
+  assign aspect_ratio = aspect_ratio | divided_by: 1.0
   assign width = width | divided_by: 1.0
   assign new_width = width | floor
 

@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "section-hero": {
@@ -26,23 +35,55 @@
         "button-text": "Button"
       }
     },
+    "section_accordion_Yq3p9Q": {
+      "type": "section-accordion",
+      "blocks": {
+        "accordion_item_tHaxkt": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Item 1",
+            "text": "<p>Lorem Ipsum 1</p>"
+          }
+        },
+        "accordion_item_mJCRbp": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Item 2",
+            "text": "<p>Lorem Ipsum 2</p>"
+          }
+        },
+        "accordion_item_iAkbRX": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Item 3",
+            "text": "<p>Lorem Ipsum 3</p>"
+          }
+        }
+      },
+      "block_order": [
+        "accordion_item_tHaxkt",
+        "accordion_item_mJCRbp",
+        "accordion_item_iAkbRX"
+      ],
+      "settings": {
+        "headline": "Accordion",
+        "multiple": true
+      }
+    },
     "section-image-row": {
       "type": "section-image-row",
       "blocks": {
         "image-1": {
           "type": "image",
-          "settings": {
-          }
+          "settings": {}
         },
         "image-2": {
           "type": "image",
-          "settings": {
-          }
+          "settings": {}
         },
         "image-3": {
           "type": "image",
-          "settings": {
-          }
+          "settings": {}
         }
       },
       "block_order": [
@@ -100,6 +141,7 @@
     "section-hero",
     "section-collection",
     "section-banner",
+    "section_accordion_Yq3p9Q",
     "section-image-row",
     "section-quotes",
     "section-newsletter"
